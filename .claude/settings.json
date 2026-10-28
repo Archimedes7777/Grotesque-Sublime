@@ -56,7 +56,9 @@
       "Bash(cargo install *)",
       "Bash(gh extension install *)",
       "Bash(claude mcp add *)",
-      "Bash(git push --force-with-lease *)"
+      "Bash(git push --force-with-lease *)",
+      "mcp__plugin_postiz_postiz",
+      "mcp__postiz"
     ]
   },
   "enableAllProjectMcpServers": false,

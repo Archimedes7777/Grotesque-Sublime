@@ -66,6 +66,16 @@ if has '(npx|bunx|pnpm[[:space:]]+dlx|uvx)[[:space:]]+(-y[[:space:]]+)?skills[[:
   decide ask "installing or changing skills, MCP servers or plugins requires human review per SECURITY.md."
 fi
 
+# --- Social publishing (Postiz CLI): drafts first, a human publishes ---------
+# The Postiz skill pre-approves Bash(postiz:*), which would let the agent post,
+# promote, or delete without a prompt. SECURITY.md section 6.7 forbids that.
+if has 'postiz[[:space:]]+posts:create' && ! has '(-t|--type)[[:space:]=]+\\?"?draft'; then
+  decide deny "Postiz posts must be created as drafts (-t draft). A human promotes them to the schedule."
+fi
+if has 'postiz[[:space:]]+posts:(status[^|;&]*schedule|delete)|DIRECT_POST'; then
+  decide ask "publishing, scheduling, or deleting a social post requires the owner's approval."
+fi
+
 # --- ASK: dumping the environment (tokens often live there) ------------------
 if has '(^|"|[;&|][[:space:]]*)(printenv|env|set|export[[:space:]]+-p)[[:space:]]*($|\\?"|[;&|])'; then
   decide ask "dumping environment variables can expose tokens. A human must approve."

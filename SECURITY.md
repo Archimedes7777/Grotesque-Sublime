@@ -79,6 +79,9 @@ Skills run with the agent's full permissions. A skill is code, even when it is M
 | *superpowers clones* (101-skills, magentosh, qu-skills, skills-shell, its-a-skill-issue, bankai-skills) | various | `becc256` (101-skills) | **Rejected** | Name-squatting on obra/superpowers; `curl \| sh` installer (10 instances); third-party login to X; engagement-bot automation |
 | higgsfield-youtube-thumbnail | higgsfield-ai/skills | `4d07574` | Deferred | Unpinned `curl \| sh` CLI install from `main`; pre-approves unrestricted `Bash` |
 | last30days | mvanhorn/last30days-skill | `e06af25` | Deferred | Up to 9 API keys, optional X `AUTH_TOKEN` (session credential); large Python/Go codebase |
+| postiz (claude.ai plugin, v2.0.25) | gitroomhq/postiz-agent | synced plugin | **Conditional** | Legitimate open-source vendor, OAuth MCP and env-var API key. But `allowed-tools: Bash(postiz:*)` pre-approves publishing and deletion, and it suggests an unpinned global `npm install -g`. Allowed only under the guard's drafts-first rules and the `mcp__plugin_postiz_postiz` ask rule; prefer self-hosted |
+
+Related guides: [account hardening checklist](docs/account-hardening-checklist.md), [local sandbox setup](docs/sandbox-setup.md).
 
 ## 5. Secrets
 
