@@ -1,0 +1,38 @@
+name: Skills integrity
+
+# Zero-trust gate: every change is re-verified, nothing is trusted by default.
+# See SECURITY.md section 3.
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Read-only token: this job inspects the tree and never writes.
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      # Hash drift, unlocked skills, scripts in skills, hidden Unicode,
+      # symlink escapes, invalid .claude/settings.json.
+      - name: Verify skills against skills-lock.json
+        run: node scripts/verify-skills.mjs
+
+      - name: Check hook script syntax
+        run: |
+          bash -n .claude/hooks/zero-trust-guard.sh
+          bash -n .claude/hooks/verify-skills-on-start.sh
+
+      - name: Guard hook regression tests
+        run: bash scripts/test-guard.sh
