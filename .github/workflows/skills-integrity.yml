@@ -29,6 +29,11 @@ jobs:
       - name: Verify skills against skills-lock.json
         run: node scripts/verify-skills.mjs
 
+      # Proves the upstream watch script hashes folders exactly like the
+      # installer does, so a monthly "no drift" result can be trusted.
+      - name: Upstream watch script self-test
+        run: node scripts/check-upstream.mjs --self-test
+
       - name: Check hook script syntax
         run: |
           bash -n .claude/hooks/zero-trust-guard.sh
