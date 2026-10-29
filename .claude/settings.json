@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/*.pfx)",
+      "Read(**/id_rsa*)",
+      "Read(**/id_ed25519*)",
+      "Read(**/id_ecdsa*)",
+      "Read(**/credentials.json)",
+      "Read(**/service-account*.json)",
+      "Read(**/secrets/**)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/gh/**)",
+      "Read(~/.docker/config.json)",
+      "Read(~/.netrc)",
+      "Read(~/.git-credentials)",
+      "Edit(.git/**)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(git config core.hooksPath *)"
+    ],
+    "ask": [
+      "Edit(.claude/settings.json)",
+      "Edit(.claude/settings.local.json)",
+      "Edit(.claude/hooks/**)",
+      "Edit(.claude/skills/**)",
+      "Edit(.agents/skills/**)",
+      "Edit(skills-lock.json)",
+      "Edit(scripts/verify-skills.mjs)",
+      "Edit(.github/workflows/**)",
+      "Edit(.mcp.json)",
+      "Edit(SECURITY.md)",
+      "Edit(CLAUDE.md)",
+      "Edit(AGENTS.md)",
+      "Bash(npx *)",
+      "Bash(bunx *)",
+      "Bash(pnpm dlx *)",
+      "Bash(uvx *)",
+      "Bash(pipx run *)",
+      "Bash(npm install *)",
+      "Bash(npm i *)",
+      "Bash(npm add *)",
+      "Bash(pnpm add *)",
+      "Bash(yarn add *)",
+      "Bash(pip install *)",
+      "Bash(pip3 install *)",
+      "Bash(uv pip install *)",
+      "Bash(brew install *)",
+      "Bash(go install *)",
+      "Bash(cargo install *)",
+      "Bash(gh extension install *)",
+      "Bash(claude mcp add *)",
+      "Bash(git push --force-with-lease *)",
+      "mcp__plugin_postiz_postiz",
+      "mcp__postiz"
+    ]
+  },
+  "enableAllProjectMcpServers": false,
+  "disableSkillShellExecution": true,
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/verify-skills-on-start.sh\"",
+            "shell": "bash",
+            "timeout": 30,
+            "statusMessage": "Verifying skill integrity"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/zero-trust-guard.sh\"",
+            "shell": "bash",
+            "timeout": 10,
+            "onFailure": "block"
+          }
+        ]
+      }
+    ]
+  }
+}
