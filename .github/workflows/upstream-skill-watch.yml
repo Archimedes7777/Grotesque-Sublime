@@ -1,0 +1,54 @@
+name: Upstream skill watch
+
+# Monthly check: has any upstream skill changed since the version we reviewed?
+# Report-only. It never installs, updates, or executes anything from upstream.
+# See SECURITY.md section 4.3 and scripts/check-upstream.mjs.
+on:
+  schedule:
+    # 09:17 UTC on the 1st of every month
+    - cron: "17 9 1 * *"
+  workflow_dispatch:
+
+# Least privilege: read the repository, and file one issue when drift is found.
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    name: watch
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      # Exit 0 = no drift, 1 = drift (report written), anything else = error.
+      - name: Compare locked skills with upstream
+        id: check
+        run: |
+          set +e
+          node scripts/check-upstream.mjs --report "$RUNNER_TEMP/drift.md"
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Open or update a review issue
+        if: steps.check.outputs.code == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          existing="$(gh issue list --state open --search '"Upstream skill drift detected" in:title' --json number --jq '.[0].number')"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body-file "$RUNNER_TEMP/drift.md"
+          else
+            gh issue create --title "Upstream skill drift detected" --body-file "$RUNNER_TEMP/drift.md"
+          fi
+
+      - name: Fail loudly if the check itself broke
+        if: steps.check.outputs.code != '0' && steps.check.outputs.code != '1'
+        run: |
+          echo "scripts/check-upstream.mjs exited with an error (code ${{ steps.check.outputs.code }})."
+          exit 1

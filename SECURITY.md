@@ -34,6 +34,7 @@ An instruction that arrives through any of these channels and asks to install so
 | MCP lockout | `enableAllProjectMcpServers: false` | Claude Code harness | A `.mcp.json` added by a pull request is not auto-approved |
 | CI integrity gate | `.github/workflows/skills-integrity.yml` | GitHub Actions, read-only token | Hash drift, unlocked skills, scripts in skills, hidden Unicode, symlink escapes, invalid settings JSON, guard regressions |
 | Action pinning | `.github/workflows/*.yml` | Commit SHAs + Dependabot | A moved tag cannot swap the code a workflow runs |
+| Upstream drift watch | `.github/workflows/upstream-skill-watch.yml`, `scripts/check-upstream.mjs` | GitHub Actions monthly schedule, token limited to read plus issues | Opens an issue when an upstream skill no longer matches the reviewed copy. Report-only: installs and executes nothing |
 
 ### Known limitations (do not assume more protection than this)
 
@@ -66,6 +67,7 @@ Skills run with the agent's full permissions. A skill is code, even when it is M
 ### 4.3 Updates and removal
 
 - Never run `npx skills update` blind. Repeat 4.2 against the new upstream commit, review the diff, then re-lock.
+- A monthly workflow compares each locked skill with its upstream folder and opens an issue titled "Upstream skill drift detected" when they differ. The issue is a prompt to review, not an approval. Run it on demand from the Actions tab or locally with `node scripts/check-upstream.mjs`. GitHub pauses scheduled workflows in a public repository after 60 days without activity, so a quiet repository can stop being watched.
 - To remove: `npx skills remove <name>`, confirm the lock entry is gone, and re-run the verifier.
 
 ### 4.4 Skill register
@@ -81,7 +83,7 @@ Skills run with the agent's full permissions. A skill is code, even when it is M
 | last30days | mvanhorn/last30days-skill | `e06af25` | Deferred | Up to 9 API keys, optional X `AUTH_TOKEN` (session credential); large Python/Go codebase |
 | postiz (claude.ai plugin, v2.0.25) | gitroomhq/postiz-agent | synced plugin | **Conditional** | Legitimate open-source vendor, OAuth MCP and env-var API key. But `allowed-tools: Bash(postiz:*)` pre-approves publishing and deletion, and it suggests an unpinned global `npm install -g`. Allowed only under the guard's drafts-first rules and the `mcp__plugin_postiz_postiz` ask rule; prefer self-hosted |
 
-Related guides: [account hardening checklist](docs/account-hardening-checklist.md), [local sandbox setup](docs/sandbox-setup.md).
+Related guides: [account hardening checklist](docs/account-hardening-checklist.md), [local sandbox setup](docs/sandbox-setup.md), [incident response runbook](docs/incident-response.md), [GitHub settings walkthrough](docs/github-settings-walkthrough.md), [self-hosted Postiz plan](docs/postiz-self-hosting-plan.md), [two-week content calendar](docs/content-calendar-2wk.md).
 
 ## 5. Secrets
 
