@@ -27,7 +27,7 @@ Tap **Create**.
 
 What changes: nobody, including you, can push straight to `main` any more. All changes go through a pull request, and the merge button stays disabled until `verify` is green.
 
-**Side effect to know about:** the leftover "Introduction to GitHub" course workflows (`0-welcome.yml` to `4-merge-your-pull-request.yml`) update the course README. With direct pushes blocked they may fail to advance the course. This project does not use the course, so that is harmless, but you will see red marks if they run. I can remove them in a pull request if you say so.
+**Note:** the leftover "Introduction to GitHub" course workflows, which would have conflicted with blocked direct pushes, were removed in the same pull request as this guide. No course files remain.
 
 ## 2. Secret scanning and push protection
 
@@ -55,7 +55,7 @@ Same page > **Actions permissions**
 
 - Choose **Allow Archimedes7777, and select non-Archimedes7777, actions and reusable workflows**.
 - Tick **Allow actions created by GitHub**.
-- In the allow list, add `skills/action-update-step@*` (the course workflows use it; skip this line if you remove the course workflows).
+- No extra allow-list entries are needed: the remaining workflows use only `actions/checkout`, which is GitHub-created.
 - If you see **Require actions to be pinned to a full-length commit SHA**, turn it on. Every workflow here is already pinned **[Moderate]** on the setting's exact name.
 
 ## 5. Protect the account itself

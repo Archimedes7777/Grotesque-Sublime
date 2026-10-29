@@ -83,7 +83,7 @@ Skills run with the agent's full permissions. A skill is code, even when it is M
 | last30days | mvanhorn/last30days-skill | `e06af25` | Deferred | Up to 9 API keys, optional X `AUTH_TOKEN` (session credential); large Python/Go codebase |
 | postiz (claude.ai plugin, v2.0.25) | gitroomhq/postiz-agent | synced plugin | **Conditional** | Legitimate open-source vendor, OAuth MCP and env-var API key. But `allowed-tools: Bash(postiz:*)` pre-approves publishing and deletion, and it suggests an unpinned global `npm install -g`. Allowed only under the guard's drafts-first rules and the `mcp__plugin_postiz_postiz` ask rule; prefer self-hosted |
 
-Related guides: [account hardening checklist](docs/account-hardening-checklist.md), [local sandbox setup](docs/sandbox-setup.md), [incident response runbook](docs/incident-response.md), [GitHub settings walkthrough](docs/github-settings-walkthrough.md), [self-hosted Postiz plan](docs/postiz-self-hosting-plan.md), [two-week content calendar](docs/content-calendar-2wk.md).
+Related guides: [account hardening checklist](docs/account-hardening-checklist.md), [local sandbox setup](docs/sandbox-setup.md), [incident response runbook](docs/incident-response.md), [GitHub settings walkthrough](docs/github-settings-walkthrough.md), [self-hosted Postiz plan](docs/postiz-self-hosting-plan.md), [two-week content calendar](docs/content-calendar-2wk.md), [Halloween draft pack](docs/halloween-drafts-items-1-2.md), [trademark plan](docs/trademark-plan.md).
 
 ## 5. Secrets
 
