@@ -1,6 +1,8 @@
 # Two-week content calendar (DRAFTS ONLY)
 
-**Window:** Fri 2026-10-30 to Thu 2026-11-12. **Brand:** Bob Frapples Universe (handle ActivelyPsychotic). **Platforms:** Instagram, TikTok, YouTube, X.
+**Window:** Fri 2026-10-30 to Thu 2026-11-12. **Brand:** ActivelyPsychotic (the universe inside it is Bob Frapples). **Platforms:** Instagram first, then TikTok, YouTube, and X. **Shop:** not live, so no product, price, or scarcity wording anywhere below.
+
+**If time is short:** post to Instagram only, then reuse the same asset on the other three when you have time. Instagram is the confirmed first priority.
 
 Every item below is a **draft for the owner to review and publish**. Nothing here is scheduled, posted, or connected to any account. Built with the `social` skill's repurposing method: 10 master pieces, each adapted to all four platforms, so the workload stays realistic for one person (about 5 masters per week).
 

@@ -1,16 +1,18 @@
-# Product marketing context: Bob Frapples Universe
+# Product marketing context: ActivelyPsychotic (Bob Frapples Universe)
 
-Read by the `social`, `image`, and `video` skills before they ask questions. Built from the owner's "Brand Mission of the Bob Frapples Universe" PDF (dated 2024-11-08) and 15 reference images shared 2026-10-29. This file contains no credentials and must never contain any.
+Read by the `social`, `image`, and `video` skills before they ask questions. Built from the owner's "Brand Mission of the Bob Frapples Universe" PDF (dated 2024-11-08), 15 reference images shared 2026-10-29, and the owner's answers on 2026-10-29. This file contains no credentials and must never contain any.
 
-Lines marked **[CONFIRM]** are inferences the owner should correct. Everything else comes from the owner's own documents.
+Lines marked **[CONFIRM]** are inferences the owner should correct. Everything else comes from the owner's own documents or answers.
 
 ## Identity
 
-- **Brand and universe:** Bob Frapples. **Account handle:** ActivelyPsychotic. **[CONFIRM]** whether ActivelyPsychotic is the creator handle and Bob Frapples the brand (assumed), or the reverse.
+- **Brand:** ActivelyPsychotic (confirmed by the owner on 2026-10-29). **Universe and character world:** Bob Frapples. The PDF predates this decision and describes Bob Frapples as the luxury art brand; read "Bob Frapples" there as the universe and characters inside ActivelyPsychotic.
+- **Account names:** the four social accounts operate under ActivelyPsychotic. **[CONFIRM]** exact handles.
+- **Shop status (confirmed):** not live yet; products are planned. Until that changes, content is brand and art only: no product, price, purchase-link, or scarcity wording.
 - **Mission (owner's words, condensed):** darkly satirical content that brings the characters of the Bob Frapples Universe to life, illuminating the macabre, grotesque, and sublime sides of human experience. It explores society's paradoxes: a tech-obsessed population recklessly trying to drink from the torrent of advanced technology.
 - **Positioning:** a luxury AI art brand. It merges AI with dark, satirical, surreal aesthetics for people who want to stand out.
 - **Unique selling points:** exclusivity (limited editions), innovation (AI plus human imagination), bold macabre aesthetics.
-- **Primary goal (per the PDF):** product launch, then sustained account growth. **[CONFIRM]** whether the shop is live and which products exist today.
+- **Primary goal now:** build the audience and the body of work before a product launch (the shop is not live). The PDF's launch-oriented ad copy is parked until the shop opens.
 
 ## Audience
 
@@ -27,7 +29,7 @@ Lines marked **[CONFIRM]** are inferences the owner should correct. Everything e
 | X | Community and satire voice | Single images, short threads |
 | Facebook | Shop and retargeting (from the PDF) | Image and collection ads |
 
-**[CONFIRM]** priority order. The owner's brief named Instagram, YouTube, TikTok, and X for the accounts; the PDF's ad plan added Facebook.
+**Priority when time is short (confirmed): Instagram first**, then adapt to TikTok, YouTube, and X. The PDF's ad plan also named Facebook; treat it as later.
 
 ## Voice
 
@@ -76,9 +78,16 @@ Starting values: "sampled" means measured from the reference images; "by eye" me
 PDF guidance: dark surreal aesthetic with grunge textures, gothic-style type for overlays, eerie lighting (black, red, neon green), a subtle Bob Frapples watermark on every visual, and seasonal variants.
 
 ### Wordmark rule (important)
-Several references show the name garbled by the image model ("FRAPPPLES", "FRAPPLLES", "FRAPPPLES"). Never let the model render the brand name. Generate the art without text, then add the exact wordmark `BOB FRAPPLES` as an overlay in Canva or Figma. **[CONFIRM]** which lockup is primary: the ornate ivory-and-burgundy frame, or the neon sans.
+Several references show the name garbled by the image model ("FRAPPPLES", "FRAPPLLES", "FRAPPPLES"). Never let the model render any brand text. Generate the art without text, then add the exact wordmark as an overlay in Canva or Figma: `BOB FRAPPLES` for universe art, `ACTIVELYPSYCHOTIC` where the brand itself is named.
 
-## Products named in the PDF [CONFIRM which exist]
+**Primary logo: not decided (confirmed).** Until it is, document three lockups and use each where it fits best:
+- **Minimal dripping skull** (image 11): profile pictures and any small size, because it stays legible at avatar scale.
+- **Ornate frame, ivory and burgundy** (image 3): hero artwork, prints, and "mark reveal" moments.
+- **Neon wordmark style** (images 7 and 8): Halloween, synth, and video thumbnails.
+
+**[CONFIRM]** which name goes in the subtle watermark: ACTIVELYPSYCHOTIC (the brand) or BOB FRAPPLES (the universe).
+
+## Planned products named in the PDF (shop not live; do not promote yet)
 "Death's Core" art print, "Neon Swamp" art print (limited to 50 in the PDF's example), "Rotten Apple Skull" hoodie, "Psychedelic Decay" tote, "Collapsing Alien" mug, "Alien Collapse" puzzle, "Skeletal Bloom" sticker pack.
 
 ## Rules (from SECURITY.md and legal review of the references)
