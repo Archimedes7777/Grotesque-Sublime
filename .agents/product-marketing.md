@@ -7,7 +7,16 @@ Lines marked **[CONFIRM]** are inferences the owner should correct. Everything e
 ## Identity
 
 - **Brand:** ActivelyPsychotic (confirmed by the owner on 2026-10-29). **Universe and character world:** Bob Frapples. The PDF predates this decision and describes Bob Frapples as the luxury art brand; read "Bob Frapples" there as the universe and characters inside ActivelyPsychotic.
-- **Account names:** the four social accounts operate under ActivelyPsychotic. **[CONFIRM]** exact handles.
+- **Account handles (confirmed 2026-10-29):**
+
+| Platform | Handle |
+|---|---|
+| Instagram | `activelypsychotic` |
+| YouTube | `activelypsychotic` |
+| X | `realbobfrapples` |
+| TikTok | `bobfrapplesgns` |
+
+  The handles are not consistent: X and TikTok use the universe name. Until they are aligned, every bio should say "ActivelyPsychotic" and link the other three accounts, and the brand handle `activelypsychotic` should be claimed on X and TikTok too so nobody else takes it.
 - **Shop status (confirmed):** not live yet; products are planned. Until that changes, content is brand and art only: no product, price, purchase-link, or scarcity wording.
 - **Mission (owner's words, condensed):** darkly satirical content that brings the characters of the Bob Frapples Universe to life, illuminating the macabre, grotesque, and sublime sides of human experience. It explores society's paradoxes: a tech-obsessed population recklessly trying to drink from the torrent of advanced technology.
 - **Positioning:** a luxury AI art brand. It merges AI with dark, satirical, surreal aesthetics for people who want to stand out.
@@ -43,6 +52,12 @@ Lines marked **[CONFIRM]** are inferences the owner should correct. Everything e
 1. Luxury and exclusivity. Only claim limited editions or "no reprints" where that is literally true (see Rules).
 2. Innovation and technology: AI and human imagination together.
 3. Cultural and seasonal relevance: Halloween and other moments where the macabre fits naturally.
+
+## Content mix and time budget (confirmed 2026-10-29)
+
+- **Mix while the shop is not live (art-first):** about 55 percent finished art, 25 percent process, 15 percent series and lore, 5 percent community, 0 percent offers.
+- **Time budget:** about 6 hours a week for posting, not counting making the art. That supports about 5 master pieces a week, Instagram first, adapted to the other three platforms.
+- When the shop opens, move up to 5 percent from finished art to offers.
 
 ## Visual identity
 
@@ -85,7 +100,7 @@ Several references show the name garbled by the image model ("FRAPPPLES", "FRAPP
 - **Ornate frame, ivory and burgundy** (image 3): hero artwork, prints, and "mark reveal" moments.
 - **Neon wordmark style** (images 7 and 8): Halloween, synth, and video thumbnails.
 
-**[CONFIRM]** which name goes in the subtle watermark: ACTIVELYPSYCHOTIC (the brand) or BOB FRAPPLES (the universe).
+**Watermark (confirmed): ACTIVELYPSYCHOTIC** on every image, small and subtle. `BOB FRAPPLES` appears in captions, series names, and universe art where it is the subject.
 
 ## Planned products named in the PDF (shop not live; do not promote yet)
 "Death's Core" art print, "Neon Swamp" art print (limited to 50 in the PDF's example), "Rotten Apple Skull" hoodie, "Psychedelic Decay" tote, "Collapsing Alien" mug, "Alien Collapse" puzzle, "Skeletal Bloom" sticker pack.
