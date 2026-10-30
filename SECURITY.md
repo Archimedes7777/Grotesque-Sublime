@@ -77,7 +77,7 @@ Skills run with the agent's full permissions. A skill is code, even when it is M
 | find-skills | vercel-labs/skills | (installed 2026-10-28) | Approved | Markdown only; asks before installing |
 | social | coreyhaines31/marketingskills | `0cd9b3a` | Approved | Markdown + eval JSON; read-only public API examples; drafts-first publishing |
 | image | coreyhaines31/marketingskills | `0cd9b3a` | Approved | Markdown + eval JSON; no installers, no credential requests |
-| video | coreyhaines31/marketingskills | `0cd9b3a` | Approved | Markdown + eval JSON; mentions `npx` tools, which the guard and permission rules gate |
+| video | coreyhaines31/marketingskills | `820ad2c` (updated 2026-10-30 from `0cd9b3a`) | Approved | Markdown + eval JSON; mentions `npx` tools, which the guard and permission rules gate. Update reviewed after drift issue #6: one commit (`cf4464e`) adding a code-rendered product films reference; no installers, URLs, hidden Unicode, or credential requests. Its mention of agents automating YouTube Studio uploads is overridden by section 6 |
 | *superpowers clones* (101-skills, magentosh, qu-skills, skills-shell, its-a-skill-issue, bankai-skills) | various | `becc256` (101-skills) | **Rejected** | Name-squatting on obra/superpowers; `curl \| sh` installer (10 instances); third-party login to X; engagement-bot automation |
 | higgsfield-youtube-thumbnail | higgsfield-ai/skills | `4d07574` | Deferred | Unpinned `curl \| sh` CLI install from `main`; pre-approves unrestricted `Bash` |
 | last30days | mvanhorn/last30days-skill | `e06af25` | Deferred | Up to 9 API keys, optional X `AUTH_TOKEN` (session credential); large Python/Go codebase |
