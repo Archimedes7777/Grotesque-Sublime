@@ -8,6 +8,11 @@ on:
     # 09:17 UTC on the 1st of every month
     - cron: "17 9 1 * *"
   workflow_dispatch:
+    inputs:
+      simulate_drift:
+        description: "Test run: pretend the first skill changed and file a clearly labelled test issue"
+        type: boolean
+        default: false
 
 # Least privilege: read the repository, and file one issue when drift is found.
 permissions:
@@ -28,9 +33,13 @@ jobs:
       # Exit 0 = no drift, 1 = drift (report written), anything else = error.
       - name: Compare locked skills with upstream
         id: check
+        env:
+          SIMULATE: ${{ inputs.simulate_drift }}
         run: |
           set +e
-          node scripts/check-upstream.mjs --report "$RUNNER_TEMP/drift.md"
+          args=(--report "$RUNNER_TEMP/drift.md")
+          if [ "$SIMULATE" = "true" ]; then args+=(--simulate-drift); fi
+          node scripts/check-upstream.mjs "${args[@]}"
           echo "code=$?" >> "$GITHUB_OUTPUT"
           exit 0
 
@@ -39,12 +48,18 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
+          SIMULATE: ${{ inputs.simulate_drift }}
         run: |
-          existing="$(gh issue list --state open --search '"Upstream skill drift detected" in:title' --json number --jq '.[0].number')"
+          if [ "$SIMULATE" = "true" ]; then
+            title="Upstream skill watch TEST RUN (safe to close)"
+          else
+            title="Upstream skill drift detected"
+          fi
+          existing="$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number')"
           if [ -n "$existing" ]; then
             gh issue comment "$existing" --body-file "$RUNNER_TEMP/drift.md"
           else
-            gh issue create --title "Upstream skill drift detected" --body-file "$RUNNER_TEMP/drift.md"
+            gh issue create --title "$title" --body-file "$RUNNER_TEMP/drift.md"
           fi
 
       - name: Fail loudly if the check itself broke
