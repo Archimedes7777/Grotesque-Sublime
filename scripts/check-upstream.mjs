@@ -14,6 +14,9 @@
 //
 // Usage:
 //   node scripts/check-upstream.mjs [--report <file>]   compare with upstream
+//   node scripts/check-upstream.mjs --simulate-drift     same, but pretends the
+//       first skill changed, so the issue-filing path can be tested end to end.
+//       The report is clearly labelled as a test and changes nothing.
 //   node scripts/check-upstream.mjs --self-test          offline: prove this
 //       script's hash matches the lock for the installed skills
 //
@@ -91,7 +94,8 @@ async function selfTest() {
   console.log("self-test passed: hash algorithm matches the lock file");
 }
 
-async function checkUpstream(reportPath) {
+async function checkUpstream(reportPath, simulate = false) {
+  let simulated = false;
   const entries = (await readLock()).filter((e) => e.sourceType === "github");
   const bySource = new Map();
   for (const e of entries) {
@@ -123,6 +127,10 @@ async function checkUpstream(reportPath) {
         } catch {
           status = "folder no longer exists upstream";
         }
+        if (simulate && !simulated) {
+          simulated = true;
+          status = "simulated change (TEST RUN, nothing changed upstream)";
+        }
         lines.push(`${status === "same" ? "ok  " : "DIFF"} ${entry.name} (${source}) ${status} at ${head.slice(0, 7)}`);
         if (status !== "same") drift.push({ entry, source, head, status });
       }
@@ -138,6 +146,9 @@ async function checkUpstream(reportPath) {
   }
 
   const body = [
+    ...(simulate
+      ? ["**TEST RUN.** This report was produced with the simulate option to confirm that issue filing works. Nothing changed upstream. It is safe to close.", ""]
+      : []),
     "A monthly check found that upstream versions of installed skills no longer match the reviewed copies in `skills-lock.json`.",
     "",
     "| Skill | Source | Locked hash | Result | Upstream commit |",
@@ -166,7 +177,7 @@ try {
     await selfTest();
   } else {
     const i = args.indexOf("--report");
-    process.exit(await checkUpstream(i >= 0 ? args[i + 1] : undefined));
+    process.exit(await checkUpstream(i >= 0 ? args[i + 1] : undefined, args.includes("--simulate-drift")));
   }
 } catch (e) {
   console.error(`check-upstream failed: ${e.message}`);
