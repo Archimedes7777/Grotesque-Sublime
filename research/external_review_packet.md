@@ -21,8 +21,8 @@ S = stablecoin supply. T = tokenized real-world assets excluding stablecoins (di
 | Scenario | 2030 band | 2035 band | P(2030) | P(2035) |
 |---|---|---|---|---|
 | Bear (public-chain tokenization stays niche) | S < $500B and T < $100B | S < $1T and T < $500B | 51% (panel 38 to 64) | 46% (30 to 67) |
-| Base | Otherwise (split outcomes count as Base) | Otherwise | 42% | 43% |
-| Bull | S > $1.5T and T > $500B | S > $4T and T > $5T | 7% | 11% |
+| Base | Otherwise (split outcomes count as Base) | Otherwise | 41% | 43% |
+| Bull | S > $1.5T and T > $500B | S > $4T and T > $5T | 8% | 11% |
 
 **Method.** The probabilities are the mean of five estimators.
 - The estimators are an ordered-logit model (base run and a drivers-only run), analyst judgment, and two internal red teams. The red teams were a macro regulator and a crypto-native builder.
@@ -42,17 +42,21 @@ S = stablecoin supply. T = tokenized real-world assets excluding stablecoins (di
 
 ## Top plays per tier
 
-Plays are ranked by central excess return over T-bills. The central return is the band midpoint minus sigma^2/2, with each band read as the 10th to 90th percentile. Stress drawdowns use 2008 to 2009 anchors.
+Plays are ranked by central excess return over T-bills.
+- Price-range bands: the central return is the midpoint minus sigma^2/2, with each band read as the 10th to 90th percentile.
+- Incumbent 10-year CAGR bands: the central return is the midpoint.
+- CRCL, COIN and HOOD: panel-weighted bear, base and bull outcomes.
+- Stress drawdowns use 2008 to 2009 anchors.
 
 | Rank | Retail | Mid (accredited) | Large |
 |---|---|---|---|
-| 1 | Visa, Mastercard (+4.3 to +4.8 pts; stress 50 to 60%) | Tokenized private credit (+3.3; stress 30%; gated) | Buy a licensed issuer (+4.7; stress 80%) |
-| 2 | BNY (+3.8; stress 65%) | Ripple secondary (+11.2; an XRP proxy) | Anchor a tokenized MMF launch |
-| 3 | BlackRock (+3.3; stress 60%) | Kraken secondary (+6.7; mark disputed) | Custody build or buy |
-| 4 | Circle (+3.3; stress 83%) | Anchorage (+3.1) | Digital Asset (Canton) stake |
-| 5 | ICE, State Street, Franklin (+2.8) | Venture funds (+2.4) | Tokenized-deposit partnership |
+| 1 | Visa, Mastercard (+4.3 to +4.8 pts; stress 50 to 60%) | Ripple secondary (+11.2; XRP proxy) | Buy a licensed issuer (+4.8; stress 80%) |
+| 2 | BNY (+3.8; stress 65%) | Kraken secondary (+6.7; mark disputed) | Anchor a tokenized MMF launch |
+| 3 | BlackRock (+3.3; stress 60%) | Anchorage (+3.1) | Custody build or buy |
+| 4 | ICE, State Street, Franklin (+2.8) | Venture funds (+2.4) | Digital Asset (Canton) stake |
+| 5 | CME, Nasdaq (+2.3) | Tokenized private credit (+1.8 after expected loss; stress 30%) | Tokenized-deposit partnership |
 
-Every crypto-native equity except Circle, and every token ETP except staked ETH, scores below T-bills on central estimates.
+Crypto-native equities (including CRCL at -1.8 pts) score below T-bills, except Securitize (+1.4). So does every token ETP except staked ETH.
 
 ## Illustrative personal allocation
 
@@ -70,33 +74,33 @@ Investor: non-accredited California resident, $50k, taxable cash account, 40% ma
 | BlackRock | 5% |
 | ICE | 7.5% |
 
-Option A has a weighted stress loss of 25.0% and a central return of 5.70% (about 4.3% after tax).
+Option A has a weighted stress loss of 25.0% and a central return of 5.71% (about 4.3% after tax).
 
-**Option B** moves 10 points of T-bills into 2.5% each of CRCL, COIN, IBIT and ETHA. Its stress loss is 33.4% and its central return is 5.41%.
+**Option B** moves 10 points of T-bills into 2.5% each of CRCL, COIN, IBIT and ETHA. Its stress loss is 33.4% and its central return is 5.09%.
 
 ## Full plays matrix (75 rows)
 
 | play_id | vehicle | ticker_or_route | tier | horizon | return_band_annual_pct | geo_central_pct | excess_vs_tbill_pct | stress_drawdown_pct | kill_criterion | confidence |
 |---|---|---|---|---|---|---|---|---|---|---|
-| R-01 | Circle common stock | CRCL | Retail | Medium | -5 to 21 | 7.49 | 3.28 | 83.0 | USDC period-end circulation below 65B for two quarters or RLDC margin below 40% | Moderate |
-| R-02 | Coinbase common stock | COIN | Retail | Medium | -9 to 12 | 1.16 | -3.05 | 92.0 | Subscription and services revenue below 500M per quarter for two quarters | Moderate |
-| R-03 | Robinhood common stock | HOOD | Retail | Medium | -9 to 10 | 0.23 | -3.98 | 92.0 | Net deposits growth below 5% annualized or crypto revenue below 100M per quarter | Moderate |
+| R-01 | Circle common stock | CRCL | Retail | Medium | -5 to 21 | 2.41 | -1.8 | 83.0 | USDC period-end circulation below 65B for two quarters or RLDC margin below 40% | Moderate |
+| R-02 | Coinbase common stock | COIN | Retail | Medium | -9 to 12 | -1.99 | -6.2 | 92.0 | Subscription and services revenue below 500M per quarter for two quarters | Moderate |
+| R-03 | Robinhood common stock | HOOD | Retail | Medium | -9 to 10 | -3.03 | -7.24 | 92.0 | Net deposits growth below 5% annualized or crypto revenue below 100M per quarter | Moderate |
 | R-04 | Galaxy Digital Class A | GLXY | Retail | Medium | -50 to 40 | -11.17 | -15.38 | 80.0 | BTC below 60k with no AI data-center contract revenue | Low |
 | R-05 | Bullish common stock | BLSH | Retail | Medium | -40 to 30 | -8.73 | -12.94 | 80.0 | Volume share loss two quarters in a row | Low |
 | R-06 | Figure Technology Solutions | FIGR | Retail | Medium | -35 to 35 | -3.73 | -7.94 | 80.0 | Origination volume down 20% yoy | Low |
 | R-07 | Gemini Space Station | GEMI | Retail | Short | -60 to 100 | 0.51 | -3.7 | 80.0 | Cash runway under 4 quarters | Low |
 | R-08 | Securitize Corp | SECZ | Retail | Medium | -45 to 80 | 5.61 | 1.4 | 80.0 | Revenue growth below 50% yoy | Low |
-| R-09 | Visa | V | Retail | Long | 7 to 10 | 8.49 | 4.28 | 50.0 | Core revenue growth below 5% for 4 quarters | Low |
-| R-10 | Mastercard | MA | Retail | Long | 7 to 10 | 8.49 | 4.28 | 60.0 | Core revenue growth below 5% for 4 quarters | Low |
-| R-11 | PayPal | PYPL | Retail | Long | 0 to 12 | 5.89 | 1.68 | 80.0 | Core revenue shrinking two years running | Low |
-| R-12 | BNY (Bank of New York Mellon) | BK | Retail | Long | 5 to 11 | 7.97 | 3.76 | 65.0 | Fee revenue growth below 3% for 4 quarters | Low |
-| R-13 | State Street | STT | Retail | Long | 4 to 10 | 6.97 | 2.76 | 80.0 | Fee revenue flat two years | Low |
-| R-14 | JPMorgan Chase (Kinexys) | JPM | Retail | Long | 3 to 9 | 5.97 | 1.76 | 70.0 | ROE below 12% for 4 quarters | Low |
-| R-15 | Nasdaq Inc | NDAQ | Retail | Long | 4 to 9 | 6.48 | 2.27 | 65.0 | Tokenization pilots abandoned and multiple above 30x | Low |
-| R-16 | Intercontinental Exchange | ICE | Retail | Long | 4 to 10 | 6.97 | 2.76 | 80.0 | EPS growth below 4% two years | Low |
-| R-17 | CME Group | CME | Retail | Long | 4 to 9 | 6.48 | 2.27 | 70.0 | Volume per day down 20% for 4 quarters | Low |
-| R-18 | BlackRock (BUIDL, IBIT) | BLK | Retail | Long | 5 to 10 | 7.48 | 3.27 | 60.0 | Net flows negative for 4 quarters | Low |
-| R-19 | Franklin Resources (BENJI) | BEN | Retail | Long | 4 to 10 | 6.97 | 2.76 | 65.0 | AUM outflows four quarters in a row | Low |
+| R-09 | Visa | V | Retail | Long | 7 to 10 | 8.5 | 4.29 | 50.0 | Credit card routing mandate (Credit Card Competition Act) or a direct interchange cap enacted; or payments volume growth below 3% for two quarters | Low |
+| R-10 | Mastercard | MA | Retail | Long | 7 to 10 | 8.5 | 4.29 | 60.0 | Credit card routing mandate (Credit Card Competition Act) or a direct interchange cap enacted; or payments volume growth below 3% for two quarters | Low |
+| R-11 | PayPal | PYPL | Retail | Long | 0 to 12 | 6.0 | 1.79 | 80.0 | Core revenue shrinking two years running | Low |
+| R-12 | BNY (Bank of New York Mellon) | BK | Retail | Long | 5 to 11 | 8.0 | 3.79 | 65.0 | Fee revenue growth below 3% for 4 quarters | Low |
+| R-13 | State Street | STT | Retail | Long | 4 to 10 | 7.0 | 2.79 | 80.0 | Fee revenue flat two years | Low |
+| R-14 | JPMorgan Chase (Kinexys) | JPM | Retail | Long | 3 to 9 | 6.0 | 1.79 | 70.0 | ROE below 12% for 4 quarters | Low |
+| R-15 | Nasdaq Inc | NDAQ | Retail | Long | 4 to 9 | 6.5 | 2.29 | 65.0 | Tokenization pilots abandoned and multiple above 30x | Low |
+| R-16 | Intercontinental Exchange | ICE | Retail | Long | 4 to 10 | 7.0 | 2.79 | 80.0 | EPS growth below 4% two years | Low |
+| R-17 | CME Group | CME | Retail | Long | 4 to 9 | 6.5 | 2.29 | 70.0 | Volume per day down 20% for 4 quarters | Low |
+| R-18 | BlackRock (BUIDL, IBIT) | BLK | Retail | Long | 5 to 10 | 7.5 | 3.29 | 60.0 | Net flows negative for 4 quarters | Low |
+| R-19 | Franklin Resources (BENJI) | BEN | Retail | Long | 4 to 10 | 7.0 | 2.79 | 65.0 | AUM outflows four quarters in a row | Low |
 | R-20 | iShares Bitcoin Trust | IBIT | Retail | Long | -60 to 80 | -4.92 | -9.13 | 77.0 | BTC below 50k | Moderate |
 | R-21 | iShares Ethereum Trust | ETHA | Retail | Long | -65 to 120 | 1.45 | -2.76 | 85.0 | ETH/BTC ratio below 0.02 for two years | Moderate |
 | R-22 | Staking Ethereum ETPs | ETHB; Grayscale ETHE (71% staked 2026-03-31) | Retail | Long | -60 to 130 | 7.52 | 3.31 | 85.0 | ETH yield below 1.5% net | Low |
@@ -104,7 +108,7 @@ Option A has a weighted stress loss of 25.0% and a central return of 5.70% (abou
 | R-24 | Spot XRP ETFs | XRPZ 0.19%, TOXR 0.30%, Bitwise 0.34%, GXRP 0.35%, XRPC 0.50% | Retail | Long | -80 to 150 | -5.27 | -9.48 | 85.0 | Ripple loses legal clarity | Low |
 | R-25 | Blockchain equity ETFs | BLOK (0.70%), TKNQ (0.69%, AUM about 1.1M) | Retail | Medium | -35 to 45 | 0.13 | -4.08 | 75.0 | BLOK AUM below 300M | Low |
 | R-26 | Franklin OnChain U.S. Government Money Fund (BENJI) | Benji Investments app (FOBXX) | Retail | Short | 3.5 to 4.2 | 3.85 | -0.36 | 2.0 | Yield spread to T-bills above 100bp | Low |
-| R-27 | Benchmark: 3M T-bill / SPY | T-bill ladder; SPY | Retail | Short | 4.0 to 4.4 | 4.2 | 0.0 | 0.0 | NA (benchmark) | Moderate |
+| R-27 | Benchmark: 3M T-bill / SPY | T-bill ladder; SPY | Retail | Short | 4.0 to 4.4 | 4.21 | 0.0 | 0.0 | NA (benchmark) | Moderate |
 | R-28 | Ether (direct token) | ETH via Coinbase or Kraken | Retail | Long | -65 to 120 | 1.45 | -2.76 | 85.0 | See R-21 | Moderate |
 | R-29 | Solana (direct token) | SOL | Retail | Long | -75 to 150 | -1.03 | -5.24 | 85.0 | See R-23 | Low |
 | R-30 | Chainlink (direct token) | LINK | Retail | Long | -70 to 150 | 3.16 | -1.05 | 85.0 | No sustained enterprise revenue by 2028 | Low |
@@ -113,7 +117,7 @@ Option A has a weighted stress loss of 25.0% and a central return of 5.70% (abou
 | R-33 | DeFi stablecoin lending (self-custody) | Aave-type protocols | Retail | Short | nan | nan | nan | 80.0 | Any exploit above 5% of TVL | Unverified |
 | R-34 | Event: GENIUS Act effective date | Hold CRCL and PYPL through effective date | Retail | Short | -15 to 15 | -0.69 | -4.9 | 83.0 | Final rules delayed past 2027-04 | Low |
 | R-35 | Event: CLARITY Act revival or death | COIN, HOOD, CRCL basket | Retail | Short | -25 to 30 | 0.2 | -4.01 | 92.0 | Bill formally withdrawn | Low |
-| R-36 | Event: Fed path and CRCL rate sensitivity | CRCL | Retail | Short | -30 to 20 | -6.9 | -11.11 | 83.0 | Two cuts priced and supply flat | Moderate |
+| R-36 | Event: Fed path and CRCL rate sensitivity | CRCL | Retail | Short | -30 to 20 | -6.9 | -11.11 | 83.0 | Exit if a rate cut cycle is priced (two cuts within 12 months in futures) or USDC supply falls 15% in a quarter during hikes | Moderate |
 | R-37 | Event: Gemini earnings | GEMI | Retail | Short | -50 to 60 | -4.21 | -8.42 | 80.0 | nan | Low |
 | R-38 | Event: Kraken IPO filing | COIN, HOOD read-through | Retail | Short | -10 to 10 | -0.3 | -4.51 | 92.0 | IPO shelved past 2027 | Low |
 | M-01 | Kraken (Payward) secondary | Forge, Hiive, EquityZen | Mid | Short | -29 to 64 | 10.92 | 6.71 | 75.0 | IPO pushed past 2028 | Low |
@@ -123,13 +127,13 @@ Option A has a weighted stress loss of 25.0% and a central return of 5.70% (abou
 | M-05 | Fireblocks secondary | NPM, brokers | Mid | Medium | -30 to 40 | 1.27 | -2.94 | 75.0 | Sale below 2.5B | Low |
 | M-06 | Chainalysis, Paxos, Digital Asset (Canton) private marks | nan | Mid | Medium | nan | nan | nan | 75.0 | nan | Unverified |
 | M-07 | Crypto venture funds | a16z crypto, Paradigm, Haun, Pantera (feeder access) | Mid | Long | -10 to 25 | 6.57 | 2.36 | 75.0 | Fund TVPI below 1.0 at year 5 | Unverified |
-| M-08 | Tokenized private credit funds | Apollo ACRED and Hamilton Lane via Securitize | Mid | Medium | 6 to 9 | 7.49 | 3.28 | 30.0 | Redemption gate invoked | Low |
+| M-08 | Tokenized private credit funds | Apollo ACRED and Hamilton Lane via Securitize | Mid | Medium | 6 to 9 | 6.0 | 1.79 | 30.0 | Redemption gate invoked | Low |
 | M-09 | Tokenized Treasury and MMF (qualified) | BUIDL, OUSG | Mid | Short | 3.7 to 4.1 | 3.9 | -0.31 | 2.0 | Spread to bills above 100bp | Low |
-| M-10 | Validator and staking operation | ETH 32-ETH validators | Mid | Medium | 0 to 4 | 1.99 | -2.22 | 80.0 | Net reward yield below 1.5% | Low |
+| M-10 | Validator and staking operation | ETH 32-ETH validators | Mid | Medium | 0 to 4 | 2.0 | -2.21 | 80.0 | Net reward yield below 1.5% | Low |
 | M-11 | Structured notes on IBIT or BTC | Bank-issued buffered notes (illustrative) | Mid | Short | -16 to 14 | -1.69 | -5.9 | 40.0 | Cap below 20% | Low |
 | M-12 | Reg S offshore stablecoin and tokenization funds | Non-US placements | Mid | Medium | nan | nan | nan | 80.0 | nan | Low |
 | L-01 | Issuer build: GENIUS-licensed stablecoin | Own issuer or OCC trust charter | Large | Medium | -60 to 35 | -19.37 | -23.58 | 80.0 | Not at 2.65B supply by month 36 | Low |
-| L-02 | Issuer buy: acquire a stablecoin issuer | Target list unverified | Large | Medium | 3 to 15 | 8.89 | 4.68 | 80.0 | Supply outflow above 20% post-deal | Low |
+| L-02 | Issuer buy: acquire a stablecoin issuer | Target list unverified | Large | Medium | 3 to 15 | 9.0 | 4.79 | 80.0 | Supply outflow above 20% post-deal | Low |
 | L-03 | Anchor position in tokenized fund launch | Seed 50 to 100M in new tokenized MMF | Large | Short | 3.5 to 4.2 | 3.85 | -0.36 | 2.0 | Fund under 250M after 12 months | Low |
 | L-04 | Stake in a settlement consortium | Canton, DTCC-linked or bank consortia | Large | Long | -100 to 30 | -47.86 | -52.07 | 80.0 | No volume within 24 months | Low |
 | L-05 | Bank partnership for tokenized deposits | Kinexys or Citi Token Services client | Large | Medium | nan | nan | nan | 80.0 | No volume in 12 months | Unverified |
@@ -138,8 +142,8 @@ Option A has a weighted stress loss of 25.0% and a central return of 5.70% (abou
 | L-08 | Operating requirements to participate | Licenses, custody, compliance team | Large | Medium | nan | nan | nan | 80.0 | nan | Low |
 | L-09 | Block holding in public equities (CRCL, COIN) | Institutional accounts | Large | Short | -10 to 15 | 2.02 | -2.19 | 92.0 | nan | Low |
 | L-10 | Arc network validator or ARC token allocation | Arc (Circle L1) | Large | Medium | nan | nan | nan | 80.0 | Unlock terms adverse | Unverified |
-| A-01 | Common stock | V | Retail | Long | 6 to 12 | 8.97 | 4.76 | 50.0 | Two consecutive quarters of net revenue growth below 8% with stablecoin settlement volume cited by Visa as substitutive | Moderate |
-| A-02 | Common stock | MA | Retail | Long | 6 to 12 | 8.97 | 4.76 | 60.0 | Mastercard states agent volume is below 0.1% of switched volume after 4 more quarters (no such figure disclosed yet) or net revenue growth below 8% for two quarters | Moderate |
+| A-01 | Common stock | V | Retail | Long | 6 to 12 | 9.0 | 4.79 | 50.0 | Credit card routing mandate (Credit Card Competition Act) or a direct interchange cap enacted; or payments volume growth below 3% for two quarters | Moderate |
+| A-02 | Common stock | MA | Retail | Long | 6 to 12 | 9.0 | 4.79 | 60.0 | Credit card routing mandate (Credit Card Competition Act) or a direct interchange cap enacted; or payments volume growth below 3% for two quarters | Moderate |
 | A-03 | Common stock | NET | Retail | Medium | -35 to 30 | -5.72 | -9.93 | 70.0 | No general availability of Pay Per Use by 2027-09-30 or stated paid-crawl revenue still undisclosed after 2027 FY results | Low |
 | A-04 | Common stock | COIN | Retail | Medium | -40 to 35 | -6.78 | -10.99 | 92.0 | No separate agent or x402 revenue line by Q4 2027 letter | Low |
 | A-05 | Common stock | PYPL | Retail | Medium | nan | nan | nan | 80.0 | No agentic volume disclosure by Q4 2027 results | Unverified |

@@ -1,10 +1,10 @@
 # Programmable Ledgers, Digital Money, and the Investment Map
 
-Research date: 2026-11-04. Status: v2, revised after Phase 4 verification and the Phase 5 red teams. Every change is logged in `changelog.md`; v1 is preserved at `data/REPORT_v1.md`.
+Research date: 2026-11-04. Status: v2.1 (final), revised after Phase 4 verification, the Phase 5 red teams and the Phase 6 second red-team pass on the diff. Every change is logged in `changelog.md`; v1 is preserved at `data/REPORT_v1.md`.
 
 ## Executive summary
 
-**Is it happening?** Yes, on regulated and permissioned rails. Barely, on public-chain tokenization. Not yet in payments or retail CBDCs.
+**Is it happening?** Partly. Activity is real on permissioned rails such as wholesale repo, small on public-chain tokenization, and not yet material in payments or retail CBDCs. No market segment yet passes the null-hypothesis rejection test.
 
 - Fact: USD stablecoin supply is $295.1B (DefiLlama API, 2026-11-04). It is 3.0% lower than 12 months ago, at a joint low in the crypto price and interest-rate cycle (Section 4A).
 - Fact: Tokenized Treasuries and money funds on public chains are $14.25B (RWA.xyz, 2026-11-04) [Interested source]. That is 0.18% of US money fund assets ($7.90T, ICI, 2026-10-28).
@@ -16,10 +16,11 @@ Research date: 2026-11-04. Status: v2, revised after Phase 4 verification and th
 | Scenario | 2030 | Panel range | 2035 | Panel range |
 |---|---|---|---|---|
 | Bear: public-chain tokenization and stablecoins stay niche | 51% | 38% to 64% | 46% | 30% to 67% |
-| Base | 42% | 28% to 54% | 43% | 26% to 55% |
-| Bull | 7% | 5% to 11% | 11% | 7% to 15% |
+| Base | 41% | 28% to 54% | 43% | 26% to 55% |
+| Bull | 8% | 5% to 11% | 11% | 7% to 15% |
 
-- Confidence: [Low]. Inside Bear sits a disorderly sub-path of about 10% over five years: a run, a large theft or a sanctions shock followed by a clampdown (Section 4B).
+- Confidence: [Low]. The shift from v1 (57% Bear) reflects reviewer judgment more than new data. Excluding the red-team estimates, 2030 Bear is 56%. Counting the model once, it is 49%.
+- Inside Bear sits a disorderly sub-path of about 10% over five years: a run, a large theft or a sanctions shock followed by a clampdown (Section 4B).
 - Fact: The binding constraints are demand and macro, not law. GENIUS is law (effective 2027-01-18). Market structure legislation failed cloture 49 to 50 (2026-09-15). Democrats won both chambers on 2026-11-03 (AP calls via CBS News, 2026-11-04).
 - Fact: The Fed raised its target range to 3.75% to 4.00% on 2026-09-16 and held on 2026-10-28. September CPI was 3.7% (secondary reports of BLS data, 2026-10-14). [Moderate]
 
@@ -28,19 +29,21 @@ Research date: 2026-11-04. Status: v2, revised after Phase 4 verification and th
 - Fact: Circle's distribution and transaction costs were 62% of its Q3 2026 reserve income ($409.2M of $657.6M, Circle Q3 2026). Ethereum gross fee revenue was $127M in H1 2026.
 - Inference: Tokens capture value only where a chain owns order flow or a dominant stablecoin corridor (Tron, Hyperliquid). That capture is fragile because governance can switch it off. [Moderate]
 
-**Top five plays per tier.** Ranking is by central excess return over T-bills (4.21%, 3-month constant maturity, H.15, 2026-11-02), shown with stress drawdown. Rows marked (J) are judgment overrides of the score.
+**Top five plays per tier.** Plays are ranked by central excess return over T-bills (4.21%, 3-month constant maturity, H.15, 2026-11-02), with stress drawdown alongside. A second benchmark for the 10-year horizon is the 10-year Treasury at 4.91% (H.15, 2026-11-02). Rows marked (J) are judgment overrides of the score.
 
 | Rank | Retail | Mid (accredited) | Large ($5M and up) |
 |---|---|---|---|
-| 1 | Visa, Mastercard (R-09, R-10, A-01, A-02): +4.3 to +4.8 pts; stress 50% to 60% [Moderate] | Tokenized private credit, held through the conventional fund where possible (M-08): +3.3 pts; stress 30%; quarterly gates (J) [Low] | Buy a licensed issuer with distribution (L-02): +4.7 pts; stress 80% [Low] |
-| 2 | BNY (R-12): +3.8 pts; stress 65% [Low] | Ripple secondary (M-02): +11.2 pts. It is an XRP proxy (J) [Low] | Anchor a tokenized MMF launch (L-03): cash yield plus strategic access; -0.4 pts (J) [Low] |
-| 3 | BlackRock (R-18): +3.3 pts; stress 60% [Low] | Kraken secondary (M-01): +6.7 pts; mark disputed, Forge $9.93B vs Series E $21B [Low] | Custody build or buy (L-06): unscored (J) [Unverified] |
-| 4 | Circle (R-01): +3.3 pts; stress 83%; sized as an option [Low] | Anchorage (M-04): +3.1 pts [Low] | Digital Asset (Canton) equity or partnership, repriced from the 2026 round (M-06, L-04 revised) (J) [Low] |
-| 5 | ICE, State Street, Franklin (R-16, R-13, R-19): +2.8 pts; stress 65% to 80% [Low] | Venture funds (M-07): +2.4 pts; 10-year lockup [Unverified] | Tokenized-deposit partnership (L-05): unscored (J) [Unverified] |
+| 1 | Visa, Mastercard (R-09, R-10, A-01, A-02): +4.3 to +4.8 pts; stress 50% to 60% [Moderate] | Ripple secondary (M-02): +11.2 pts; stress 75%. An XRP proxy at a disputed mark (J: caution) [Low] | Buy a licensed issuer with distribution (L-02): +4.8 pts; stress 80% [Low] |
+| 2 | BNY (R-12): +3.8 pts; stress 65% [Low] | Kraken secondary (M-01): +6.7 pts; Forge $9.93B vs Series E $21B [Low] | Anchor a tokenized MMF launch (L-03): -0.4 pts; strategic access (J) [Low] |
+| 3 | BlackRock (R-18): +3.3 pts; stress 60% [Low] | Anchorage (M-04): +3.1 pts [Low] | Custody build or buy (L-06): unscored (J) [Unverified] |
+| 4 | ICE, State Street, Franklin (R-16, R-13, R-19): +2.8 pts; stress 65% to 80% [Low] | Venture funds (M-07): +2.4 pts; 10-year lockup [Unverified] | Digital Asset (Canton) stake (M-06, L-04): about $2B May 2026 round [Unverified]; unscored (J) [Low] |
+| 5 | CME, Nasdaq (R-17, R-15): +2.3 pts; stress 65% to 70% [Low] | Tokenized private credit (M-08): +1.8 pts after a 1.5-point expected credit loss; stress 30%; quarterly gates [Low] | Tokenized-deposit partnership (L-05): unscored (J) [Unverified] |
 
-- Inference: Every crypto-native public equity except Circle scores below T-bills on central estimates (COIN, HOOD, GLXY, BLSH, FIGR, GEMI). So do token ETPs except staked ETH. Their case rests on the Bull tail and on token-price cycles, not on the adoption evidence. [Moderate]
+- Omitted by judgment (J): staked ETH ETPs (R-22, +3.3 pts, stress 85%), because rewards are ordinary income and liquidity is mismatched; KSPI (+2.2 pts), because its link to the theme is thin.
+- Inference: Crypto-native equities score below T-bills on central estimates, except Securitize (SECZ, +1.4 pts, thin float after its SPAC merger). CRCL scores -1.8 pts when its stated bear, base and bull outcomes are weighted by the panel. COIN, HOOD, GLXY, BLSH, FIGR and GEMI score lower. Token ETPs also score below T-bills, except staked ETH. Their case rests on the Bull tail and on token-price cycles. [Moderate]
+- Caveat: incumbent bands are 10-year CAGR spreads and understate dispersion. Their risk is carried by the stress column, not by the central estimate. [Moderate]
 
-**Recommendation.** For the theme, own the incumbents that collect tolls on the regulated path. Keep issuer, distributor and token exposure as small, capped options. Hold the rest in T-bills, which pay a real yield of about 0.5% against 3.7% CPI. [Moderate]
+**Recommendation.** For the theme, own the incumbents that collect tolls on the regulated path. Keep issuer, distributor and token exposure as small, capped options at most. For the Section 0 investor, the recommended core (Option A) holds no options; they enter only through Option B or a reserve trigger. Hold the rest in T-bills. Their real yield is about 0.5% pre-tax, ex post against trailing 3.7% CPI, and negative after federal tax. [Moderate]
 
 ---
 
@@ -71,7 +74,7 @@ Research date: 2026-11-04. Status: v2, revised after Phase 4 verification and th
 | Offshore stablecoins | Live | USDT $177.8B (2026-11-04) | Reserve quality: about 0.74x of liabilities in high-quality assets (FEDS Note, 2026-04-08) |
 | Tokenized MMFs | Live | BUIDL $1.97B; BENJI and iBENJI $2.7B (RWA.xyz, 2026-11-04) | Small yield edge over conventional money funds |
 | Tokenized equities | Live, small | $3.89B; SEC innovation exemption 2026-09-17 to 2031-09-17 | Nasdaq tokenized trades still settle T+1 through NSCC/DTC |
-| Wholesale DLT | Live inside single operators | DLR and Kinexys are live. DTCC ran live tokenized trades on Canton and Besu on 2026-07-15 (secondary, per Red Team B). Agora is a prototype (BIS, 2026-05-27). | Interoperability; final settlement in central bank money |
+| Wholesale DLT | Live inside single operators | DLR and Kinexys are live. DTCC ran live tokenized trades on Canton and Besu on 2026-07-15 (secondary, per Red Team B) [Unverified, red-team sourced]. Agora is a prototype (BIS, 2026-05-27). | Interoperability; final settlement in central bank money |
 | Retail CBDC | 3 launched, 41 pilots | Atlantic Council, 2026-05 | Political opposition; weak usage |
 | Agentic payments | Live, early | x402: $42M settled cumulatively; about $274k in October 2026 | Consumer protection and liability rules (WS8) |
 
@@ -82,7 +85,7 @@ Research date: 2026-11-04. Status: v2, revised after Phase 4 verification and th
 | GENIUS Act | Public Law 119-27, signed 2025-07-18, effective 2027-01-18 | govinfo | [High] |
 | OCC GENIUS final rule | Issued 2026-10-21. Dropped the presumption that affiliate or white-label yield is prohibited. | OCC Bulletin 2026-50 via law-firm summaries | [Moderate] |
 | Fed GENIUS rules | Proposed 2026-09-24; comments close 2026-11-30; the proposal keeps an affiliate-yield presumption | Federal Register via Arnold & Porter | [Moderate] |
-| Fed payment accounts | Proposed limited-purpose account: no discount window, no interest, capped balances | CRS Insight IN12722 (2026-08-04), per Red Team A | [Moderate] |
+| Fed payment accounts | Proposed limited-purpose account: no discount window, no interest, capped balances | CRS Insight IN12722 (2026-08-04), per Red Team A | [Unverified, red-team sourced] |
 | CLARITY Act | Passed the House 294 to 134; Senate Banking 15 to 9; cloture failed 49 to 50 (2026-09-15); must be reintroduced in the 120th Congress | Latham; Orrick | [High] |
 | 2026 midterms | AP called both chambers for Democrats | CBS News, NBC, Forbes, 2026-11-04 | [Moderate] (seat counts provisional) |
 | SEC tokenized-stock exemption | Release 34-106402, expires 2031-09-17 | SEC; Sidley | [Moderate] |
@@ -145,7 +148,8 @@ Measures: S = stablecoin supply; T = distributed tokenized assets excluding stab
 | WS3 judgment | 50 / 43 / 7 | 38 / 51 / 11 |
 | Red Team A | 48 / 47 / 5 | 40 / 50 / 10 |
 | Red Team B | 38 / 54 / 8 | 30 / 55 / 15 |
-| **Panel mean (lead)** | **51 / 42 / 7** | **46 / 43 / 11** |
+| **Panel mean (lead)** | **51 / 41 / 8** | **46 / 43 / 11** |
+| Excluding red teams | 56 / 35 / 8 | 53 / 38 / 10 |
 
 Model variants for 2030 Bear:
 
@@ -153,7 +157,7 @@ Model variants for 2030 Bear:
 |---|---|
 | 12-month growth (measured at the trough) | 73% |
 | 36-month growth, decay 0.9 | 52% |
-| T including represented assets | 50% |
+| T including represented assets | Not meaningful: T is already $435B, above the Bear ceiling, so Bear needs represented value to fall below $100B. The model reports a soft score of 50% that ignores the classification rule. |
 
 - Inference: Momentum is pro-cyclical. The base model is most bearish at troughs, which is why it is one of five panel estimators and not the lead. [Moderate]
 - Inference: The most influential drivers are regulatory clarity and end-user demand, about 3.7 points of Bear each per notch. Bank capital treatment and political durability come next. [Moderate]
@@ -181,12 +185,12 @@ Model variants for 2030 Bear:
 | Issuance and float | Tether (offshore), Circle; bank issuers and yield-sharing coalitions entering | Medium to low. Take rate is compressing (Open USD coalition, 2026-06-30). | [Moderate] |
 | Distribution and wallets | Coinbase, Stripe, card networks, Robinhood | High | [Moderate] |
 | Custody and reserves | BNY, State Street, Anchorage | Medium. Licences are commoditizing as more charters are granted. | [Low] |
-| Settlement and clearing | DTCC, Broadridge, Digital Asset (Canton), Kinexys | Medium. Canton activity is concentrated in one application, DLR (Rosa and Roubini, 2026-05-21). | [Low] |
-| Public L1 and L2 tokens | Mixed: Ethereum fees low; Tron about $3.5B of revenue in 2025 (secondary); Hyperliquid routes most perp fees to buybacks | Low on average, high where the chain owns order flow. Fragile: Tron's validators cut base fees 60% on 2025-08-29. | [Moderate] |
+| Settlement and clearing | DTCC, Broadridge, Digital Asset (Canton), Kinexys | Medium. Canton activity is concentrated in one application, DLR (Rosa and Roubini, 2026-05-21) [Unverified, red-team sourced]. | [Low] |
+| Public L1 and L2 tokens | Mixed: Ethereum fees low; Tron about $3.5B of revenue in 2025 (secondary) [Unverified, red-team sourced]; Hyperliquid routes most perp fees to buybacks | Low on average, high where the chain owns order flow. Fragile: Tron's validators cut base fees 60% on 2025-08-29. | [Moderate] |
 | Base (L2) | Coinbase equity today. A Base token, if launched, could move sequencer revenue to token holders. | Medium | [Low] |
 | Tokenization platforms | Securitize, Ondo, Figure | Low to medium; products commoditize | [Low] |
 
-- Fact: Stablecoin flows move T-bill yields. WS4 reads BIS Working Paper 1270 as about 0.7 basis points on impact for a $3.5B inflow. Red Team A cites the 2026-02 revision as 2.5 to 3.5 basis points for a two-standard-deviation inflow, with outflows two to three times larger and 5 to 8 basis points under bill scarcity. [Moderate, magnitudes contested]
+- Fact: Stablecoin flows move T-bill yields. WS4 reads BIS Working Paper 1270 as about 0.7 basis points on impact for a $3.5B inflow. Red Team A cites the 2026-02 revision as 2.5 to 3.5 basis points for a two-standard-deviation inflow, with outflows two to three times larger and 5 to 8 basis points under bill scarcity. [Moderate, magnitudes contested; red-team figures unverified]
 - Inference: The asymmetry matters in a run more than in growth.
 - Fact: Fee pools at risk by 2030 are modest. Cross-border revenue is $293B (McKinsey, 2024) [Interested source], with 1% to 4% at risk. US card swipe fees are $198B (2025) [Interested source], with 0.5% to 2% at risk. Interchange legislation is a larger risk to V and MA than stablecoins are (Red Team A item 12). [Moderate]
 
@@ -194,11 +198,13 @@ Model variants for 2030 Bear:
 
 The matrix has 75 rows in `plays.csv` and `plays.xlsx`: Retail 51, Mid 13, Large 11. Each row has a band, a central estimate, a stress drawdown, a tier rank, a tax character and a kill criterion.
 
-**Method v2** (changelog C1, C2).
-- Central estimate: each workstream band is read as roughly the 10th to 90th percentile of annual returns. The central estimate is the midpoint minus σ²/2, where σ = (high - low) / 2.563. This is the compounding drag for volatile assets.
-- Ranking: plays are ranked within each tier by central excess return over 4.21%, with stress drawdown shown next to it. There is no ratio, because a ratio with a negative numerator ranks riskier assets higher.
-- Stress drawdowns are anchored on 2008 to 2009 for incumbents: V 50%, MA 60%, BK 65%, STT and ICE 80%, BLK 60% [Unverified history]. Crypto anchors are in `data/drawdowns.csv`.
-- Bands remain workstream judgment and mix one-year and multi-year framings. [Low]
+**Method v2.1** (changelog C1, C2, D1).
+- Price-range bands (method base_rate_analog, or any band wider than 20 points) are read as roughly the 10th to 90th percentile of annual returns. Central = midpoint - σ²/2, with σ = (high - low) / 2.563. This adds the compounding drag.
+- Narrow comps bands (incumbents, 10-year CAGR spreads) are already compounding rates. Central = midpoint; their risk sits in the stress column.
+- CRCL, COIN and HOOD state explicit bear, base and bull outcomes. Their central is weighted by the 2030 panel (0.51 / 0.41 / 0.08).
+- Private credit (M-08) is reduced by 1.5 points of expected credit loss: 2.5% default rate x 60% loss given default.
+- Ranking: within each tier, by central excess over 4.21%, with stress shown. There is no ratio.
+- Stress anchors for incumbents are 2008 to 2009 drawdowns [Unverified history]: V 50%, MA 60%, BK 65%, STT and ICE 80%, BLK 60%.
 
 **Valuation check** (WS5, stockanalysis.com, 2026-11-04):
 
@@ -211,7 +217,7 @@ The matrix has 75 rows in `plays.csv` and `plays.xlsx`: Retail 51, Mid 13, Large
 | BK | $151.55 | $102B | Forward P/E 14.9 | Reserve custody and tokenized fund servicing |
 
 - Inference: Crypto equities are not cheap on their own reverse-DCF hurdles. Those hurdles assume a recovery in crypto activity, even after drawdowns of about 68% (COIN) to 74% (CRCL) from peaks. [Moderate]
-- Inference: CRCL ranks above COIN on WS5's bands despite the "distribution wins" thesis. COIN carries trading-cycle beta and the Base-token risk, while CRCL's band embeds float leverage. Treat the two as a paired "stablecoin economics" option rather than choosing one. [Low]
+- Inference: On panel-weighted scenarios, CRCL (-1.8 pts) still ranks above COIN (-6.2 pts on R-02, -11.0 on A-04), despite the "distribution wins" thesis. COIN carries trading-cycle beta and the Base-token risk. Neither clears T-bills. Treat them as a paired "stablecoin economics" option only. [Low]
 
 **Stablecoin yield for US retail.**
 - Fact: GENIUS bars issuers from paying interest. Exchange rewards are not barred by the statute or the OCC final rule. Coinbase rewards were about 4.0% in Q1 2026 (third-party, eco.com) [SEO-shaped].
@@ -221,18 +227,18 @@ The matrix has 75 rows in `plays.csv` and `plays.xlsx`: Retail 51, Mid 13, Large
 
 | Risk | 5-year probability | Severity (1 to 5) | Hits hardest | Trigger |
 |---|---|---|---|---|
-| Single theft above $500M | 80% | 4 | Exchange equities, platform users | Any incident above $500M |
+| Single theft above $500M | 90% to 95% (base rate: 4 incidents in 6 years) | 4 | Exchange equities, platform users | Any incident above $500M |
 | Crypto equities fall further than BTC | 85% | 4 | COIN, HOOD, CRCL | COIN drawdown above 2x BTC's on a 60-day basis |
 | BTC at or below $63,000 at some point | 70% | 4 | Token ETPs, crypto equities | BTC close below $63,000 |
 | Issuer take rate falls over 25% | 65% | 4 | CRCL | Distribution costs above 62% of reserve income |
 | Yield ban extended to affiliates | 55% | 4 | CRCL, COIN | Final Fed rule keeps the presumption, or a statute |
-| Credit card interchange caps enacted | not estimated (added v2) | 4 | V, MA | Floor vote on a Credit Card Competition Act style bill |
+| Credit card routing mandate (Credit Card Competition Act) or a direct interchange cap | not estimated (added v2) | 4 | V, MA | Floor vote on either |
 | Policy reversal after 2028 | 35% | 4 | Agency-dependent plays | Change in SEC majority |
 | Disorderly run on a top-two issuer | about 10% | 5 | Issuers, tokenized MMFs, token ETPs | Weekly supply drop above 5% for a top-two issuer |
 
 - Fact: Hack losses were $2.2B in 2024 and $3.4B in 2025 (Chainalysis) [Interested source]. In 2026 they are about $8.6B to $8.74B through 2026-10-31, including Binance.
 
-> **Sizing rule (v2):** sum, across all holdings, of weight times stress drawdown, assuming correlation near 1 in stress. With incumbents at 50% to 80% stress, a 40% loss limit leaves room for only about 40% in equities if the rest is cash. Crypto options must come out of that budget.
+> **Sizing rule (v2.1):** sum, across all holdings, of weight times stress drawdown, assuming correlation near 1 in stress. With incumbents at 50% to 80% stress and the rest in cash, a 40% limit allows 50% to 80% in equities. The allocation targets 40% (Option A) to 50% (Option B) to keep a 7 to 15 point buffer. Crypto options come out of that budget.
 
 ## 8. Tax (WS7, `tax_matrix.csv`)
 
@@ -280,8 +286,10 @@ The matrix has 75 rows in `plays.csv` and `plays.xlsx`: Retail 51, Mid 13, Large
 | 2026-11-30 | Fed GENIUS comment period closes | Whether the affiliate-yield presumption survives |
 | 2026-12-09 | FOMC | A hike (priced): issuer income up, stablecoin supply pressure |
 | 2026-12-31 | Basel crypto review update due | Treatment of permissionless chains |
-| 2027-01-03 | 120th Congress convenes | Market structure and interchange bills |
+| 2026-12-31 | SEC Treasury clearing mandate, cash compliance date (verify; per red-team pass) | Demand for tokenized collateral |
+| 2027-01-03 | 120th Congress convenes | Market structure and routing or interchange bills |
 | 2027-01-18 | GENIUS Act effective | Count of approved issuers |
+| 2027-06-30 | SEC Treasury clearing mandate, repo compliance date (verify) | DLR and tokenized repo volume |
 | 2027-07-18 | Target date for final FDIC and Fed rules | Rule finality; Fed payment account terms |
 | 2027-10-11 | EU, UK, Switzerland move to T+1 | Modernization without DLT |
 | 2027-12-31 | WS3 test date | Stablecoins above $350B? Tokenized Treasuries above $30B? |
@@ -317,8 +325,10 @@ Both red-team dissents appear verbatim in Appendix A (macro economist and regula
 | B8: token capture counterexamples | Accepted. Tron and Hyperliquid added to Section 5. |
 | B7: CRCL above COIN | Accepted in part. Treated as a paired option. |
 | B10: M-08 drawdown | Accepted. Stress set to 30%; gates noted. |
-| A12: interchange legislation | Accepted. Added to risks and to V/MA kill criteria. |
+| A12: interchange legislation | Accepted. Added to risks, to plays.csv V/MA kill criteria and to personalized_plays.md. Mechanism corrected to a routing mandate. |
 | A15, A16, B9, B11 to B25, A8 to A27 (others) | Logged in `changelog.md` as accepted, partially accepted, or not adopted, with reasons |
+
+The second-pass review of the diff (`ws/redteam_diff.md`, 28 findings, verdict "acceptable after listed fixes") is addressed in `changelog.md` items D1 to D14.
 
 **Residual weaknesses (lead):**
 1. **Search caps cut evidence short.** Every workstream hit a cap between 11 and 30 searches.
@@ -326,6 +336,7 @@ Both red-team dissents appear verbatim in Appendix A (macro economist and regula
 3. **No W series.** There is no measured share of wholesale flows on ledgers.
 4. **The model is judgment.** Its weights are stated in `assumptions.md`.
 5. **Incumbent stress history is unverified.** The 2008 to 2009 figures are tagged [Unverified].
+6. **Some v2 facts come only from red-team text.** These are tagged [Unverified, red-team sourced]: the DTCC live trades, Fed payment account terms, the Tron and Hyperliquid figures, the Tron fee cut, the Canton concentration study, the Open USD coalition, the BIS WP 1270 revision magnitudes, the FOMC dissents and the hike pricing.
 
 ---
 

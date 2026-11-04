@@ -63,6 +63,18 @@ def tax_cols(pid):
     t = EXTRA[c]
     return c, t[0], t[1], t[2]
 
+
+OVERRIDE = {
+    ("M-06", "valuation_snapshot"): "Digital Asset (Canton) about $2B post-money, May 2026 round led by a16z crypto (The Block, Cointelegraph via red team B) [Unverified]",
+    ("L-04", "key_risk"): "Single-application concentration: much Canton activity is DLR (Rosa and Roubini 2026-05-21, via red team B) [Unverified]; consortium-failure base rate less relevant since live platforms exist",
+    ("R-36", "thesis"): "CRCL reserve income moves about +/-$739M gross (+/-$276M after distribution costs) per +/-100 bp at $73.9B USDC, before supply response; a hike is priced for 2026-12-09",
+    ("R-36", "kill_criterion"): "Exit if a rate cut cycle is priced (two cuts within 12 months in futures) or USDC supply falls 15% in a quarter during hikes",
+}
+for pid in ("R-09", "R-10", "A-01", "A-02"):
+    OVERRIDE[(pid, "kill_criterion")] = "Credit card routing mandate (Credit Card Competition Act) or a direct interchange cap enacted; or payments volume growth below 3% for two quarters"
+for (pid, col), val in OVERRIDE.items():
+    plays.loc[plays["play_id"] == pid, col] = val
+
 rows = [tax_cols(p) for p in plays["play_id"]]
 plays.insert(plays.columns.get_loc("tax_character"), "vehicle_class", [r[0] for r in rows])
 plays["tax_character"] = [r[1] for r in rows]
@@ -96,19 +108,35 @@ def band_lo_hi(s):
     m = re.findall(r"-?\d+(?:\.\d+)?", str(s))
     return (float(m[0]), float(m[1])) if len(m) >= 2 else (float("nan"), float("nan"))
 
-# Central estimate v2 (changelog C1): treat each band as roughly the 10th to 90th percentile of
-# annual returns; sigma = (high - low) / 2.563; geometric (compounding) central = midpoint - sigma^2 / 2.
-# Scenario weighting of bands (v1) is retired: it mapped adoption states onto non-adoption assets.
-def geo_central(s):
-    lo, hi = band_lo_hi(s)
+# Central estimate v3 (changelog D1, second-pass red team items 1, 2, 18):
+#  - base_rate_analog bands are one-year price ranges (arithmetic): central = midpoint - sigma^2/2,
+#    sigma = (high - low) / 2.563 (band read as 10th to 90th percentile).
+#  - comps and revenue_pool_share bands no wider than 20 points are 10-year CAGR spreads (already compounding):
+#    central = midpoint. Wider comps bands are price-outcome ranges and take the drag like base_rate_analog.
+#    Their dispersion is understated; risk is carried by the stress drawdown column.
+#  - reverse_dcf rows R-01 to R-03 state explicit bear/base/bull outcomes: central = panel-weighted
+#    (2030 panel 0.51 / 0.41 / 0.08) using WS5's stated scenario returns.
+#  - yield rows: midpoint; private credit (M-08) less 1.5 pts expected credit loss (2.5% default x 60% LGD).
+#  - The T-bill benchmark is 4.21 by definition.
+PANEL = (0.51, 0.41, 0.08)
+SCEN = {"R-01": (-5.4, 8.4, 21.5), "R-02": (-8.6, 3.4, 12.5), "R-03": (-8.9, 1.8, 9.7)}
+def central(row):
+    pid, meth, band = row["play_id"], row["return_method"], row["return_band_annual_pct"]
+    if pid == "R-27": return 4.21
+    if pid in SCEN:
+        b, m, u = SCEN[pid]; return round(PANEL[0] * b + PANEL[1] * m + PANEL[2] * u, 2)
+    lo, hi = band_lo_hi(band)
     if lo != lo: return float("nan")
     mid = (lo + hi) / 2
-    sig = (hi - lo) / 2.563 / 100
-    return round(mid - 100 * sig * sig / 2, 2)
+    if meth == "base_rate_analog" or (hi - lo) > 20:  # wide comps bands are price-outcome ranges, not CAGR spreads
+        sig = (hi - lo) / 2.563 / 100
+        return round(mid - 100 * sig * sig / 2, 2)
+    if pid == "M-08": return round(mid - 1.5, 2)
+    return round(mid, 2)
 
 TBILL = 4.21
 plays["return_mid_pct"] = plays["return_band_annual_pct"].map(band_mid)
-plays["geo_central_pct"] = plays["return_band_annual_pct"].map(geo_central)
+plays["geo_central_pct"] = plays.apply(central, axis=1)
 plays["stress_drawdown_pct"] = plays.apply(stress, axis=1)
 plays["excess_vs_tbill_pct"] = (plays["geo_central_pct"] - TBILL).round(2)
 plays.loc[plays["play_id"] == "R-27", "excess_vs_tbill_pct"] = 0.0

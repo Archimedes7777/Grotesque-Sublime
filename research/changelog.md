@@ -66,3 +66,24 @@ All changes to `REPORT.md`, `personalized_plays.md`, `plays.csv` and the packet 
 | B21, B22 (ETH test stops at fees; Base economics stale) | Noted | Staking yield and MEV not re-researched; Base token risk added |
 | B23 (13 unpriced rows dilute the matrix) | Adopted | Unpriced rows excluded from ranks (rank NA) |
 | B25 (tax confidence overstated) | Partly adopted | Rev. Proc. 2026-20 marked as secondary only |
+
+## Phase 6b: fixes from the second red-team pass on the diff (`ws/redteam_diff.md`, 28 findings)
+
+| # | Change | Finding |
+|---|---|---|
+| D1 | Central method v2.1. Drag applies only to price-range bands (base_rate_analog, or wider than 20 points). Narrow comps CAGR bands use the midpoint. CRCL, COIN and HOOD use panel-weighted stated scenario outcomes. M-08 takes 1.5 pts of expected credit loss. | 1, 2, 18 |
+| D2 | CRCL central 7.49% to 2.41% (-1.8 pts excess); dropped from the Retail top five and from all "except Circle" statements | 2, 10 |
+| D3 | 2030 panel rounded to 51 / 41 / 8. Added the line on excluding red teams (56%) and counting the model once (49%). | 7, 8 |
+| D4 | The represented-T variant's 50% Bear is marked not meaningful under the classification rule | 3 |
+| D5 | "Is it happening? Yes" changed to "Partly", consistent with no segment passing H0 | 4 |
+| D6 | Red-team-sourced v2 facts tagged [Unverified, red-team sourced]; residual weakness 6 added | 5 |
+| D7 | Canton: the M-06 valuation snapshot and L-04 key risk updated in plays.csv (lead override in merge_plays.py) | 6 |
+| D8 | V and MA kill criteria in plays.csv and personalized_plays.md now name the routing mandate (Credit Card Competition Act) or a direct cap | 13 |
+| D9 | Option B uses one central per ticker, taking the lower of duplicate rows (COIN A-04). Option B central 5.41% to 5.09%. Option A 5.70% to 5.71% after rounding fixes (T-bill 4.21). | 12, 21, 22 |
+| D10 | Rebalancing R3 changed to target plus 5 points | 19 |
+| D11 | Real-return labels: pre-tax and ex post, against trailing CPI; 10-year Treasury (4.91%) added as a second benchmark; breakeven not retrieved | 15 |
+| D12 | Sizing rule arithmetic corrected: a 40% limit allows 50% to 80% equities at 50% to 80% stress | 11 |
+| D13 | Theft probability raised from 80% to 90% to 95% in risks.csv R10 and the report, on an incident base rate | 16 |
+| D14 | Treasury clearing mandate dates added to the catalyst calendar (verify); the exec summary states that Option A holds no options; R-36 made symmetric to rates | 14, 17, 20 |
+
+Not adopted from the second pass: widening incumbent CAGR bands to ±6 points (finding 1, alternative fix). The midpoint stays; dispersion is carried by the stress column and is stated as a caveat.

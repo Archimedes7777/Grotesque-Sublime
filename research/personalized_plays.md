@@ -1,6 +1,6 @@
 # Personalized plays: illustrative allocation for the Section 0 investor
 
-Date: 2026-11-04. Version 2, revised after the red teams (changelog C6). This is an illustrative allocation built from the research matrix, not advice. Verify prices, product availability and tax treatment before acting, and consult a licensed advisor and a CPA.
+Date: 2026-11-04. Version 2.1, revised after the red teams and the second-pass review (changelog C6, D9 to D12). This is an illustrative allocation built from the research matrix, not advice. Verify prices, product availability and tax treatment before acting, and consult a licensed advisor and a CPA.
 
 ## Inputs (mandate Section 0) and how they bind
 
@@ -18,15 +18,15 @@ Date: 2026-11-04. Version 2, revised after the red teams (changelog C6). This is
 
 | # | Position | Play ID | Weight | USD | Stress | Central return | Entry |
 |---|---|---|---|---|---|---|---|
-| 1 | US T-bills, 3 to 12 month ladder | R-27 | 45% | $22,500 | 0% | 4.20% | Buy now |
-| 2 | Reserve tranche in T-bills | R-27 | 10% | $5,000 | 0% | 4.20% | Deploy only on the triggers below |
+| 1 | US T-bills, 3 to 12 month ladder | R-27 | 45% | $22,500 | 0% | 4.21% | Buy now |
+| 2 | Reserve tranche in T-bills | R-27 | 10% | $5,000 | 0% | 4.21% | Deploy only on the triggers below |
 | 3 | Franklin BENJI (FOBXX) | R-26 | 5% | $2,500 | 2% | 3.85% | Confirm California eligibility and the minimum in the Benji app; otherwise add to item 1 |
-| 4 | Visa (V) | R-09 | 10% | $5,000 | 50% | 8.49% | 3 equal monthly tranches |
-| 5 | Mastercard (MA) | R-10 | 10% | $5,000 | 60% | 8.49% | 3 equal monthly tranches |
-| 6 | BNY (BK) | R-12 | 7.5% | $3,750 | 65% | 7.97% | 3 equal monthly tranches |
-| 7 | BlackRock (BLK) | R-18 | 5% | $2,500 | 60% | 7.48% | 3 equal monthly tranches |
-| 8 | Intercontinental Exchange (ICE) | R-16 | 7.5% | $3,750 | 80% | 6.97% | 3 equal monthly tranches |
-| | **Total** | | **100%** | **$50,000** | **25.0%** | **5.70%** | |
+| 4 | Visa (V) | R-09 | 10% | $5,000 | 50% | 8.50% | 3 equal monthly tranches |
+| 5 | Mastercard (MA) | R-10 | 10% | $5,000 | 60% | 8.50% | 3 equal monthly tranches |
+| 6 | BNY (BK) | R-12 | 7.5% | $3,750 | 65% | 8.00% | 3 equal monthly tranches |
+| 7 | BlackRock (BLK) | R-18 | 5% | $2,500 | 60% | 7.50% | 3 equal monthly tranches |
+| 8 | Intercontinental Exchange (ICE) | R-16 | 7.5% | $3,750 | 80% | 7.00% | 3 equal monthly tranches |
+| | **Total** | | **100%** | **$50,000** | **25.0%** | **5.71%** | |
 
 **Reserve triggers** (deploy $2,500 per trigger, at most twice):
 - (a) Any of V, MA, BK falls 25% from its purchase price with its kill criterion intact.
@@ -38,17 +38,17 @@ Option B moves 10 points from item 1 into four options:
 
 | Position | Play ID | Weight | USD | Stress | Central return | Role |
 |---|---|---|---|---|---|---|
-| Circle (CRCL) | R-01 | 2.5% | $1,250 | 83% | 7.49% | Issuer float leverage |
-| Coinbase (COIN) | R-02 | 2.5% | $1,250 | 92% | 1.16% | Distributor; Base-token risk |
+| Circle (CRCL) | R-01 | 2.5% | $1,250 | 83% | 2.41% | Issuer float leverage (panel-weighted scenarios) |
+| Coinbase (COIN) | A-04 (lower of R-02, A-04) | 2.5% | $1,250 | 92% | -6.78% | Distributor; Base-token risk |
 | iShares Bitcoin Trust (IBIT) | R-20 | 2.5% | $1,250 | 77% | -4.92% | Monetary-asset option, not adoption |
 | iShares Ethereum Trust (ETHA) | R-21 | 2.5% | $1,250 | 85% | 1.45% | Settlement chain for 47% of stablecoins |
 
 | Measure | Option A | Option B |
 |---|---|---|
 | Stress loss | 25.0% | 33.4% |
-| Central return | 5.70% | 5.41% |
+| Central return | 5.71% | 5.09% |
 
-- Inference: Option B lowers the central estimate and raises stress. Choose it only if you want exposure to the Bull tail (7% in 2030, 11% in 2035) and accept that cost. [Moderate]
+- Inference: Option B lowers the central estimate and raises stress. Choose it only if you want exposure to the Bull tail (8% in 2030, 11% in 2035) and accept that cost. One central per ticker is used, taking the lower of duplicate rows. [Moderate]
 
 **After-tax arithmetic**
 
@@ -58,7 +58,8 @@ Assumption P3-6: federal 24% ordinary and 15% long-term gains, plus California 9
 |---|---|
 | Option A, after tax | about 0.60 x (4.2 x 0.76) + 0.40 x (8.0 x 0.757) = about 4.3% a year |
 | T-bills alone, after tax | 4.21 x 0.76 = 3.2% a year |
-| Real return (CPI 3.7%) | about +0.6 points for Option A; about -0.5 points for T-bills alone |
+| Real return | About +0.6 points for Option A and about -0.5 points for T-bills alone. This is ex post, against trailing headline CPI of 3.7%, and assumes today's bill rate persists. A 10-year breakeven inflation rate was not retrieved; check FRED T10YIE. |
+| Second benchmark | The 10-year Treasury at 4.91% (H.15, 2026-11-02) suits the 10-year horizon. Option A's central return beats it by about 0.8 points pre-tax. |
 
 - Inference: The excess over T-bills comes mainly from the incumbents' core franchises, not from the theme. That is the honest finding of this research. [Moderate]
 
@@ -77,7 +78,7 @@ Assumption P3-6: federal 24% ordinary and 15% long-term gains, plus California 9
 |---|---|---|
 | R1 | Annual (first trading day of November) | Return to target weights, selling lots held over 1 year first |
 | R2 | Any position 5 or more points from target | Rebalance that position |
-| R3 | Total equity and option weight exceeds 50% | Trim to 40% (A) or 50% (B) |
+| R3 | Equity plus option weight exceeds its target by 5 points (45% for A, 55% for B) | Trim to target |
 | R4 | Sleeve drawdown reaches 25% | Freeze additions; review kill criteria |
 | R5 | Sleeve drawdown reaches 35% | Sell Option B positions to T-bills first, then trim equities to protect the 40% limit |
 
@@ -85,7 +86,7 @@ Assumption P3-6: federal 24% ordinary and 15% long-term gains, plus California 9
 
 | Position | Exit if |
 |---|---|
-| V, MA | Credit card interchange caps enacted (Credit Card Competition Act style), or payments volume growth below 3% for two quarters |
+| V, MA | A credit card routing mandate (Credit Card Competition Act) or a direct interchange cap enacted, or payments volume growth below 3% for two quarters |
 | BK | Loss of a top-two stablecoin reserve custody mandate, or a material custody incident |
 | BLK, ICE | Tokenized-fund or venue franchise lost to a new entrant, shown by two consecutive quarters of share loss in their disclosures |
 | CRCL (B) | USDC below $55B for two quarters, or distribution costs above 70% of reserve income |

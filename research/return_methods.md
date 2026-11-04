@@ -2,7 +2,7 @@
 
 Each row gives the workstream's stated method and arithmetic (verbatim from `return_method_detail`), then the lead's v2 central estimate.
 
-Lead formula (v2): read the band as roughly the 10th to 90th percentile of annual returns. sigma = (high - low) / 2.563; central = midpoint - sigma^2 / 2 (compounding drag). Excess = central - 4.21% (3M T-bill constant maturity, H.15, 2026-11-02). Plays are ranked within tier on excess; stress drawdown is shown separately (assumptions.md P6-1 to P6-3).
+Lead formula (v2.1): price-range bands (base_rate_analog, or wider than 20 points) are read as the 10th to 90th percentile of annual returns, and central = midpoint - sigma^2/2 with sigma = (high - low)/2.563. Narrow comps bands (10-year CAGR spreads) use central = midpoint. R-01 to R-03 use panel-weighted bear/base/bull outcomes (0.51/0.41/0.08). M-08 takes 1.5 pts of expected credit loss. Excess = central - 4.21% (3M T-bill constant maturity, H.15, 2026-11-02). Plays are ranked within tier on excess; stress is shown separately (assumptions.md P6-1 to P6-3, P6-9).
 
 Retired v1 method: scenario-weighting of band low, mid and high by Bear, Base and Bull probabilities. Both red teams showed it maps adoption states onto assets whose returns do not depend on adoption (changelog C1).
 
@@ -13,19 +13,19 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: -5 to 21 percent per year. Method: reverse_dcf.
 - Workstream arithmetic (WS5): Price implies 10y rev CAGR 16.1%: mcap 19.52B x1.10^10 / 20x P/E = 2.53B NI; /20% margin = 12.7B rev vs 2.85B TTM ex-presale. Scenarios: bear USDC 120B x3.0% = 3.6B res inc, NI 0.75B x15 = 11.2B (-5.4%/yr); base 300B x3.5% NI 2.19B x20 = 43.8B (+8.4%/yr); bull 750B NI 5.47B x25 = 136.7B (+21.5%/yr)
-- Lead central estimate: mid = (-5 + 21) / 2 = 8; sigma = 26 / 2.563 = 10.1%; central = 8 - 10.1^2 / 200 = 7.49%; excess 3.28 pts; stress 83%; tier rank 7.0
+- Lead central estimate: panel-weighted scenario outcomes (see workstream arithmetic) = 2.41%; excess -1.80 pts; stress 83%; tier rank 19.0
 
 ## R-02 Coinbase common stock (COIN), Retail, Medium
 
 - Band: -9 to 12 percent per year. Method: reverse_dcf.
 - Workstream arithmetic (WS5): Price implies 10y rev CAGR 17.0%: mcap 40.21B x1.10^10 /20x = 5.21B NI; /20% = 26.1B rev vs 5.44B TTM. Scenarios: bear rev flat 5.44B NI 1.09B x15 = 16.3B (-8.6%/yr); base 10% CAGR NI 2.82B x20 = 56.4B (+3.4%/yr); bull 26B NI 5.2B x25 = 130B (+12.5%/yr)
-- Lead central estimate: mid = (-9 + 12) / 2 = 1.5; sigma = 21 / 2.563 = 8.2%; central = 1.5 - 8.2^2 / 200 = 1.16%; excess -3.05 pts; stress 92%; tier rank 23.0
+- Lead central estimate: panel-weighted scenario outcomes (see workstream arithmetic) = -1.99%; excess -6.20 pts; stress 92%; tier rank 34.0
 
 ## R-03 Robinhood common stock (HOOD), Retail, Medium
 
 - Band: -9 to 10 percent per year. Method: reverse_dcf.
 - Workstream arithmetic (WS5): Price implies 10y rev CAGR 18.3 to 21.0%: mcap 78.91B x1.10^10 /25x = 8.19B NI; /30% = 27.3B rev vs 5.08B TTM. Scenarios: bear 5% CAGR NI 2.07B x15 = 31B (-8.9%/yr); base 12% NI 4.73B x20 = 94.7B (+1.8%/yr); bull 18% NI 7.98B x25 = 199B (+9.7%/yr)
-- Lead central estimate: mid = (-9 + 10) / 2 = 0.5; sigma = 19 / 2.563 = 7.4%; central = 0.5 - 7.4^2 / 200 = 0.23%; excess -3.98 pts; stress 92%; tier rank 26.0
+- Lead central estimate: panel-weighted scenario outcomes (see workstream arithmetic) = -3.03%; excess -7.24 pts; stress 92%; tier rank 36.0
 
 ## R-04 Galaxy Digital Class A (GLXY), Retail, Medium
 
@@ -49,79 +49,79 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: -60 to 100 percent per year. Method: base_rate_analog.
 - Workstream arithmetic (WS5): Price 2.70 vs 52w high 17.77 = -84.8%; options-like payoff: 0.4x (-60%) if burn continues, 2x (+100%) if acquired or recovers
-- Lead central estimate: mid = (-60 + 100) / 2 = 20; sigma = 160 / 2.563 = 62.4%; central = 20 - 62.4^2 / 200 = 0.51%; excess -3.70 pts; stress 80%; tier rank 25.0
+- Lead central estimate: mid = (-60 + 100) / 2 = 20; sigma = 160 / 2.563 = 62.4%; central = 20 - 62.4^2 / 200 = 0.51%; excess -3.70 pts; stress 80%; tier rank 24.0
 
 ## R-08 Securitize Corp (SECZ), Retail, Medium
 
 - Band: -45 to 80 percent per year. Method: comps.
 - Workstream arithmetic (WS5): mcap 1.39B / rev 66.77M = 20.8x sales; at 10x on 2x revenue (133M) = 1.33B (-4%); at 20x on 3x (200M) = 4.0B (+188%) over 3y = +42%/yr; bear 5x on flat = 0.33B (-76% total)
-- Lead central estimate: mid = (-45 + 80) / 2 = 17.5; sigma = 125 / 2.563 = 48.8%; central = 17.5 - 48.8^2 / 200 = 5.61%; excess 1.40 pts; stress 80%; tier rank 17.0
+- Lead central estimate: mid = (-45 + 80) / 2 = 17.5; sigma = 125 / 2.563 = 48.8%; central = 17.5 - 48.8^2 / 200 = 5.61%; excess 1.40 pts; stress 80%; tier rank 16.0
 
 ## R-09 Visa (V), Retail, Long
 
 - Band: 7 to 10 percent per year. Method: comps.
 - Workstream arithmetic (WS5): P/E 35.2 to exit 28 with EPS +10%/yr (assumption): 1.10^10 x 28/35.2 = 2.06x = 7.5%/yr plus 0.8% yield = 8.3%
-- Lead central estimate: mid = (7 + 10) / 2 = 8.5; sigma = 3 / 2.563 = 1.2%; central = 8.5 - 1.2^2 / 200 = 8.49%; excess 4.28 pts; stress 50%; tier rank 3.0
+- Lead central estimate: CAGR band, central = midpoint 8.5 = 8.50%; excess 4.29 pts; stress 50%; tier rank 3.0
 
 ## R-10 Mastercard (MA), Retail, Long
 
 - Band: 7 to 10 percent per year. Method: comps.
 - Workstream arithmetic (WS5): P/E 35.1 to 28 with EPS +11% (assumption): 1.11^10 x 28/35.1 = 2.27x = 8.5%/yr plus 0.5% = 9.0%
-- Lead central estimate: mid = (7 + 10) / 2 = 8.5; sigma = 3 / 2.563 = 1.2%; central = 8.5 - 1.2^2 / 200 = 8.49%; excess 4.28 pts; stress 60%; tier rank 3.0
+- Lead central estimate: CAGR band, central = midpoint 8.5 = 8.50%; excess 4.29 pts; stress 60%; tier rank 3.0
 
 ## R-11 PayPal (PYPL), Retail, Long
 
 - Band: 0 to 12 percent per year. Method: comps.
 - Workstream arithmetic (WS5): P/E 11.5 exit 11: EPS +3%/yr gives 1.03^10 x 11/11.5 = 1.29x = 2.6%/yr; EPS +8% gives 2.06x = 7.5%/yr; plus buybacks to about 12% (assumptions)
-- Lead central estimate: mid = (0 + 12) / 2 = 6; sigma = 12 / 2.563 = 4.7%; central = 6 - 4.7^2 / 200 = 5.89%; excess 1.68 pts; stress 80%; tier rank 16.0
+- Lead central estimate: CAGR band, central = midpoint 6 = 6.00%; excess 1.79 pts; stress 80%; tier rank 14.0
 
 ## R-12 BNY (Bank of New York Mellon) (BK), Retail, Long
 
 - Band: 5 to 11 percent per year. Method: comps.
 - Workstream arithmetic (WS5): P/E 16.8 trailing, 14.9 fwd; EPS +6%/yr and flat multiple 1.06^10 = 1.79x = 6.0%/yr plus 2.0% yield (assumptions) = 8%
-- Lead central estimate: mid = (5 + 11) / 2 = 8; sigma = 6 / 2.563 = 2.3%; central = 8 - 2.3^2 / 200 = 7.97%; excess 3.76 pts; stress 65%; tier rank 5.0
+- Lead central estimate: CAGR band, central = midpoint 8 = 8.00%; excess 3.79 pts; stress 65%; tier rank 5.0
 
 ## R-13 State Street (STT), Retail, Long
 
 - Band: 4 to 10 percent per year. Method: comps.
 - Workstream arithmetic (WS5): P/E 14.05 flat; EPS +5%/yr = 1.05^10 = 1.63x = 5%/yr plus 3% yield (assumptions) = 8%
-- Lead central estimate: mid = (4 + 10) / 2 = 7; sigma = 6 / 2.563 = 2.3%; central = 7 - 2.3^2 / 200 = 6.97%; excess 2.76 pts; stress 80%; tier rank 9.0
+- Lead central estimate: CAGR band, central = midpoint 7 = 7.00%; excess 2.79 pts; stress 80%; tier rank 8.0
 
 ## R-14 JPMorgan Chase (Kinexys) (JPM), Retail, Long
 
 - Band: 3 to 9 percent per year. Method: comps.
 - Workstream arithmetic (WS5): P/E 14.7 exit 13; EPS +6%: 1.06^10 x 13/14.7 = 1.58x = 4.7%/yr plus 2% yield = 6.7%
-- Lead central estimate: mid = (3 + 9) / 2 = 6; sigma = 6 / 2.563 = 2.3%; central = 6 - 2.3^2 / 200 = 5.97%; excess 1.76 pts; stress 70%; tier rank 15.0
+- Lead central estimate: CAGR band, central = midpoint 6 = 6.00%; excess 1.79 pts; stress 70%; tier rank 14.0
 
 ## R-15 Nasdaq Inc (NDAQ), Retail, Long
 
 - Band: 4 to 9 percent per year. Method: comps.
 - Workstream arithmetic (WS5): P/E 29.9 exit 25; EPS +9%: 1.09^10 x 25/29.9 = 1.98x = 7.1%/yr plus 1.2% yield = 8.3%
-- Lead central estimate: mid = (4 + 9) / 2 = 6.5; sigma = 5 / 2.563 = 2.0%; central = 6.5 - 2.0^2 / 200 = 6.48%; excess 2.27 pts; stress 65%; tier rank 12.0
+- Lead central estimate: CAGR band, central = midpoint 6.5 = 6.50%; excess 2.29 pts; stress 65%; tier rank 11.0
 
 ## R-16 Intercontinental Exchange (ICE), Retail, Long
 
 - Band: 4 to 10 percent per year. Method: comps.
 - Workstream arithmetic (WS5): P/E 23.7 flat; EPS +8%: 1.08^10 = 2.16x = 8%/yr plus 1.2% yield (assumptions) = 9%
-- Lead central estimate: mid = (4 + 10) / 2 = 7; sigma = 6 / 2.563 = 2.3%; central = 7 - 2.3^2 / 200 = 6.97%; excess 2.76 pts; stress 80%; tier rank 9.0
+- Lead central estimate: CAGR band, central = midpoint 7 = 7.00%; excess 2.79 pts; stress 80%; tier rank 8.0
 
 ## R-17 CME Group (CME), Retail, Long
 
 - Band: 4 to 9 percent per year. Method: comps.
 - Workstream arithmetic (WS5): P/E 25.1 flat; EPS +7%: 1.07^10 = 1.97x = 7%/yr plus 2% yield (assumptions) = 9%
-- Lead central estimate: mid = (4 + 9) / 2 = 6.5; sigma = 5 / 2.563 = 2.0%; central = 6.5 - 2.0^2 / 200 = 6.48%; excess 2.27 pts; stress 70%; tier rank 12.0
+- Lead central estimate: CAGR band, central = midpoint 6.5 = 6.50%; excess 2.29 pts; stress 70%; tier rank 11.0
 
 ## R-18 BlackRock (BUIDL, IBIT) (BLK), Retail, Long
 
 - Band: 5 to 10 percent per year. Method: comps.
 - Workstream arithmetic (WS5): P/E 27.9 exit 23; EPS +9%: 1.09^10 x 23/27.9 = 1.95x = 6.9%/yr plus 2% yield = 8.9%
-- Lead central estimate: mid = (5 + 10) / 2 = 7.5; sigma = 5 / 2.563 = 2.0%; central = 7.5 - 2.0^2 / 200 = 7.48%; excess 3.27 pts; stress 60%; tier rank 8.0
+- Lead central estimate: CAGR band, central = midpoint 7.5 = 7.50%; excess 3.29 pts; stress 60%; tier rank 7.0
 
 ## R-19 Franklin Resources (BENJI) (BEN), Retail, Long
 
 - Band: 4 to 10 percent per year. Method: comps.
 - Workstream arithmetic (WS5): P/E 22.9 exit 18; EPS +5%: 1.05^10 x 18/22.9 = 1.28x = 2.5%/yr plus 4.5% yield = 7% (assumptions)
-- Lead central estimate: mid = (4 + 10) / 2 = 7; sigma = 6 / 2.563 = 2.3%; central = 7 - 2.3^2 / 200 = 6.97%; excess 2.76 pts; stress 65%; tier rank 9.0
+- Lead central estimate: CAGR band, central = midpoint 7 = 7.00%; excess 2.79 pts; stress 65%; tier rank 8.0
 
 ## R-20 iShares Bitcoin Trust (IBIT), Retail, Long
 
@@ -145,7 +145,7 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: -75 to 150 percent per year. Method: base_rate_analog.
 - Workstream arithmetic (WS5): SOL 1y -38.8% YTD -25.5% (CMC); BSOL 1y -47.4%; 0.15x (-17%/yr over 10y) to 5x (+17%/yr)
-- Lead central estimate: mid = (-75 + 150) / 2 = 37.5; sigma = 225 / 2.563 = 87.8%; central = 37.5 - 87.8^2 / 200 = -1.03%; excess -5.24 pts; stress 85%; tier rank 33.0
+- Lead central estimate: mid = (-75 + 150) / 2 = 37.5; sigma = 225 / 2.563 = 87.8%; central = 37.5 - 87.8^2 / 200 = -1.03%; excess -5.24 pts; stress 85%; tier rank 31.0
 
 ## R-24 Spot XRP ETFs (XRPZ 0.19%, TOXR 0.30%, Bitwise 0.34%, GXRP 0.35%, XRPC 0.50%), Retail, Long
 
@@ -157,19 +157,19 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: -35 to 45 percent per year. Method: base_rate_analog.
 - Workstream arithmetic (WS5): BLOK 1y -25.6% (2026-11-04); basket beta ~1.0 to 1.3 vs BTC; 1.2 x -20% = -24% central, +/-1 sigma 30%
-- Lead central estimate: mid = (-35 + 45) / 2 = 5; sigma = 80 / 2.563 = 31.2%; central = 5 - 31.2^2 / 200 = 0.13%; excess -4.08 pts; stress 75%; tier rank 28.0
+- Lead central estimate: mid = (-35 + 45) / 2 = 5; sigma = 80 / 2.563 = 31.2%; central = 5 - 31.2^2 / 200 = 0.13%; excess -4.08 pts; stress 75%; tier rank 26.0
 
 ## R-26 Franklin OnChain U.S. Government Money Fund (BENJI) (Benji Investments app (FOBXX)), Retail, Short
 
 - Band: 3.5 to 4.2 percent per year. Method: yield.
 - Workstream arithmetic (WS5): 3M CMT 4.21% (H.15 2026-11-02) less assumed 0.2 to 0.7% fee = 3.5 to 4.0%; fund-level yield not fetched
-- Lead central estimate: mid = (3.5 + 4.2) / 2 = 3.85; sigma = 0.7 / 2.563 = 0.3%; central = 3.85 - 0.3^2 / 200 = 3.85%; excess -0.36 pts; stress 2%; tier rank 18.0
+- Lead central estimate: CAGR band, central = midpoint 3.85 = 3.85%; excess -0.36 pts; stress 2%; tier rank 17.0
 
 ## R-27 Benchmark: 3M T-bill / SPY (T-bill ladder; SPY), Retail, Short
 
 - Band: 4.0 to 4.4 percent per year. Method: yield.
 - Workstream arithmetic (WS5): 3M 4.21%, 1M 4.05%, 1Y 4.38% (H.15 2026-11-02); SPY 1y +13.5%, YTD +13.4% (SPY 767.38); S&P long-run about 10% nominal is commonly cited, not fetched
-- Lead central estimate: mid = (4 + 4.4) / 2 = 4.2; sigma = 0.4 / 2.563 = 0.2%; central = 4.2 - 0.2^2 / 200 = 4.20%; excess 0.00 pts; stress 0%; tier rank NA
+- Lead central estimate: CAGR band, central = midpoint 4.2 = 4.21%; excess 0.00 pts; stress 0%; tier rank NA
 
 ## R-28 Ether (direct token) (ETH via Coinbase or Kraken), Retail, Long
 
@@ -181,19 +181,19 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: -75 to 150 percent per year. Method: base_rate_analog.
 - Workstream arithmetic (WS5): SOL 94.44; 1y -38.8%; see R-23
-- Lead central estimate: mid = (-75 + 150) / 2 = 37.5; sigma = 225 / 2.563 = 87.8%; central = 37.5 - 87.8^2 / 200 = -1.03%; excess -5.24 pts; stress 85%; tier rank 33.0
+- Lead central estimate: mid = (-75 + 150) / 2 = 37.5; sigma = 225 / 2.563 = 87.8%; central = 37.5 - 87.8^2 / 200 = -1.03%; excess -5.24 pts; stress 85%; tier rank 31.0
 
 ## R-30 Chainlink (direct token) (LINK), Retail, Long
 
 - Band: -70 to 150 percent per year. Method: base_rate_analog.
 - Workstream arithmetic (WS5): LINK 11.35; 1y -20.4%; 30d -18.5%; 0.2x to 4x endpoints over 10y
-- Lead central estimate: mid = (-70 + 150) / 2 = 40; sigma = 220 / 2.563 = 85.8%; central = 40 - 85.8^2 / 200 = 3.16%; excess -1.05 pts; stress 85%; tier rank 19.0
+- Lead central estimate: mid = (-70 + 150) / 2 = 40; sigma = 220 / 2.563 = 85.8%; central = 40 - 85.8^2 / 200 = 3.16%; excess -1.05 pts; stress 85%; tier rank 18.0
 
 ## R-31 USDC / issuer-paid yield (USDC held at Coinbase, Kraken, wallet), Retail, Short
 
 - Band: 0 to 0 percent per year. Method: yield.
 - Workstream arithmetic (WS5): GENIUS Act bars issuer interest or yield to holders (Latham tracker); Circle reserve return 3.54% (Q3 2026) retained by Circle vs 4.21% 3M bill; holder spread is -4.21pp opportunity cost
-- Lead central estimate: mid = (0 + 0) / 2 = 0; sigma = 0 / 2.563 = 0.0%; central = 0 - 0.0^2 / 200 = 0.00%; excess -4.21 pts; stress 2%; tier rank 29.0
+- Lead central estimate: CAGR band, central = midpoint 0 = 0.00%; excess -4.21 pts; stress 2%; tier rank 27.0
 
 ## R-32 Exchange or platform stablecoin rewards (Third-party rewards programs), Retail, Short
 
@@ -211,13 +211,13 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: -15 to 15 percent per year. Method: base_rate_analog.
 - Workstream arithmetic (WS5): Regulatory-clarity events usually priced in; +/-15% range = 1 sigma of one-month move for CRCL (30d vol 89.9% / sqrt(12) = 26% monthly; half-weight assumption)
-- Lead central estimate: mid = (-15 + 15) / 2 = 0; sigma = 30 / 2.563 = 11.7%; central = 0 - 11.7^2 / 200 = -0.69%; excess -4.90 pts; stress 83%; tier rank 32.0
+- Lead central estimate: mid = (-15 + 15) / 2 = 0; sigma = 30 / 2.563 = 11.7%; central = 0 - 11.7^2 / 200 = -0.69%; excess -4.90 pts; stress 83%; tier rank 30.0
 
 ## R-35 Event: CLARITY Act revival or death (COIN, HOOD, CRCL basket), Retail, Short
 
 - Band: -25 to 30 percent per year. Method: base_rate_analog.
 - Workstream arithmetic (WS5): Market-structure bill odds cited at 7 to 9% (defirate, single source); passage +25% on COIN/HOOD analog vs no-action -10%; probability-weighted 0.08 x 30 + 0.92 x -2 = +0.6%
-- Lead central estimate: mid = (-25 + 30) / 2 = 2.5; sigma = 55 / 2.563 = 21.5%; central = 2.5 - 21.5^2 / 200 = 0.20%; excess -4.01 pts; stress 92%; tier rank 27.0
+- Lead central estimate: mid = (-25 + 30) / 2 = 2.5; sigma = 55 / 2.563 = 21.5%; central = 2.5 - 21.5^2 / 200 = 0.20%; excess -4.01 pts; stress 92%; tier rank 25.0
 
 ## R-36 Event: Fed path and CRCL rate sensitivity (CRCL), Retail, Short
 
@@ -235,7 +235,7 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: -10 to 10 percent per year. Method: base_rate_analog.
 - Workstream arithmetic (WS5): IPO supply of a direct comp historically weighs on peers; +/-10% assumption
-- Lead central estimate: mid = (-10 + 10) / 2 = 0; sigma = 20 / 2.563 = 7.8%; central = 0 - 7.8^2 / 200 = -0.30%; excess -4.51 pts; stress 92%; tier rank 31.0
+- Lead central estimate: mid = (-10 + 10) / 2 = 0; sigma = 20 / 2.563 = 7.8%; central = 0 - 7.8^2 / 200 = -0.30%; excess -4.51 pts; stress 92%; tier rank 29.0
 
 ## M-01 Kraken (Payward) secondary (Forge, Hiive, EquityZen), Mid, Short
 
@@ -259,7 +259,7 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: -20 to 40 percent per year. Method: comps.
 - Workstream arithmetic (WS5): Mark 4.2B (Tether 100M, 2026-02-05); IPO at 6B in 2y = +20%/yr; 2.8B = -18%/yr
-- Lead central estimate: mid = (-20 + 40) / 2 = 10; sigma = 60 / 2.563 = 23.4%; central = 10 - 23.4^2 / 200 = 7.26%; excess 3.05 pts; stress 75%; tier rank 4.0
+- Lead central estimate: mid = (-20 + 40) / 2 = 10; sigma = 60 / 2.563 = 23.4%; central = 10 - 23.4^2 / 200 = 7.26%; excess 3.05 pts; stress 75%; tier rank 3.0
 
 ## M-05 Fireblocks secondary (NPM, brokers), Mid, Medium
 
@@ -277,25 +277,25 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: -10 to 25 percent per year. Method: base_rate_analog.
 - Workstream arithmetic (WS5): Venture net IRR dispersion: median about 10%, top quartile 20 to 25% (general VC base rate, unverified); minimums not found
-- Lead central estimate: mid = (-10 + 25) / 2 = 7.5; sigma = 35 / 2.563 = 13.7%; central = 7.5 - 13.7^2 / 200 = 6.57%; excess 2.36 pts; stress 75%; tier rank 5.0
+- Lead central estimate: mid = (-10 + 25) / 2 = 7.5; sigma = 35 / 2.563 = 13.7%; central = 7.5 - 13.7^2 / 200 = 6.57%; excess 2.36 pts; stress 75%; tier rank 4.0
 
 ## M-08 Tokenized private credit funds (Apollo ACRED and Hamilton Lane via Securitize), Mid, Medium
 
 - Band: 6 to 9 percent per year. Method: yield.
 - Workstream arithmetic (WS5): 4.21% 3M bill + 2.5 to 4.0pp credit spread (assumption) = 6.7 to 8.2% gross, less fees about 0.5 to 1% = 6 to 9%
-- Lead central estimate: mid = (6 + 9) / 2 = 7.5; sigma = 3 / 2.563 = 1.2%; central = 7.5 - 1.2^2 / 200 = 7.49%; excess 3.28 pts; stress 30%; tier rank 3.0
+- Lead central estimate: CAGR band, central = midpoint 7.5 less 1.5 expected loss = 6.00%; excess 1.79 pts; stress 30%; tier rank 5.0
 
 ## M-09 Tokenized Treasury and MMF (qualified) (BUIDL, OUSG), Mid, Short
 
 - Band: 3.7 to 4.1 percent per year. Method: yield.
 - Workstream arithmetic (WS5): 3M 4.21% less fee 0.2 to 0.5% (assumption) = 3.7 to 4.0%
-- Lead central estimate: mid = (3.7 + 4.1) / 2 = 3.9; sigma = 0.4 / 2.563 = 0.2%; central = 3.9 - 0.2^2 / 200 = 3.90%; excess -0.31 pts; stress 2%; tier rank 7.0
+- Lead central estimate: CAGR band, central = midpoint 3.9 = 3.90%; excess -0.31 pts; stress 2%; tier rank 7.0
 
 ## M-10 Validator and staking operation (ETH 32-ETH validators), Mid, Medium
 
 - Band: 0 to 4 percent per year. Method: yield.
 - Workstream arithmetic (WS5): 32 ETH x 2,404.81 = 76,954 capital per validator; rewards assumed 3% = 2,309/yr gross minus ops and slashing risk; principal moves with ETH price
-- Lead central estimate: mid = (0 + 4) / 2 = 2; sigma = 4 / 2.563 = 1.6%; central = 2 - 1.6^2 / 200 = 1.99%; excess -2.22 pts; stress 80%; tier rank 8.0
+- Lead central estimate: CAGR band, central = midpoint 2 = 2.00%; excess -2.21 pts; stress 80%; tier rank 8.0
 
 ## M-11 Structured notes on IBIT or BTC (Bank-issued buffered notes (illustrative)), Mid, Short
 
@@ -319,13 +319,13 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: 3 to 15 percent per year. Method: comps.
 - Workstream arithmetic (WS5): Buy 5B supply at 24c = 1.2B; RLDC 75.6M minus 25M opex = 50.6M = 4.2%/yr before growth; needs 15% supply growth for double digits
-- Lead central estimate: mid = (3 + 15) / 2 = 9; sigma = 12 / 2.563 = 4.7%; central = 9 - 4.7^2 / 200 = 8.89%; excess 4.68 pts; stress 80%; tier rank 1.0
+- Lead central estimate: CAGR band, central = midpoint 9 = 9.00%; excess 4.79 pts; stress 80%; tier rank 1.0
 
 ## L-03 Anchor position in tokenized fund launch (Seed 50 to 100M in new tokenized MMF), Large, Short
 
 - Band: 3.5 to 4.2 percent per year. Method: yield.
 - Workstream arithmetic (WS5): 4.21% 3M less 0.2 to 0.7% fee; plus negotiated fee rebate
-- Lead central estimate: mid = (3.5 + 4.2) / 2 = 3.85; sigma = 0.7 / 2.563 = 0.3%; central = 3.85 - 0.3^2 / 200 = 3.85%; excess -0.36 pts; stress 2%; tier rank 2.0
+- Lead central estimate: CAGR band, central = midpoint 3.85 = 3.85%; excess -0.36 pts; stress 2%; tier rank 2.0
 
 ## L-04 Stake in a settlement consortium (Canton, DTCC-linked or bank consortia), Large, Long
 
@@ -373,13 +373,13 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: 6 to 12 percent per year. Method: comps.
 - Workstream arithmetic (WS8): Fiscal 2026 net revenue $46B up 15% (Visa 8-K 2026-10-27). Assume revenue growth fades to 10 to 12% a year, EPS growth about 12 to 14% with buybacks, multiple flat: low 6 = 10% growth minus 4 points multiple compression; high 12 = 13% EPS growth minus 1 point. Agentic adds 0 in the base case.
-- Lead central estimate: mid = (6 + 12) / 2 = 9; sigma = 6 / 2.563 = 2.3%; central = 9 - 2.3^2 / 200 = 8.97%; excess 4.76 pts; stress 50%; tier rank 1.0
+- Lead central estimate: CAGR band, central = midpoint 9 = 9.00%; excess 4.79 pts; stress 50%; tier rank 1.0
 
 ## A-02 Common stock (MA), Retail, Long
 
 - Band: 6 to 12 percent per year. Method: comps.
 - Workstream arithmetic (WS8): Q3 2026 net revenue growth 14% (consistent across secondary summaries, 2026-10-29); assume 11 to 13% revenue growth, EPS 12 to 14%, flat multiple, less 0 to 6 points for multiple compression: band 6 to 12. Revenue dollar figure conflicts across sources and is not used.
-- Lead central estimate: mid = (6 + 12) / 2 = 9; sigma = 6 / 2.563 = 2.3%; central = 9 - 2.3^2 / 200 = 8.97%; excess 4.76 pts; stress 60%; tier rank 1.0
+- Lead central estimate: CAGR band, central = midpoint 9 = 9.00%; excess 4.79 pts; stress 60%; tier rank 1.0
 
 ## A-03 Common stock (NET), Retail, Medium
 
@@ -421,7 +421,7 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: -20 to 25 percent per year. Method: comps.
 - Workstream arithmetic (WS9): Fwd EPS = 12.03/12.31 = $0.977. High: EPS +25% at constant 12.31x gives +25%. Low: multiple to 9x (EWZ fwd 8.14x to 9x range) and EPS +10%: 9*0.977*1.10=$9.67, -19.6%. EPS growth rates are my assumptions
-- Lead central estimate: mid = (-20 + 25) / 2 = 2.5; sigma = 45 / 2.563 = 17.6%; central = 2.5 - 17.6^2 / 200 = 0.96%; excess -3.25 pts; stress 60%; tier rank 24.0
+- Lead central estimate: mid = (-20 + 25) / 2 = 2.5; sigma = 45 / 2.563 = 17.6%; central = 2.5 - 17.6^2 / 200 = 0.96%; excess -3.25 pts; stress 60%; tier rank 23.0
 
 ## G-02 NASDAQ-listed common stock (MELI), Retail, Medium
 
@@ -433,7 +433,7 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: -26 to 47 percent per year. Method: comps.
 - Workstream arithmetic (WS9): Fwd EPS = 95.77/6.75 = $14.19. High: re-rate to 9x with EPS +10%: 9*14.19*1.10=$140.5, +46.7%. Low: 5x on flat EPS: $70.9, -25.9%
-- Lead central estimate: mid = (-26 + 47) / 2 = 10.5; sigma = 73 / 2.563 = 28.5%; central = 10.5 - 28.5^2 / 200 = 6.44%; excess 2.23 pts; stress 60%; tier rank 14.0
+- Lead central estimate: mid = (-26 + 47) / 2 = 10.5; sigma = 73 / 2.563 = 28.5%; central = 10.5 - 28.5^2 / 200 = 6.44%; excess 2.23 pts; stress 60%; tier rank 13.0
 
 ## G-04 NYSE Arca ETF (iShares MSCI South Korea) (EWY), Retail, Medium
 
@@ -445,16 +445,16 @@ Caution: bands are workstream judgment, not calibrated distributions.
 
 - Band: -23 to 23 percent per year. Method: base_rate_analog.
 - Workstream arithmetic (WS9): High: fwd P/E 8.14x to 10x = +22.8%. Low: P/E to 7x (-14.0%) plus real -10% = about -23%
-- Lead central estimate: mid = (-23 + 23) / 2 = 0; sigma = 46 / 2.563 = 17.9%; central = 0 - 17.9^2 / 200 = -1.61%; excess -5.82 pts; stress 60%; tier rank 35.0
+- Lead central estimate: mid = (-23 + 23) / 2 = 0; sigma = 46 / 2.563 = 17.9%; central = 0 - 17.9^2 / 200 = -1.61%; excess -5.82 pts; stress 60%; tier rank 33.0
 
 ## G-06 NYSE Arca ETF (Global X MSCI Argentina) (ARGT), Retail, Medium
 
 - Band: -25 to 29 percent per year. Method: comps.
 - Workstream arithmetic (WS9): Low: fwd P/E 9.32 to 7 = -24.9%. High: to 12 = +28.8%
-- Lead central estimate: mid = (-25 + 29) / 2 = 2; sigma = 54 / 2.563 = 21.1%; central = 2 - 21.1^2 / 200 = -0.22%; excess -4.43 pts; stress 60%; tier rank 30.0
+- Lead central estimate: mid = (-25 + 29) / 2 = 2; sigma = 54 / 2.563 = 21.1%; central = 2 - 21.1^2 / 200 = -0.22%; excess -4.43 pts; stress 60%; tier rank 28.0
 
 ## G-07 NYSE Arca ETF (iShares MSCI India) (INDA), Retail, Long
 
 - Band: -16 to 12 percent per year. Method: comps.
 - Workstream arithmetic (WS9): Low: P/E 20.20 to 17 = -15.8%. High: 12% earnings growth at constant P/E (assumption)
-- Lead central estimate: mid = (-16 + 12) / 2 = -2; sigma = 28 / 2.563 = 10.9%; central = -2 - 10.9^2 / 200 = -2.60%; excess -6.81 pts; stress 60%; tier rank 36.0
+- Lead central estimate: mid = (-16 + 12) / 2 = -2; sigma = 28 / 2.563 = 10.9%; central = -2 - 10.9^2 / 200 = -2.60%; excess -6.81 pts; stress 60%; tier rank 35.0

@@ -85,15 +85,20 @@ open("sources.md", "w").write("\n".join(lines) + "\n")
 p = pd.read_csv("plays.csv")
 out = ["# Return methods and arithmetic per play\n",
        "Each row gives the workstream's stated method and arithmetic (verbatim from `return_method_detail`), then the lead's v2 central estimate.\n",
-       "Lead formula (v2): read the band as roughly the 10th to 90th percentile of annual returns. sigma = (high - low) / 2.563; central = midpoint - sigma^2 / 2 (compounding drag). Excess = central - 4.21% (3M T-bill constant maturity, H.15, 2026-11-02). Plays are ranked within tier on excess; stress drawdown is shown separately (assumptions.md P6-1 to P6-3).\n",
+       "Lead formula (v2.1): price-range bands (base_rate_analog, or wider than 20 points) are read as the 10th to 90th percentile of annual returns, and central = midpoint - sigma^2/2 with sigma = (high - low)/2.563. Narrow comps bands (10-year CAGR spreads) use central = midpoint. R-01 to R-03 use panel-weighted bear/base/bull outcomes (0.51/0.41/0.08). M-08 takes 1.5 pts of expected credit loss. Excess = central - 4.21% (3M T-bill constant maturity, H.15, 2026-11-02). Plays are ranked within tier on excess; stress is shown separately (assumptions.md P6-1 to P6-3, P6-9).\n",
        "Retired v1 method: scenario-weighting of band low, mid and high by Bear, Base and Bull probabilities. Both red teams showed it maps adoption states onto assets whose returns do not depend on adoption (changelog C1).\n",
        "Caution: bands are workstream judgment, not calibrated distributions.\n"]
 for _, r in p.iterrows():
     m = re.findall(r"-?\d+(?:\.\d+)?", str(r["return_band_annual_pct"]))
     if len(m) >= 2:
         lo, hi = float(m[0]), float(m[1]); mid = (lo + hi) / 2; sig = (hi - lo) / 2.563
-        arith = (f"mid = ({lo:g} + {hi:g}) / 2 = {mid:g}; sigma = {hi - lo:g} / 2.563 = {sig:.1f}%; "
-                 f"central = {mid:g} - {sig:.1f}^2 / 200 = {r['geo_central_pct']:.2f}%; excess {r['excess_vs_tbill_pct']:.2f} pts; "
+        if r["play_id"] in ("R-01", "R-02", "R-03"):
+            how = f"panel-weighted scenario outcomes (see workstream arithmetic) = {r['geo_central_pct']:.2f}%"
+        elif r["return_method"] == "base_rate_analog" or (hi - lo) > 20:
+            how = f"mid = ({lo:g} + {hi:g}) / 2 = {mid:g}; sigma = {hi - lo:g} / 2.563 = {sig:.1f}%; central = {mid:g} - {sig:.1f}^2 / 200 = {r['geo_central_pct']:.2f}%"
+        else:
+            how = f"CAGR band, central = midpoint {mid:g}" + (" less 1.5 expected loss" if r["play_id"] == "M-08" else "") + f" = {r['geo_central_pct']:.2f}%"
+        arith = (f"{how}; excess {r['excess_vs_tbill_pct']:.2f} pts; "
                  f"stress {r['stress_drawdown_pct']:g}%; tier rank {r['rank_in_tier'] if r['rank_in_tier'] == r['rank_in_tier'] else 'NA'}")
     else:
         arith = "No band asserted by workstream; not scored."

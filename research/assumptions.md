@@ -67,3 +67,5 @@ Each entry: ID, phase, assumption, reason. Later phases append.
 | P6-6 | Split outcomes (S and T in different bands) count as Base. | Red team A5(d). |
 | P6-7 | Disorderly sub-path probability is about 10% over five years, inside Bear. It is not a fourth partition state. | WS6 R22 (7%), red team A (10% to 15%). |
 | P6-8 | September 2026 CPI of 3.7% is from secondary reports of the BLS release of 2026-10-14 (forexfundamentals, TrendForce, cpiinflationcalculator). | Lead search 2026-11-04. |
+| P6-9 | v2.1 central method (changelog D1). P6-1 is superseded for narrow comps bands, which are 10-year CAGR spreads and use the midpoint. The panel 2030 weights for R-01 to R-03 are 0.51/0.41/0.08. M-08 expected loss is 1.5 pts (2.5% default x 60% LGD, judgment). | Second-pass red team findings 1, 2, 18. |
+| P6-10 | The 2030 panel is rounded to 51/41/8 (largest remainder). | Second-pass finding 7. |
