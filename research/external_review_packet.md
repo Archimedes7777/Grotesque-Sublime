@@ -10,7 +10,7 @@ Purpose: paste everything below the line into a frontier model from a different 
 
 - **Adoption:** USD stablecoin supply is $295.1B (DefiLlama), down 3.0% over 12 months and 6.5% below its 2026-05-17 peak. Tokenized Treasuries and MMFs are $14.25B (RWA.xyz), 0.18% of US MMF assets ($7.90T, ICI). Real stablecoin payments are $0.39T annualized (McKinsey/Artemis), against Visa-adjusted volume of $12.0T for Jan to Aug 2026.
 - **Law:** GENIUS Act (Public Law 119-27) takes effect 2027-01-18. The OCC final rule (2026-10-21) limits the yield ban to issuers only. The CLARITY Act failed Senate cloture 49 to 50 (2026-09-15). Democrats won both chambers in the 2026-11-03 midterms.
-- **Value capture:** Circle paid 62% of Q3 2026 reserve income to distribution partners. Ethereum gross fee revenue was $127M in H1 2026. Conclusion: value accrues to distribution, licences and balance sheets (card networks, custodians, asset managers, issuers), not to network tokens.
+- **Value capture:** Circle's distribution and transaction costs were 62% of Q3 2026 reserve income, mostly paid to partners. Ethereum gross fee revenue was $127M in H1 2026. Conclusion: value accrues to distribution, licences and balance sheets (card networks, custodians, asset managers, issuers), not to network tokens.
 - **Rates:** Fed funds is 3.75% to 4.00%. A 100 bp cut removes about $276M of Circle's reserve income after distribution costs.
 - **Risks:** a $6.3B Binance breach (2026-10-29). BTC is about 37% below its $126,080 high.
 

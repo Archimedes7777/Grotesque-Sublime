@@ -27,7 +27,7 @@ Date: 2026-11-04. This is an illustrative allocation built from the research mat
 | 7 | BlackRock (BLK) | R-18 | 5% | $2,500 | 40% | Largest tokenized-fund issuer (BUIDL) plus the IBIT franchise | 3 equal monthly tranches |
 | 8 | Circle (CRCL) | R-01 | 5% | $2,500 | 83% | Pure-play issuer: an option on adoption and a bet on rates | Half now. Half after 2027-01-18 (GENIUS effective), only if USDC supply is at least $70B and distribution costs are at most 65% of reserve income in the latest 10-Q. |
 | 9 | iShares Bitcoin Trust (IBIT) | R-20 | 6% | $3,000 | 77% | A capped option outside the thesis: a monetary asset, not adoption | Half now. Half only if BTC closes at or below $63,000 (-50% from $126,080). |
-| 10 | iShares Ethereum Trust (ETHA) | R-21 | 4% | $2,000 | 85% | A capped option on the main settlement chain for stablecoins (47%) and tokenized assets ($15.1B) | Half now; half on ETH at or below $1,800 |
+| 10 | iShares Ethereum Trust (ETHA) | R-21 | 4% | $2,000 | 85% | A capped option on the main settlement chain for stablecoins (47% of supply) and distributed tokenized assets on Ethereum ($15.1B, RWA.xyz networks page, 2026-11-04) | Half now; half on ETH at or below $1,800 |
 | 11 | Reserve tranche, held in T-bills | R-27 | 10% | $5,000 | 0% | Dry powder for the trigger-based entries above, or a catalyst add (see rule R3) | Deploy only on a trigger |
 | | **Total** | | **100%** | **$50,000** | **26.3%** (weighted, perfect correlation) | | |
 

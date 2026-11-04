@@ -23,11 +23,11 @@ Research date: 2026-11-04. Status: v1 (Phase 3 synthesis). Revisions after verif
 
 **Who wins?** Owners of three things: distribution, licences and balance sheets.
 
-- Fact: Circle paid 62% of its Q3 2026 reserve income ($409.2M of $657.6M) to distribution partners (Circle Q3 2026 results, 2026-11-04).
+- Fact: Circle's Q3 2026 distribution and transaction costs were $409.2M, 62% of its $657.6M reserve income (Circle Q3 2026 results, 2026-11-04). Most of this is paid to distribution partners such as Coinbase.
 - Fact: Public-chain fees are small. Ethereum gross revenue was $127M in H1 2026, down 69% year on year (WS4).
 - Inference: Institutional flow accrues to intermediary equity (issuers, distributors, card networks, custodians, asset managers) more than to network tokens. [Moderate]
 
-**Top five plays per tier.** The benchmark is the 3-month T-bill at 4.21% (Federal Reserve H.15, 2026-11-02).
+**Top five plays per tier.** The benchmark is the 3-month T-bill at 4.21% constant-maturity yield (4.03% discount basis; Federal Reserve H.15, 2026-11-02).
 
 | Rank | Retail | Mid (accredited) | Large ($5M and up) |
 |---|---|---|---|
@@ -166,13 +166,13 @@ The matrix has 75 rows in `plays.csv` and `plays.xlsx`: Retail 51, Mid 13, Large
 
 | Ticker | Price | Market cap | Multiple | Note |
 |---|---|---|---|---|
-| CRCL | $76.51 | $19.5B | EV/S 5.9; forward P/E 60.8 | Reverse DCF needs about 16% revenue CAGR for a 10% return. 83% below its intraday peak. |
+| CRCL | $76.51 | $19.5B | EV/S 5.9; forward P/E 60.8 | Reverse DCF needs about 16% revenue CAGR for a 10% return. About 74% below its 2025-06-23 intraday peak of $298.99 (83% at the 52-week low of $49.90). |
 | COIN | $151.86 | $40.2B | EV/S 7.0; forward P/E 104.5 | Q3 revenue down 35% year on year (10-Q) |
 | HOOD | $87.63 | $78.9B | EV/S 15.1; forward P/E 32.2 | The most richly priced crypto-exposed name. Crypto revenue fell 55%. |
 | V / MA | $433.90 / $670.43 | $807B / $584B | Trailing P/E about 35 | Agentic and stablecoin optionality is not priced as a separate driver |
 | BK | $151.55 | $102B | Forward P/E 14.9 | Reserve custody and tokenized fund servicing |
 
-- Inference: The thesis is not priced in at crypto equities after a 68% to 83% drawdown. But their reverse-DCF hurdles still assume crypto activity recovers. Card networks price in their core franchise, not the theme. [Moderate]
+- Inference: The thesis is not priced in at crypto equities after drawdowns of about 68% (COIN) to 74% (CRCL) from their peaks. But their reverse-DCF hurdles still assume crypto activity recovers. Card networks price in their core franchise, not the theme. [Moderate]
 - Inference: Picks-and-shovels caution applies. Tokenization platforms, custody and chain blockspace are commoditizing. Distribution, regulatory licences and balance sheet are the layers that hold pricing power. [Moderate]
 
 **Stablecoin yield for US retail (2026-11-04).**
@@ -203,7 +203,7 @@ The matrix has 75 rows in `plays.csv` and `plays.xlsx`: Retail 51, Mid 13, Large
 |---|---|---|
 | Wash sale rule (Sec. 1091) | Covers stock and securities only. Direct crypto is outside it. H.R. 10357 passed Ways and Means 38 to 5 (2026-09-16) but is not law. | [High] `[Verify with CPA]` |
 | Wash sale and spot ETP shares | ETP shares are securities, so the rule likely applies (lead inference) | [Low] `[Verify with CPA]` |
-| Form 1099-DA | Gross proceeds reported for sales after 2025. Basis reported only for covered units bought after 2025 in the same account. | [High] |
+| Form 1099-DA | Gross proceeds reported for sales on or after 2025-01-01 (TD 10000). Basis reported only for covered units acquired on or after 2026-01-01 and held in the same custodial account. | [High] |
 | Staking ETPs | Rev. Proc. 2026-20 (2026-10-06) superseded Rev. Proc. 2025-31. Rewards are ordinary income to holders. | [Moderate] `[Verify with CPA]` |
 | QSBS | Stock issued after 2025-07-04: 50%, 75%, 100% exclusion at 3, 4, 5 years; $15M cap. California does not conform. Secondary purchases do not qualify (Sec. 1202 requires original issuance). | [High] federal |
 | California | Taxes capital gains as ordinary income (top 13.3%). Treasury interest is exempt. | [Moderate] |
