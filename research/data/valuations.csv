@@ -1,0 +1,20 @@
+ticker,entity,price_usd,market_cap_usd,ev_revenue_ttm,pe_ttm,pe_fwd,revenue_growth_yoy_pct,as_of_date,source_url,source_date,confidence
+CRCL,Circle,76.51,19520000000,5.94,43.08,60.81,17,2026-11-04,https://stockanalysis.com/stocks/crcl/statistics/,2026-11-04,Moderate
+COIN,Coinbase,151.86,40210000000,7.03,NA,104.52,-35,2026-11-04,https://stockanalysis.com/stocks/coin/statistics/,2026-11-04,Moderate
+HOOD,Robinhood,87.63,78910000000,15.13,40.37,32.22,12,2026-11-04,https://stockanalysis.com/stocks/hood/statistics/,2026-11-04,Moderate
+GLXY,Galaxy Digital,14.22,5520000000,NA,NA,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/hood-vs-glxy-vs-blsh-vs-figr-vs-gemi/,2026-11-04,Low
+BLSH,Bullish,23.17,3510000000,NA,NA,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/hood-vs-glxy-vs-blsh-vs-figr-vs-gemi/,2026-11-04,Low
+FIGR,Figure Technology,23.29,5230000000,NA,27.21,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/hood-vs-glxy-vs-blsh-vs-figr-vs-gemi/,2026-11-04,Low
+GEMI,Gemini Space Station,2.825,366270000,NA,NA,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/hood-vs-glxy-vs-blsh-vs-figr-vs-gemi/,2026-11-04,Low
+SECZ,Securitize Corp,8.13,1390000000,NA,NA,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/secz-vs-bk-vs-spy-vs-qqq/,2026-11-04,Low
+V,Visa,433.9,806830000000,NA,35.22,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/v-vs-ma-vs-pypl-vs-bk-vs-stt-vs-jpm/,2026-11-04,Low
+MA,Mastercard,670.43,584060000000,NA,35.08,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/v-vs-ma-vs-pypl-vs-bk-vs-stt-vs-jpm/,2026-11-04,Low
+PYPL,PayPal,60.25,50050000000,NA,11.45,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/v-vs-ma-vs-pypl-vs-bk-vs-stt-vs-jpm/,2026-11-04,Low
+BK,BNY,151.55,101980000000,NA,16.79,14.94,NA,2026-11-04,https://stockanalysis.com/stocks/bk/statistics/,2026-11-04,Moderate
+STT,State Street,171.87,46760000000,NA,14.05,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/v-vs-ma-vs-pypl-vs-bk-vs-stt-vs-jpm/,2026-11-04,Low
+JPM,JPMorgan Chase,349.68,928610000000,NA,14.68,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/v-vs-ma-vs-pypl-vs-bk-vs-stt-vs-jpm/,2026-11-04,Low
+NDAQ,Nasdaq Inc,109.45,60740000000,NA,29.9,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/ndaq-vs-ice-vs-cme-vs-blk-vs-ben/,2026-11-04,Low
+ICE,Intercontinental Exchange,174.07,97280000000,NA,23.73,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/ndaq-vs-ice-vs-cme-vs-blk-vs-ben/,2026-11-04,Low
+CME,CME Group,306.55,109720000000,NA,25.14,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/ndaq-vs-ice-vs-cme-vs-blk-vs-ben/,2026-11-04,Low
+BLK,BlackRock,1225.24,198740000000,NA,27.86,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/ndaq-vs-ice-vs-cme-vs-blk-vs-ben/,2026-11-04,Low
+BEN,Franklin Resources,33.64,17090000000,NA,22.87,NA,NA,2026-11-04,https://stockanalysis.com/stocks/compare/ndaq-vs-ice-vs-cme-vs-blk-vs-ben/,2026-11-04,Low
