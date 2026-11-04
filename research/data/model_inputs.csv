@@ -7,3 +7,5 @@ S_cagr_12m,-0.03,Sensitivity run input,https://stablecoins.llama.fi/stablecoinch
 S_cagr_36m,0.33,Sensitivity run input,https://stablecoins.llama.fi/stablecoincharts/all,2026-11-04
 T_cagr_12m,0.15,Sensitivity run input (methodology break),https://news.bitcoin.com/rwa-market-nears-35b-after-10-58-monthly-gain-holders-top-489k,2025-10-19
 T_cagr_36m,0.70,Sensitivity run input,https://yellow.com/research/tokenized-rwas-31b-market-growth-real-race-starting,2026
+T_current_incl_represented_busd,435.37,Distributed 39.40 plus represented 395.97 (RWA.xyz 2026-11-04 per WS3 key numbers); red team B item 2,https://app.rwa.xyz,2026-11-04
+T_cagr_incl_represented,0.20,Lead assumption: no clean history for represented value; set at half the distributed blend; Low confidence,https://app.rwa.xyz/blog/a-new-framework-for-tokenized-assets-distributed-and-represented,2026-11-04

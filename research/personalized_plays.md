@@ -1,88 +1,112 @@
 # Personalized plays: illustrative allocation for the Section 0 investor
 
-Date: 2026-11-04. This is an illustrative allocation built from the research matrix, not advice. Verify prices, product availability and tax treatment before acting, and consult a licensed advisor and a CPA.
+Date: 2026-11-04. Version 2, revised after the red teams (changelog C6). This is an illustrative allocation built from the research matrix, not advice. Verify prices, product availability and tax treatment before acting, and consult a licensed advisor and a CPA.
 
 ## Inputs (mandate Section 0) and how they bind
 
 | Parameter | Value | How it constrains the allocation |
 |---|---|---|
 | Jurisdiction | US, California | California taxes all gains as ordinary income (top 13.3%). Treasury interest is exempt from California tax. |
-| Capital | $50,000 cash | All positions have daily liquidity. Stocks are bought in whole or fractional shares. |
-| Accredited | No | Retail tier only. Mid and Large plays are excluded (assumption P0-4). |
-| Max drawdown | 40% on this sleeve | Sized so the perfect-correlation stress loss is about 26%, leaving a 14-point buffer |
-| Horizon | 10 years (2036) | Long-horizon plays are allowed. Locked vehicles are excluded (P0-9). |
-| Account | Taxable cash account, no margin | No leverage, no options. Tax placement is all taxable, so holding period and lot selection carry the tax planning. |
+| Capital | $50,000 cash | All positions have daily liquidity |
+| Accredited | No | Retail tier only (P0-4) |
+| Max drawdown | 40% on this sleeve | Sized on the sum of weight x stress drawdown, assuming correlation near 1 in stress |
+| Horizon | 10 years (2036) | Long-horizon equities allowed; locked vehicles excluded |
+| Account | Taxable cash account, no margin | All taxable. Holding period and lot selection carry the tax planning. |
 | Monitoring | 1 hour per week | Routine below fits in 60 minutes |
 
-## Allocation
+## Recommended: Option A, incumbent core
 
-| # | Position | Play ID | Weight | USD | Stress drawdown | Role | Entry condition |
+| # | Position | Play ID | Weight | USD | Stress | Central return | Entry |
 |---|---|---|---|---|---|---|---|
-| 1 | US T-bills, 3 to 12 month ladder (TreasuryDirect or broker) | R-27 | 30% | $15,000 | 0% | Benchmark yield of 4.21% (H.15, 2026-11-02), exempt from California tax | Buy now |
-| 2 | Franklin OnChain US Government Money Fund (BENJI app, FOBXX) | R-26 | 5% | $2,500 | about 2% | Tokenized cash: a learning position on the live rail | Confirm in the Benji app that California residents can enroll and the minimum is about $20 (YCharts; not confirmed from a primary source). If not available, add to item 1. |
-| 3 | Visa (V) | R-09, A-01 | 10% | $5,000 | 30% | Toll collector on card, stablecoin settlement ($25B run rate, Visa call 2026-10-27) and agent checkout | 3 equal monthly tranches |
-| 4 | Mastercard (MA) | R-10, A-02 | 10% | $5,000 | 30% | Same as Visa, plus its stablecoin acquisition | 3 equal monthly tranches |
-| 5 | BNY (BK) | R-12 | 7.5% | $3,750 | 40% | Reserve custody and tokenized fund servicing; forward P/E 14.9 | 3 equal monthly tranches |
-| 6 | Intercontinental Exchange (ICE) | R-16 | 7.5% | $3,750 | 40% | Exchange and clearing incumbent with tokenization options | 3 equal monthly tranches |
-| 7 | BlackRock (BLK) | R-18 | 5% | $2,500 | 40% | Largest tokenized-fund issuer (BUIDL) plus the IBIT franchise | 3 equal monthly tranches |
-| 8 | Circle (CRCL) | R-01 | 5% | $2,500 | 83% | Pure-play issuer: an option on adoption and a bet on rates | Half now. Half after 2027-01-18 (GENIUS effective), only if USDC supply is at least $70B and distribution costs are at most 65% of reserve income in the latest 10-Q. |
-| 9 | iShares Bitcoin Trust (IBIT) | R-20 | 6% | $3,000 | 77% | A capped option outside the thesis: a monetary asset, not adoption | Half now. Half only if BTC closes at or below $63,000 (-50% from $126,080). |
-| 10 | iShares Ethereum Trust (ETHA) | R-21 | 4% | $2,000 | 85% | A capped option on the main settlement chain for stablecoins (47% of supply) and distributed tokenized assets on Ethereum ($15.1B, RWA.xyz networks page, 2026-11-04) | Half now; half on ETH at or below $1,800 |
-| 11 | Reserve tranche, held in T-bills | R-27 | 10% | $5,000 | 0% | Dry powder for the trigger-based entries above, or a catalyst add (see rule R3) | Deploy only on a trigger |
-| | **Total** | | **100%** | **$50,000** | **26.3%** (weighted, perfect correlation) | | |
+| 1 | US T-bills, 3 to 12 month ladder | R-27 | 45% | $22,500 | 0% | 4.20% | Buy now |
+| 2 | Reserve tranche in T-bills | R-27 | 10% | $5,000 | 0% | 4.20% | Deploy only on the triggers below |
+| 3 | Franklin BENJI (FOBXX) | R-26 | 5% | $2,500 | 2% | 3.85% | Confirm California eligibility and the minimum in the Benji app; otherwise add to item 1 |
+| 4 | Visa (V) | R-09 | 10% | $5,000 | 50% | 8.49% | 3 equal monthly tranches |
+| 5 | Mastercard (MA) | R-10 | 10% | $5,000 | 60% | 8.49% | 3 equal monthly tranches |
+| 6 | BNY (BK) | R-12 | 7.5% | $3,750 | 65% | 7.97% | 3 equal monthly tranches |
+| 7 | BlackRock (BLK) | R-18 | 5% | $2,500 | 60% | 7.48% | 3 equal monthly tranches |
+| 8 | Intercontinental Exchange (ICE) | R-16 | 7.5% | $3,750 | 80% | 6.97% | 3 equal monthly tranches |
+| | **Total** | | **100%** | **$50,000** | **25.0%** | **5.70%** | |
 
-**Expected-return arithmetic** (`return_methods.md`; assumptions P3-1 to P3-6):
+**Reserve triggers** (deploy $2,500 per trigger, at most twice):
+- (a) Any of V, MA, BK falls 25% from its purchase price with its kill criterion intact.
+- (b) USD stablecoin supply exceeds $350B (DefiLlama) and tokenized Treasuries exceed $30B (RWA.xyz). In that case, fund the Option B options.
 
-| Measure | Value | Basis |
+## Alternative: Option B, core plus capped options
+
+Option B moves 10 points from item 1 into four options:
+
+| Position | Play ID | Weight | USD | Stress | Central return | Role |
+|---|---|---|---|---|---|---|
+| Circle (CRCL) | R-01 | 2.5% | $1,250 | 83% | 7.49% | Issuer float leverage |
+| Coinbase (COIN) | R-02 | 2.5% | $1,250 | 92% | 1.16% | Distributor; Base-token risk |
+| iShares Bitcoin Trust (IBIT) | R-20 | 2.5% | $1,250 | 77% | -4.92% | Monetary-asset option, not adoption |
+| iShares Ethereum Trust (ETHA) | R-21 | 2.5% | $1,250 | 85% | 1.45% | Settlement chain for 47% of stablecoins |
+
+| Measure | Option A | Option B |
 |---|---|---|
-| Band-midpoint return | 7.2% a year | Optimistic |
-| Scenario-weighted return | 2.9% a year | Conservative. Token ETP bands with deep lows dominate it. |
-| After-tax, scenario-weighted | about 2.2% a year | Federal 24% ordinary and 15% long-term gains, plus California 9.3% on everything. T-bill interest is taxed federally only. |
-| After-tax, T-bills alone | about 3.2% a year | 4.21% x (1 - 0.24) |
+| Stress loss | 25.0% | 33.4% |
+| Central return | 5.70% | 5.41% |
 
-- Inference: On scenario weighting, the theme sleeve is not expected to beat T-bills after tax. On midpoints it beats them by about 2 to 3 points. The real case for the sleeve is the incumbent equities' core franchises plus a small, capped Bull option. [Moderate]
-- Inference: A version with no tokens and no CRCL is equally defensible: items 3 to 7 (40%) plus 60% T-bills and BENJI. It has a 14.0% stress loss, a 5.7% midpoint return and a 5.3% scenario-weighted return. Its midpoint is lower but its scenario-weighted return is higher, because it drops the bands with deep lows. Choose it if you weight the conservative method more. [Moderate]
+- Inference: Option B lowers the central estimate and raises stress. Choose it only if you want exposure to the Bull tail (7% in 2030, 11% in 2035) and accept that cost. [Moderate]
+
+**After-tax arithmetic**
+
+Assumption P3-6: federal 24% ordinary and 15% long-term gains, plus California 9.3% on everything. Treasury interest is federally taxed only.
+
+| Measure | Value |
+|---|---|
+| Option A, after tax | about 0.60 x (4.2 x 0.76) + 0.40 x (8.0 x 0.757) = about 4.3% a year |
+| T-bills alone, after tax | 4.21 x 0.76 = 3.2% a year |
+| Real return (CPI 3.7%) | about +0.6 points for Option A; about -0.5 points for T-bills alone |
+
+- Inference: The excess over T-bills comes mainly from the incumbents' core franchises, not from the theme. That is the honest finding of this research. [Moderate]
 
 ## Account placement and tax handling (all taxable)
 
 | Holding | Federal character | California | Action |
 |---|---|---|---|
 | T-bills | Ordinary interest | Exempt | Hold to maturity; roll the ladder |
-| BENJI (FOBXX) | Ordinary dividends | Exempt share pass-through if the fund qualifies | Keep the year-end fund letter for the California exemption |
-| V, MA, BK, ICE, BLK, CRCL | Qualified dividends and long-term capital gains after 1 year | Ordinary income | Elect specific-identification lot method at the broker. Hold over 1 year for the federal rate. |
-| IBIT, ETHA | Capital gain on shares; grantor trust | Ordinary income | Wash sale likely applies to ETP shares `[Verify with CPA]`. Avoid the staking ETP variant in taxable (ordinary income each year). |
-
-- Fact: Direct tokens are outside Sec. 1091 today (WS7), but H.R. 10357 would change that. The ETP route was chosen over direct custody for four reasons: broker 1099-B reporting, no exchange key risk (Binance breach of about $6.3B, 2026-10-29), estate step-up simplicity, and Section 0's 1-hour weekly budget. [Moderate]
+| BENJI (FOBXX) | Ordinary dividends | Exempt portion if the fund qualifies | Keep the year-end fund letter |
+| V, MA, BK, BLK, ICE (and CRCL, COIN in Option B) | Qualified dividends; long-term gains after 1 year | Ordinary income | Elect specific-identification lots; hold over 1 year for the federal rate |
+| IBIT, ETHA (Option B) | Capital gain on grantor-trust shares | Ordinary income | Wash sale likely applies to ETP shares `[Verify with CPA]`. Avoid staking variants in taxable. |
 
 ## Rebalancing rule
 
 | Rule | Trigger | Action |
 |---|---|---|
-| R1 | Annual date (first trading day of November) | Return to target weights. Sell lots held over 1 year first. |
-| R2 | Any position drifts by 5 or more points from target | Rebalance that position only |
-| R3 | IBIT, ETHA and CRCL combined exceed 20% | Trim to 15% |
-| R4 | Sleeve drawdown from peak reaches 25% | Freeze additions. Review every kill criterion. |
-| R5 | Sleeve drawdown reaches 35% | Move IBIT, ETHA and CRCL to T-bills, protecting the 40% limit |
+| R1 | Annual (first trading day of November) | Return to target weights, selling lots held over 1 year first |
+| R2 | Any position 5 or more points from target | Rebalance that position |
+| R3 | Total equity and option weight exceeds 50% | Trim to 40% (A) or 50% (B) |
+| R4 | Sleeve drawdown reaches 25% | Freeze additions; review kill criteria |
+| R5 | Sleeve drawdown reaches 35% | Sell Option B positions to T-bills first, then trim equities to protect the 40% limit |
 
-## Kill criteria (from `plays.csv`, lead-condensed)
+## Kill criteria
 
 | Position | Exit if |
 |---|---|
-| CRCL | USDC supply falls below $55B for two quarters, or distribution costs exceed 70% of reserve income, or a final rule bars affiliate yield and Circle guides revenue down 20% |
-| V, MA | Lead-proposed: interchange caps on credit cards enacted (e.g., a Credit Card Competition Act style law), or payments volume growth below 3% for two quarters |
+| V, MA | Credit card interchange caps enacted (Credit Card Competition Act style), or payments volume growth below 3% for two quarters |
 | BK | Loss of a top-two stablecoin reserve custody mandate, or a material custody incident |
-| IBIT, ETHA | Exit on a thesis break, not on price: a spot ETP custodian incident, or a protocol failure (for example, a quantum-forced migration without a plan) |
-| BENJI | Fund breaks $1.00 NAV, or there is a transfer-agent or ledger incident |
+| BLK, ICE | Tokenized-fund or venue franchise lost to a new entrant, shown by two consecutive quarters of share loss in their disclosures |
+| CRCL (B) | USDC below $55B for two quarters, or distribution costs above 70% of reserve income |
+| COIN (B) | A Base token routes sequencer revenue away from Coinbase, or stablecoin revenue falls 30% year on year |
+| IBIT, ETHA (B) | Custodian incident or protocol failure. Price alone is not a kill criterion. |
+| BENJI | NAV below $1.00, or a transfer-agent or ledger incident |
 
 ## Weekly monitoring routine (60 minutes)
 
 | Time | Task | Source |
 |---|---|---|
-| 10 min | Check the dashboard: stablecoin supply, tokenized Treasuries, BTC and ETH drawdown, sleeve drawdown | stablecoins.llama.fi; app.rwa.xyz/treasuries; broker |
-| 10 min | Check entry triggers (CRCL second half, IBIT and ETHA second halves) and rules R3 to R5 | This file |
-| 20 min | Read one primary-source item from the catalyst calendar (Federal Register docket, FOMC statement, earnings release) | REPORT.md Section 12 |
-| 20 min | Quarterly weeks only: read V, MA, BK, ICE, BLK and CRCL results against kill criteria. Other weeks: spare. | Company IR pages |
+| 10 min | Check the dashboard: stablecoin supply, tokenized Treasuries, sleeve drawdown, Fed and CPI | stablecoins.llama.fi; app.rwa.xyz/treasuries; broker |
+| 10 min | Check reserve triggers and rules R3 to R5 | This file |
+| 20 min | Read one primary-source item from the catalyst calendar | REPORT.md Section 12 |
+| 20 min | In earnings weeks, read the holdings' results against kill criteria; otherwise spare | Company IR pages |
 
-> Risk flags: exchange counterparty risk (avoid holding cash or stablecoins on exchanges for yield); correlated crypto drawdowns (prior cycles -77% to -94%); policy reversal risk after the 2028 election; concentration in large-cap US financials. This allocation is illustrative and assumes the $50,000 is not the investor's emergency fund.
+> **Risk flags:**
+> - Correlated drawdowns: in 2008 to 2009 the incumbents in this list fell 50% to 80% [Unverified history].
+> - Rates: higher rates compress the 35x multiples of V and MA.
+> - Exchange counterparty risk: do not hold cash or stablecoins on exchanges for yield.
+> - Policy reversal risk after 2028.
+> - This allocation assumes the $50,000 is not the investor's emergency fund.
 
 This is an illustrative allocation, not individualized financial, legal, or tax advice; verify current facts and consult licensed advisors before acting.

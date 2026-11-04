@@ -69,22 +69,24 @@ plays["tax_character"] = [r[1] for r in rows]
 plays["account_placement"] = [r[2] for r in rows]
 plays["verify_with_cpa"] = [r[3] for r in rows]
 
-# Stress drawdown (percent loss in a crypto-bear or credit-stress year), judgment anchored on data/drawdowns.csv
+# Stress drawdown v2 (Phase 6, changelog C4): peak-to-trough loss in a correlated stress episode,
+# anchored on 2008-09 for incumbents and on data/drawdowns.csv for crypto. Incumbent 2008-09 figures
+# are from red team A and lead memory, tagged [Unverified] in assumptions.md P6-3.
+STRESS = {"R-27": 0, "R-26": 2, "M-09": 2, "L-03": 2, "R-31": 2,
+          "R-09": 50, "R-10": 60, "A-01": 50, "A-02": 60, "R-11": 80, "A-05": 80,
+          "R-12": 65, "R-13": 80, "R-14": 70, "R-18": 60, "R-19": 65,
+          "R-15": 65, "R-16": 80, "R-17": 70,
+          "R-01": 83, "R-36": 83, "R-34": 83,
+          "R-02": 92, "R-03": 92, "R-35": 92, "A-04": 92, "L-09": 92, "R-38": 92,
+          "R-20": 77, "M-08": 30, "M-11": 40, "A-03": 70}
 def stress(row):
-    c, lay, pid = row["vehicle_class"], row["layer"], row["play_id"]
-    if pid in ("R-27",): return 0.0
-    if pid in ("R-26", "M-09", "L-03", "R-31"): return 2.0
-    if pid in ("R-09", "R-10", "A-01", "A-02"): return 30.0
-    if pid in ("R-12", "R-13", "R-14", "R-15", "R-16", "R-17", "R-18", "R-19", "R-11"): return 40.0
-    if pid in ("R-01", "R-36"): return 83.0
-    if pid in ("R-02", "R-03", "R-35", "A-04", "L-09"): return 90.0
-    if c in ("spot_crypto_etp_grantor_trust",) and "IBIT" in str(row["ticker_or_route"]): return 77.0
+    c, pid = row["vehicle_class"], row["play_id"]
+    if pid in STRESS: return float(STRESS[pid])
     if c in ("spot_crypto_etp_grantor_trust", "spot_crypto_etp_staking", "network_token_direct"): return 85.0
-    if pid.startswith("G-"): return 45.0
-    if c == "blockchain_equity_etf_1940": return 70.0
-    if c in ("private_secondary", "venture_fund_lp"): return 70.0
-    if c == "tokenized_private_credit": return 15.0
-    return 75.0
+    if pid.startswith("G-"): return 60.0
+    if c == "blockchain_equity_etf_1940": return 75.0
+    if c in ("private_secondary", "venture_fund_lp"): return 75.0
+    return 80.0
 
 def band_mid(s):
     m = re.findall(r"-?\d+(?:\.\d+)?", str(s))
@@ -94,25 +96,30 @@ def band_lo_hi(s):
     m = re.findall(r"-?\d+(?:\.\d+)?", str(s))
     return (float(m[0]), float(m[1])) if len(m) >= 2 else (float("nan"), float("nan"))
 
-# Lead scenario probabilities (assumptions.md P3-1): average of model base run and WS3 judgment.
-P = {"2030": (0.57, 0.36, 0.07), "2035": (0.53, 0.38, 0.09)}
-
-def scen_expected(row):
-    lo, hi = band_lo_hi(row["return_band_annual_pct"])
+# Central estimate v2 (changelog C1): treat each band as roughly the 10th to 90th percentile of
+# annual returns; sigma = (high - low) / 2.563; geometric (compounding) central = midpoint - sigma^2 / 2.
+# Scenario weighting of bands (v1) is retired: it mapped adoption states onto non-adoption assets.
+def geo_central(s):
+    lo, hi = band_lo_hi(s)
+    if lo != lo: return float("nan")
     mid = (lo + hi) / 2
-    pb, pm, pu = P["2035"] if row["horizon"] == "Long" else P["2030"]
-    return round(pb * lo + pm * mid + pu * hi, 2)
+    sig = (hi - lo) / 2.563 / 100
+    return round(mid - 100 * sig * sig / 2, 2)
 
+TBILL = 4.21
 plays["return_mid_pct"] = plays["return_band_annual_pct"].map(band_mid)
-plays["scenario_expected_pct"] = plays.apply(scen_expected, axis=1)
+plays["geo_central_pct"] = plays["return_band_annual_pct"].map(geo_central)
 plays["stress_drawdown_pct"] = plays.apply(stress, axis=1)
-plays["excess_vs_tbill_pct"] = (plays["scenario_expected_pct"] - 4.21).round(2)
-plays["ra_score"] = (plays["excess_vs_tbill_pct"] / plays["stress_drawdown_pct"].where(plays["stress_drawdown_pct"] > 0)).round(3)
+plays["excess_vs_tbill_pct"] = (plays["geo_central_pct"] - TBILL).round(2)
+plays.loc[plays["play_id"] == "R-27", "excess_vs_tbill_pct"] = 0.0
+# Rank on excess return, with stress drawdown shown alongside (no ratio; changelog C2).
+plays["rank_in_tier"] = (plays[plays["play_id"] != "R-27"].groupby("tier")["excess_vs_tbill_pct"]
+                         .rank(ascending=False, method="min"))
 plays.to_csv("plays.csv", index=False)
 
 with pd.ExcelWriter("plays.xlsx", engine="openpyxl") as xw:
     summ = plays[["play_id", "vehicle", "ticker_or_route", "layer", "tier", "horizon", "return_band_annual_pct",
-                  "return_mid_pct", "scenario_expected_pct", "stress_drawdown_pct", "excess_vs_tbill_pct", "ra_score", "kill_criterion",
+                  "return_mid_pct", "geo_central_pct", "excess_vs_tbill_pct", "stress_drawdown_pct", "rank_in_tier", "kill_criterion",
                   "tax_character", "confidence", "source_ws"]]
     summ.to_excel(xw, sheet_name="Summary", index=False)
     for tier in ("Retail", "Mid", "Large"):
@@ -124,5 +131,5 @@ with pd.ExcelWriter("plays.xlsx", engine="openpyxl") as xw:
             ws.column_dimensions[col[0].column_letter].width = min(45, max(10, max(len(str(c.value or "")) for c in col[:40]) * 0.9))
 print(plays.groupby(["tier"]).size().to_string())
 pd.set_option("display.width", 220)
-print(plays[["play_id", "tier", "ticker_or_route", "return_band_annual_pct", "scenario_expected_pct", "stress_drawdown_pct", "ra_score"]]
-      .sort_values("ra_score", ascending=False).to_string(index=False))
+print(plays[["play_id", "tier", "ticker_or_route", "return_band_annual_pct", "geo_central_pct", "excess_vs_tbill_pct", "stress_drawdown_pct", "rank_in_tier"]]
+      .sort_values(["tier", "rank_in_tier"]).to_string(index=False))

@@ -39,3 +39,6 @@ variant:36m_growth_decay0.9,Bull,0.1169,0.1108,momentum,0.0,0.0,projS2030=825.9B
 variant:drivers_only_no_momentum,Bear,0.5439,0.5302,momentum,0.0,0.0,projS2030=452.9B; projS2035=550.8B; projT2035=186.9B
 variant:drivers_only_no_momentum,Base,0.3491,0.3574,momentum,0.0,0.0,projS2030=452.9B; projS2035=550.8B; projT2035=186.9B
 variant:drivers_only_no_momentum,Bull,0.107,0.1124,momentum,0.0,0.0,projS2030=452.9B; projS2035=550.8B; projT2035=186.9B
+variant:T_incl_represented,Bear,0.4951,0.6167,momentum,0.0,0.0,projS2030=452.9B; projS2035=550.8B; projT2035=988.8B
+variant:T_incl_represented,Base,0.3778,0.3017,momentum,0.0,0.0,projS2030=452.9B; projS2035=550.8B; projT2035=988.8B
+variant:T_incl_represented,Bull,0.1272,0.0815,momentum,0.0,0.0,projS2030=452.9B; projS2035=550.8B; projT2035=988.8B

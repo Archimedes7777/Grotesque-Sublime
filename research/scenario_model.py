@@ -225,6 +225,7 @@ def main() -> int:
         ("blend_growth_decay0.9", cagr["S"], cagr["T"], 0.90),
         ("36m_growth_decay0.9", inputs["S_cagr_36m"], inputs["T_cagr_36m"], 0.90),
         ("drivers_only_no_momentum", None, None, None),
+        ("T_incl_represented", cagr["S"], inputs["T_cagr_incl_represented"], 0.80),
     ]
     saved_decay, saved_mw = GROWTH_DECAY, globals()["MOMENTUM_WEIGHT"]
     variant_rows = []
@@ -232,6 +233,10 @@ def main() -> int:
         if gs is None:
             globals()["MOMENTUM_WEIGHT"] = 0.0
             r, _ = run(drivers, prior, current, cagr)
+        elif name == "T_incl_represented":
+            GROWTH_DECAY = dec
+            cur2 = {"S": current["S"], "T": inputs["T_current_incl_represented_busd"]}
+            r, _ = run(drivers, prior, cur2, {"S": gs, "T": gt})
         else:
             GROWTH_DECAY = dec
             r, _ = run(drivers, prior, current, {"S": gs, "T": gt})

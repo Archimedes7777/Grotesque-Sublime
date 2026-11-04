@@ -81,24 +81,25 @@ for i, (u, r) in enumerate(sorted(urls.items(), key=lambda kv: urlparse(kv[0]).n
     lines.append(f"| {i} | {u} | {'; '.join(sorted(r['dates']))[:60]} | {note(u)} | {'; '.join(sorted(r['where']))} |")
 open("sources.md", "w").write("\n".join(lines) + "\n")
 
-# return_methods.md
+# return_methods.md (v2 method, changelog C1)
 p = pd.read_csv("plays.csv")
 out = ["# Return methods and arithmetic per play\n",
-       "Each row: the workstream's stated method and arithmetic (verbatim from `return_method_detail`), then the lead's scenario weighting (assumptions.md P3-1 to P3-4).\n",
-       "Lead formula: E = P(Bear) x low + P(Base) x mid + P(Bull) x high. 2030 weights (Short and Medium plays): 0.57 / 0.36 / 0.07. 2035 weights (Long plays): 0.53 / 0.38 / 0.09. Excess = E minus 4.21% (3M T-bill, 2026-11-02, Federal Reserve H.15). Risk-adjusted score = Excess / stress drawdown.\n",
-       "Caution: workstream bands are not calibrated distributions. Wide bands with deep lows (tokens, crypto equities) score poorly under scenario weighting and well under the midpoint. Both are shown; neither is a forecast.\n"]
+       "Each row gives the workstream's stated method and arithmetic (verbatim from `return_method_detail`), then the lead's v2 central estimate.\n",
+       "Lead formula (v2): read the band as roughly the 10th to 90th percentile of annual returns. sigma = (high - low) / 2.563; central = midpoint - sigma^2 / 2 (compounding drag). Excess = central - 4.21% (3M T-bill constant maturity, H.15, 2026-11-02). Plays are ranked within tier on excess; stress drawdown is shown separately (assumptions.md P6-1 to P6-3).\n",
+       "Retired v1 method: scenario-weighting of band low, mid and high by Bear, Base and Bull probabilities. Both red teams showed it maps adoption states onto assets whose returns do not depend on adoption (changelog C1).\n",
+       "Caution: bands are workstream judgment, not calibrated distributions.\n"]
 for _, r in p.iterrows():
-    lo_hi = re.findall(r"-?\d+(?:\.\d+)?", str(r["return_band_annual_pct"]))
-    if len(lo_hi) >= 2:
-        lo, hi = float(lo_hi[0]), float(lo_hi[1]); mid = (lo + hi) / 2
-        w = (0.53, 0.38, 0.09) if r["horizon"] == "Long" else (0.57, 0.36, 0.07)
-        arith = (f"E = {w[0]} x {lo:g} + {w[1]} x {mid:g} + {w[2]} x {hi:g} = {r['scenario_expected_pct']:.2f}%; "
-                 f"excess {r['excess_vs_tbill_pct']:.2f} pts; stress {r['stress_drawdown_pct']:g}%; score {r['ra_score']}")
+    m = re.findall(r"-?\d+(?:\.\d+)?", str(r["return_band_annual_pct"]))
+    if len(m) >= 2:
+        lo, hi = float(m[0]), float(m[1]); mid = (lo + hi) / 2; sig = (hi - lo) / 2.563
+        arith = (f"mid = ({lo:g} + {hi:g}) / 2 = {mid:g}; sigma = {hi - lo:g} / 2.563 = {sig:.1f}%; "
+                 f"central = {mid:g} - {sig:.1f}^2 / 200 = {r['geo_central_pct']:.2f}%; excess {r['excess_vs_tbill_pct']:.2f} pts; "
+                 f"stress {r['stress_drawdown_pct']:g}%; tier rank {r['rank_in_tier'] if r['rank_in_tier'] == r['rank_in_tier'] else 'NA'}")
     else:
         arith = "No band asserted by workstream; not scored."
     out.append(f"\n## {r['play_id']} {r['vehicle']} ({r['ticker_or_route']}), {r['tier']}, {r['horizon']}\n")
     out.append(f"- Band: {r['return_band_annual_pct']} percent per year. Method: {r['return_method']}.")
     out.append(f"- Workstream arithmetic ({r['source_ws']}): {r['return_method_detail']}")
-    out.append(f"- Lead scenario weighting: {arith}")
+    out.append(f"- Lead central estimate: {arith}")
 open("return_methods.md", "w").write("\n".join(out) + "\n")
 print(len(urls), "urls")

@@ -54,3 +54,16 @@ Each entry: ID, phase, assumption, reason. Later phases append.
 | P3-4 | Risk-adjusted score = (scenario-weighted expected return minus 4.21% T-bill) / stress drawdown. | Implements P0-3 against the benchmark (G9). |
 | P3-5 | Secondary purchases of private shares are treated as not QSBS-eligible, because Sec 1202 requires stock acquired at original issuance. | 26 USC 1202(c)(1)(B). |
 | P3-6 | Personal-case after-tax rates: federal 24% ordinary and 15% LTCG, plus 3.8% NIIT not assumed (income unknown), plus California 9.3% on all gains and ordinary income. Combined: 33.3% ordinary, 24.3% long-term. | Income not stated; mid-bracket assumption for a $50k cash holder. |
+
+## Phase 6 (revision after red team)
+
+| ID | Assumption | Reason |
+|---|---|---|
+| P6-1 | Workstream bands are read as roughly the 10th to 90th percentile of annual returns. Central estimate = midpoint - sigma^2/2, with sigma = (high - low)/2.563. | Replaces the v1 scenario weighting (red team A2, B1). Converts an arithmetic center to a compounding center. |
+| P6-2 | Ranking is within tier by central excess over 4.21%, with stress drawdown shown alongside; no ratio. Judgment overrides in the top-five table are marked (J). | Red team A3: ratios with negative numerators reward risk. |
+| P6-3 | Stress drawdowns are anchored on 2008 to 2009 for incumbents (V 50%, MA 60%, BK 65%, STT 80%, JPM 70%, BLK 60%, BEN 65%, NDAQ 65%, ICE 80%, CME 70%, PYPL 80%), on data/drawdowns.csv for crypto, 30% for tokenized private credit, and 60% for EM equities. The 2008 to 2009 figures are [Unverified] (red team A memory plus lead memory). | Red team A4, B5, B10. |
+| P6-4 | Lead scenario probabilities = mean of five estimators: model base, model drivers-only, WS3 judgment, Red Team A and Red Team B. 2030: 51/42/7. 2035: 46/43/11. Reported with the panel range. | Red team A5 (false precision), B4 (momentum at the trough). Red-team estimates are informed, adversarial and documented. |
+| P6-5 | Bear is relabeled "public-chain tokenization and stablecoins stay niche". T remains distributed value for continuity. A represented-inclusive variant (T = $435.37B, 20% growth assumed) is reported. | Red team B2. |
+| P6-6 | Split outcomes (S and T in different bands) count as Base. | Red team A5(d). |
+| P6-7 | Disorderly sub-path probability is about 10% over five years, inside Bear. It is not a fourth partition state. | WS6 R22 (7%), red team A (10% to 15%). |
+| P6-8 | September 2026 CPI of 3.7% is from secondary reports of the BLS release of 2026-10-14 (forexfundamentals, TrendForce, cpiinflationcalculator). | Lead search 2026-11-04. |
