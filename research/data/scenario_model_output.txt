@@ -1,0 +1,51 @@
+override: Political durability 0 -> -1
+Drivers (renormalized weights):
+                                         driver  current_score  weight
+                 Regulatory clarity (US and EU)              1    0.14
+           Bank capital treatment (Basel SCO60)             -1    0.10
+Institutional custody and market infrastructure              1    0.08
+                     Interoperability standards              0    0.09
+                    Retail and corporate demand             -1    0.14
+                        Treasury market effects              0    0.06
+                       Geopolitical competition              1    0.07
+                             Technical maturity              0    0.08
+                           Incumbent incentives              0    0.08
+                            Interest-rate level             -1    0.07
+                           Political durability             -1    0.09
+
+Scenario probabilities:
+horizon    2030   2035
+scenario              
+Base      0.283  0.262
+Bear      0.644  0.673
+Bull      0.073  0.065
+
+Model internals:
+         composite  momentum  latent  prior_nonbear  proj_S_busd  proj_T_busd
+horizon                                                                      
+2030         -0.11    -0.978  -0.370            0.5        452.9        112.9
+2035         -0.11    -1.930  -0.656            0.5        550.8        186.9
+
+Momentum variants:
+                          p2030                p2035              
+scenario                   Base   Bear   Bull   Base   Bear   Bull
+variant                                                           
+12m_growth_decay0.8       0.220  0.730  0.050  0.258  0.678  0.064
+36m_growth_decay0.8       0.344  0.552  0.104  0.308  0.607  0.085
+36m_growth_decay0.9       0.364  0.519  0.117  0.355  0.534  0.111
+blend_growth_decay0.9     0.296  0.625  0.079  0.281  0.646  0.073
+drivers_only_no_momentum  0.349  0.544  0.107  0.357  0.530  0.112
+
+Tornado ranking (2030):
+                                         driver  weight  score  bull_up  bull_down  bear_up  bear_down  total_swing
+                 Regulatory clarity (US and EU)    0.14      1   0.0114    -0.0100  -0.0367     0.0351       0.0931
+                    Retail and corporate demand    0.14     -1   0.0114    -0.0100  -0.0367     0.0351       0.0931
+           Bank capital treatment (Basel SCO60)    0.10     -1   0.0080    -0.0072  -0.0261     0.0252       0.0665
+                           Political durability    0.09     -1   0.0071    -0.0066  -0.0234     0.0228       0.0599
+                     Interoperability standards    0.09      0   0.0071    -0.0066  -0.0234     0.0228       0.0599
+Institutional custody and market infrastructure    0.08      1   0.0063    -0.0059  -0.0208     0.0203       0.0532
+                             Technical maturity    0.08      0   0.0063    -0.0059  -0.0208     0.0203       0.0532
+                           Incumbent incentives    0.08      0   0.0063    -0.0059  -0.0208     0.0203       0.0532
+                       Geopolitical competition    0.07      1   0.0055    -0.0051  -0.0182     0.0178       0.0466
+                            Interest-rate level    0.07     -1   0.0055    -0.0051  -0.0182     0.0178       0.0466
+                        Treasury market effects    0.06      0   0.0047    -0.0044  -0.0156     0.0153       0.0399

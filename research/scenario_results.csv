@@ -1,0 +1,41 @@
+run,scenario,probability_2030,probability_2035,driver,driver_delta,prob_shift,note
+base,Bear,0.644,0.673,ALL,0.0,0.0,composite=-0.11; momentum2030=-0.978; momentum2035=-1.93; prior_nonbear2030=0.5; prior_nonbear2035=0.5; projS2030=452.9B; projT2030=112.9B; projS2035=550.8B; projT2035=186.9B
+base,Base,0.2828,0.2621,ALL,0.0,0.0,composite=-0.11; momentum2030=-0.978; momentum2035=-1.93; prior_nonbear2030=0.5; prior_nonbear2035=0.5; projS2030=452.9B; projT2030=112.9B; projS2035=550.8B; projT2035=186.9B
+base,Bull,0.0732,0.0649,ALL,0.0,0.0,composite=-0.11; momentum2030=-0.978; momentum2035=-1.93; prior_nonbear2030=0.5; prior_nonbear2035=0.5; projS2030=452.9B; projT2030=112.9B; projS2035=550.8B; projT2035=186.9B
+sensitivity_2030,Bull,,,Regulatory clarity (US and EU),1.0,0.0114,Bear shift -0.0367
+sensitivity_2030,Bull,,,Regulatory clarity (US and EU),-1.0,-0.01,Bear shift 0.0351
+sensitivity_2030,Bull,,,Retail and corporate demand,1.0,0.0114,Bear shift -0.0367
+sensitivity_2030,Bull,,,Retail and corporate demand,-1.0,-0.01,Bear shift 0.0351
+sensitivity_2030,Bull,,,Bank capital treatment (Basel SCO60),1.0,0.008,Bear shift -0.0261
+sensitivity_2030,Bull,,,Bank capital treatment (Basel SCO60),-1.0,-0.0072,Bear shift 0.0252
+sensitivity_2030,Bull,,,Political durability,1.0,0.0071,Bear shift -0.0234
+sensitivity_2030,Bull,,,Political durability,-1.0,-0.0066,Bear shift 0.0228
+sensitivity_2030,Bull,,,Interoperability standards,1.0,0.0071,Bear shift -0.0234
+sensitivity_2030,Bull,,,Interoperability standards,-1.0,-0.0066,Bear shift 0.0228
+sensitivity_2030,Bull,,,Institutional custody and market infrastructure,1.0,0.0063,Bear shift -0.0208
+sensitivity_2030,Bull,,,Institutional custody and market infrastructure,-1.0,-0.0059,Bear shift 0.0203
+sensitivity_2030,Bull,,,Technical maturity,1.0,0.0063,Bear shift -0.0208
+sensitivity_2030,Bull,,,Technical maturity,-1.0,-0.0059,Bear shift 0.0203
+sensitivity_2030,Bull,,,Incumbent incentives,1.0,0.0063,Bear shift -0.0208
+sensitivity_2030,Bull,,,Incumbent incentives,-1.0,-0.0059,Bear shift 0.0203
+sensitivity_2030,Bull,,,Geopolitical competition,1.0,0.0055,Bear shift -0.0182
+sensitivity_2030,Bull,,,Geopolitical competition,-1.0,-0.0051,Bear shift 0.0178
+sensitivity_2030,Bull,,,Interest-rate level,1.0,0.0055,Bear shift -0.0182
+sensitivity_2030,Bull,,,Interest-rate level,-1.0,-0.0051,Bear shift 0.0178
+sensitivity_2030,Bull,,,Treasury market effects,1.0,0.0047,Bear shift -0.0156
+sensitivity_2030,Bull,,,Treasury market effects,-1.0,-0.0044,Bear shift 0.0153
+variant:12m_growth_decay0.8,Bear,0.7298,0.678,momentum,0.0,0.0,projS2030=269.3B; projS2035=258.7B; projT2035=73.5B
+variant:12m_growth_decay0.8,Base,0.22,0.2584,momentum,0.0,0.0,projS2030=269.3B; projS2035=258.7B; projT2035=73.5B
+variant:12m_growth_decay0.8,Bull,0.0502,0.0635,momentum,0.0,0.0,projS2030=269.3B; projS2035=258.7B; projT2035=73.5B
+variant:36m_growth_decay0.8,Bear,0.5524,0.607,momentum,0.0,0.0,projS2030=716.9B; projS2035=1090.9B; projT2035=500.2B
+variant:36m_growth_decay0.8,Base,0.3439,0.3083,momentum,0.0,0.0,projS2030=716.9B; projS2035=1090.9B; projT2035=500.2B
+variant:36m_growth_decay0.8,Bull,0.1038,0.0846,momentum,0.0,0.0,projS2030=716.9B; projS2035=1090.9B; projT2035=500.2B
+variant:blend_growth_decay0.9,Bear,0.6253,0.6461,momentum,0.0,0.0,projS2030=486.5B; projS2035=712.4B; projT2035=346.9B
+variant:blend_growth_decay0.9,Base,0.2959,0.2813,momentum,0.0,0.0,projS2030=486.5B; projS2035=712.4B; projT2035=346.9B
+variant:blend_growth_decay0.9,Bull,0.0789,0.0726,momentum,0.0,0.0,projS2030=486.5B; projS2035=712.4B; projT2035=346.9B
+variant:36m_growth_decay0.9,Bear,0.5189,0.5341,momentum,0.0,0.0,projS2030=825.9B; projS2035=1843.4B; projT2035=1319.7B
+variant:36m_growth_decay0.9,Base,0.3641,0.3551,momentum,0.0,0.0,projS2030=825.9B; projS2035=1843.4B; projT2035=1319.7B
+variant:36m_growth_decay0.9,Bull,0.1169,0.1108,momentum,0.0,0.0,projS2030=825.9B; projS2035=1843.4B; projT2035=1319.7B
+variant:drivers_only_no_momentum,Bear,0.5439,0.5302,momentum,0.0,0.0,projS2030=452.9B; projS2035=550.8B; projT2035=186.9B
+variant:drivers_only_no_momentum,Base,0.3491,0.3574,momentum,0.0,0.0,projS2030=452.9B; projS2035=550.8B; projT2035=186.9B
+variant:drivers_only_no_momentum,Bull,0.107,0.1124,momentum,0.0,0.0,projS2030=452.9B; projS2035=550.8B; projT2035=186.9B

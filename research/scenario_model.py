@@ -50,9 +50,11 @@ SHOCK = 1.0                                    # P2-6: driver shock size for sen
 ANALOG_THRESHOLD_PCT = 10.0                    # P2-7: penetration that counts as "reached scale"
 PRIOR_FLOOR, PRIOR_CEIL = 0.20, 0.85           # P2-8: clamp on analog base rate
 
-# schema.md Section 3 bands, USD billions: (bear_upper, bull_lower)
+# Scenario bands, USD billions: (bear_upper, bull_lower).
+# 2030 uses the WS3 recalibration (ws/ws3.md section 2; assumptions.md P2-10);
+# 2035 uses schema.md Section 3 unchanged.
 BANDS = {
-    "2030": {"S": (600.0, 2000.0), "T": (150.0, 1500.0)},
+    "2030": {"S": (500.0, 1500.0), "T": (100.0, 500.0)},
     "2035": {"S": (1000.0, 4000.0), "T": (500.0, 5000.0)},
 }
 
@@ -180,6 +182,14 @@ def main() -> int:
             print(f"missing input: {p}", file=sys.stderr)
             return 1
     drivers = load_drivers(drivers_path)
+    overrides_path = os.path.join(DATA, "driver_overrides.csv")  # lead overrides, assumptions.md P2-12
+    if os.path.exists(overrides_path):
+        ov = pd.read_csv(overrides_path)
+        for _, o in ov.iterrows():
+            mask = drivers["driver"] == o["driver"]
+            if mask.any():
+                print(f"override: {o['driver']} {drivers.loc[mask, 'current_score'].iloc[0]} -> {o['current_score']}")
+                drivers.loc[mask, "current_score"] = float(o["current_score"])
     inputs = pd.read_csv(inputs_path).set_index("key")["value"].astype(float).to_dict()
     current = {"S": inputs["S_current_busd"], "T": inputs["T_current_busd"]}
     cagr = {"S": inputs["S_cagr"], "T": inputs["T_cagr"]}
@@ -207,6 +217,33 @@ def main() -> int:
             out_rows.append({"run": "sensitivity_2030", "scenario": "Bull", "probability_2030": np.nan,
                              "probability_2035": np.nan, "driver": r["driver"], "driver_delta": sign * SHOCK,
                              "prob_shift": r[col_bull], "note": f"Bear shift {r[col_bear]}"})
+    # Momentum-assumption variants (assumptions.md P2-11): growth window and decay.
+    global GROWTH_DECAY
+    variants = [
+        ("12m_growth_decay0.8", inputs["S_cagr_12m"], inputs["T_cagr_12m"], 0.80),
+        ("36m_growth_decay0.8", inputs["S_cagr_36m"], inputs["T_cagr_36m"], 0.80),
+        ("blend_growth_decay0.9", cagr["S"], cagr["T"], 0.90),
+        ("36m_growth_decay0.9", inputs["S_cagr_36m"], inputs["T_cagr_36m"], 0.90),
+        ("drivers_only_no_momentum", None, None, None),
+    ]
+    saved_decay, saved_mw = GROWTH_DECAY, globals()["MOMENTUM_WEIGHT"]
+    variant_rows = []
+    for name, gs, gt, dec in variants:
+        if gs is None:
+            globals()["MOMENTUM_WEIGHT"] = 0.0
+            r, _ = run(drivers, prior, current, cagr)
+        else:
+            GROWTH_DECAY = dec
+            r, _ = run(drivers, prior, current, {"S": gs, "T": gt})
+        GROWTH_DECAY, globals()["MOMENTUM_WEIGHT"] = saved_decay, saved_mw
+        pv = r.pivot(index="scenario", columns="horizon", values="probability")
+        mt = r.groupby("horizon").first()
+        for sc in ("Bear", "Base", "Bull"):
+            out_rows.append({"run": f"variant:{name}", "scenario": sc,
+                             "probability_2030": pv.loc[sc, "2030"], "probability_2035": pv.loc[sc, "2035"],
+                             "driver": "momentum", "driver_delta": 0, "prob_shift": 0,
+                             "note": f"projS2030={mt.loc['2030','proj_S_busd']}B; projS2035={mt.loc['2035','proj_S_busd']}B; projT2035={mt.loc['2035','proj_T_busd']}B"})
+            variant_rows.append({"variant": name, "scenario": sc, "p2030": pv.loc[sc, "2030"], "p2035": pv.loc[sc, "2035"]})
     pd.DataFrame(out_rows).to_csv(os.path.join(HERE, "scenario_results.csv"), index=False)
     sens.to_csv(os.path.join(DATA, "scenario_sensitivity.csv"), index=False)
     for h in ("2030", "2035"):
@@ -219,6 +256,8 @@ def main() -> int:
     print(piv.round(3).to_string())
     print("\nModel internals:")
     print(meta[["composite", "momentum", "latent", "prior_nonbear", "proj_S_busd", "proj_T_busd"]].to_string())
+    print("\nMomentum variants:")
+    print(pd.DataFrame(variant_rows).pivot(index="variant", columns="scenario", values=["p2030", "p2035"]).round(3).to_string())
     print("\nTornado ranking (2030):")
     print(sens[sens["horizon"] == "2030"].sort_values("total_swing", ascending=False)
           [["driver", "weight", "score", "bull_up", "bull_down", "bear_up", "bear_down", "total_swing"]].to_string(index=False))

@@ -1,0 +1,9 @@
+analog,years_to_threshold,reached_within_horizon
+EMV chip migration (US),3.5,True
+Failed: ASX CHESS replacement,,False
+Failed: TradeLens (Maersk/IBM),,False
+M-Pesa (Kenya),2.5,True
+Pix (Brazil),3.5,True
+T+1 settlement (US),0.0,True
+This theme: tokenized Treasuries,,False
+UPI (India),9.6,False
