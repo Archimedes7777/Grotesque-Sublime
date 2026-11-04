@@ -1,0 +1,16 @@
+asset,peak_date,trough_date,drawdown_pct,recovery_months,source_url,source_date,confidence
+BTC 2025-26 cycle (open),2025-10-06,2026-11-03,-39.2,NA,https://admiralmarkets.com/analytics/traders-blog/bitcoin-today-november-3-2026,2026-11-03,Moderate
+BTC 2021-22 cycle,2021-11-10,2022-11-21,-77,28,NA,NA,Unverified
+BTC 2017-18 cycle,2017-12-17,2018-12-15,-84,36,NA,NA,Unverified
+BTC 2013-15 cycle,2013-11-30,2015-01-14,-86,39,NA,NA,Unverified
+ETH 2025-26 cycle (open),2025-08-24,2026-11-04,-51.4,NA,https://coinmarketcap.com/currencies/ethereum/,2026-11-04,Low
+ETH 2021-22 cycle,2021-11-08,2022-06-18,-82,45,NA,NA,Unverified
+ETH 2018 cycle,2018-01-13,2018-12-15,-94,36,NA,NA,Unverified
+SOL 2025-26 cycle (open),2025-01-19,2026-11-04,-67.8,NA,https://coinmarketcap.com/currencies/solana/,2026-11-04,Low
+SOL 2021-22 cycle,2021-11-06,2022-12-29,-97,36,NA,NA,Unverified
+COIN 2025-26 cycle (open),2025-07-18,2026-10-30,-67.6,NA,https://companiesmarketcap.com/coinbase/stock-price-history/,2026-11-04,Moderate
+COIN 2021-22 cycle (peak intraday 2021-04-14 $429.54; trough close $32.53),2021-04-14,2022-12-28,-92.4,51,https://companiesmarketcap.com/coinbase/stock-price-history/,2026-11-04,Low
+HOOD 2025-26 cycle (open),2025-10-09,2026-10-30,-44.3,NA,https://companiesmarketcap.com/robinhood/stock-price-history/,2026-11-04,Moderate
+HOOD 2021-22 cycle (peak approx $85 intraday 2021-08; trough close $6.89),2021-08-04,2022-06-16,-91.9,46,https://companiesmarketcap.com/robinhood/stock-price-history/,2026-11-04,Low
+Blockchain equity ETF (BLOK or BKCH),NA,NA,NA,NA,NA,NA,Unverified
+CRCL since IPO 2025-06-05 (peak intraday $299; low $49.90),2025-06-23,2026-02-05,-83.3,NA,https://stockanalysis.com/stocks/crcl/,2026-11-04,Low
