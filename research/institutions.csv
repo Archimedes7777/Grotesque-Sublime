@@ -1,0 +1,61 @@
+entity,parent,entity_type,jurisdiction,public_private,ticker,role,shipped,announced,revenue_or_aum_tied,metric_date,exposure_route,exposure_purity,source_url,source_date,confidence
+OCC,US Treasury,regulator,US,public_agency,NA,rule_setter,"Final GENIUS Act rule 2026-10-21 (12 CFR 15), effective 2027-01-18",NA,NA,NA,NA,high,https://www.occ.gov/news-issuances/bulletins/2026/bulletin-2026-50.html,2026-10-21,High
+FDIC,NA,regulator,US,public_agency,NA,rule_setter,NA,GENIUS proposals 2025-12-19 and 2026-04-10; no pass-through insurance for stablecoin holders,NA,NA,NA,high,https://www.federalregister.gov/documents/2026/04/10/2026-06974/genius-act-requirements-and-standards-for-fdic-supervised-permitted-payment-stablecoin-issuers-and,2026-04-10,Moderate
+Federal Reserve,NA,central_bank,US,public_agency,NA,rule_setter,NA,GENIUS NPRMs 2026-09-24 (comments to 2026-11-30); payment account proposal 2026-05-20,NA,NA,NA,med,https://www.arnoldporter.com/en/perspectives/advisories/2026/10/implementing-the-genius-act-the-federal-reserve-proposes-a-comprehensive-rulemaking,2026-10-01,Moderate
+SEC,NA,regulator,US,public_agency,NA,rule_setter,Tokenized NMS stock innovation exemption 2026-09-17 to 2031-09-17,Regulation Crypto Assets proposed 2026-08-18,NA,NA,NA,high,https://www.sec.gov/newsroom/press-releases/2026-90-sec-issues-innovation-exemption-facilitate-trading-tokenized-nms-stock-request-comment,2026-09-17,High
+CFTC,NA,regulator,US,public_agency,NA,rule_setter,Joint taxonomy interpretation with SEC 2026-03-17,Rulemaking RIN 3038-AF80 sent to OIRA 2026-09-17,NA,NA,NA,high,https://www.orrick.com/en/Insights/2026/10/The-CLARITY-Act-Stalls-in-the-Senate-Whats-Next-for-Digital-Asset-Regulation,2026-10-01,Moderate
+Basel Committee,BIS,regulator,INTL,public_agency,NA,rule_setter,Crypto standard SCO60 in force 2026-01-01,"Targeted review, update by end 2026",NA,NA,NA,high,https://www.bis.org/media-releases/20261001-basel-committee-meets-advance-supervisory-and-regulatory-initiatives-and-discuss-risks-and,2026-10-01,High
+Digital euro,European Central Bank,central_bank,EU,public_agency,NA,rail_builder,NA,EP plenary vote 416-169-22 on 2026-07-09 to open trilogue; ECB target 2029,NA,NA,NA,high,https://sofiaglobe.com/2026/07/09/european-parliament-votes-to-open-negotiations-on-the-digital-euro/,2026-07-09,Moderate
+HKMA,NA,regulator,HK,public_agency,NA,rule_setter,Stablecoins Ordinance in force 2025-08-01,NA,NA,NA,NA,high,https://www.hkma.gov.hk/eng/key-functions/international-financial-centre/stablecoin-issuers/,2026-11-04,Moderate
+US Treasury,NA,regulator,US,public_agency,NA,rule_setter,NA,NA,NA,NA,"NA (regulatory, no investable route)",high,NA,NA,Unverified
+Bank of England,NA,central_bank,UK,public_agency,NA,rule_setter,NA,NA,NA,NA,"NA (regulatory, no investable route)",high,NA,NA,Unverified
+PBoC,NA,central_bank,CN,public_agency,NA,rule_setter,NA,NA,NA,NA,"NA (regulatory, no investable route)",high,NA,NA,Unverified
+BIS Innovation Hub,NA,central_bank,INTL,public_agency,NA,rule_setter,NA,NA,NA,NA,"NA (regulatory, no investable route)",high,NA,NA,Unverified
+MAS,NA,central_bank,SG,public_agency,NA,rule_setter,NA,NA,NA,NA,"NA (regulatory, no investable route)",high,NA,NA,Unverified
+BoJ,NA,central_bank,JP,public_agency,NA,rule_setter,NA,NA,NA,NA,"NA (regulatory, no investable route)",high,NA,NA,Unverified
+SNB,NA,central_bank,CH,public_agency,NA,rule_setter,NA,NA,NA,NA,"NA (regulatory, no investable route)",high,NA,NA,Unverified
+JPMorgan (Kinexys),JPMorgan Chase,bank,US,public,JPM,rail_builder,NA,NA,NA,NA,Equity JPM; tokenization small share of value,low,NA,NA,Unverified
+Citi Token Services,Citigroup,bank,US,public,C,rail_builder,NA,NA,NA,NA,Equity C,low,NA,NA,Unverified
+BNY,BNY,bank,US,public,BK,custodian,NA,NA,NA,NA,Equity BK,low,NA,NA,Unverified
+State Street,State Street,bank,US,public,STT,custodian,NA,NA,NA,NA,Equity STT,low,NA,NA,Unverified
+Goldman Sachs,Goldman Sachs,bank,US,public,GS,distributor,NA,NA,NA,NA,Equity GS,low,NA,NA,Unverified
+Morgan Stanley,Morgan Stanley,bank,US,public,MS,distributor,NA,NA,NA,NA,Equity MS,low,NA,NA,Unverified
+HSBC Orion,HSBC Holdings,bank,UK,public,HSBC,rail_builder,NA,NA,NA,NA,Equity HSBC (NYSE ADR) or HSBA (LSE),low,NA,NA,Unverified
+Standard Chartered,Standard Chartered,bank,UK,public,STAN (LSE),distributor,NA,NA,NA,NA,"Equity, UK listing",low,NA,NA,Unverified
+DBS,DBS Group,bank,SG,public,D05 (SGX),rail_builder,NA,NA,NA,NA,"Equity, SGX listing",low,NA,NA,Unverified
+BlackRock BUIDL,BlackRock,asset_manager,US,public,BLK,issuer,NA,NA,NA,NA,Equity BLK; BUIDL is small versus firm AUM,low,NA,NA,Unverified
+Franklin BENJI,Franklin Resources,asset_manager,US,public,BEN,issuer,NA,NA,NA,NA,Equity BEN,low,NA,NA,Unverified
+Fidelity,FMR,asset_manager,US,private,NA,issuer,NA,NA,NA,NA,No direct equity; funds only,low,NA,NA,Unverified
+Invesco,Invesco,asset_manager,US,public,IVZ,issuer,NA,NA,NA,NA,"Equity IVZ, crypto ETPs",low,NA,NA,Unverified
+WisdomTree,WisdomTree,asset_manager,US,public,WT,issuer,NA,NA,NA,NA,"Equity WT, tokenized funds",med,NA,NA,Unverified
+VanEck,VanEck,asset_manager,US,private,NA,issuer,NA,NA,NA,NA,No equity; ETPs only,med,NA,NA,Unverified
+Apollo,Apollo Global Management,asset_manager,US,public,APO,issuer,NA,NA,NA,NA,Equity APO,low,NA,NA,Unverified
+KKR,KKR,asset_manager,US,public,KKR,issuer,NA,NA,NA,NA,Equity KKR,low,NA,NA,Unverified
+Hamilton Lane,Hamilton Lane,asset_manager,US,public,HLNE,issuer,NA,NA,NA,NA,Equity HLNE,low,NA,NA,Unverified
+DTCC,DTCC,market_infra,US,private,NA,rail_builder,NA,NA,NA,NA,None (industry utility); owned by members,med,NA,NA,Unverified
+SWIFT,SWIFT SC,market_infra,INTL,private,NA,rail_builder,NA,NA,NA,NA,None (cooperative),med,NA,NA,Unverified
+Visa,Visa,payments,US,public,V,distributor,NA,NA,NA,NA,Equity V,low,NA,NA,Unverified
+Mastercard,Mastercard,payments,US,public,MA,distributor,NA,NA,NA,NA,Equity MA,low,NA,NA,Unverified
+Stripe,Stripe,payments,US,private,NA,distributor,NA,NA,NA,NA,Secondary markets only (IPO status unverified),med,NA,NA,Unverified
+PayPal (PYUSD),PayPal,payments,US,public,PYPL,distributor,NA,NA,NA,NA,Equity PYPL,low,NA,NA,Unverified
+Coinbase,Coinbase Global,crypto_native,US,public,COIN,distributor,NA,NA,NA,NA,Equity COIN,high,NA,NA,Unverified
+Circle,Circle Internet Group,crypto_native,US,public,CRCL,issuer,NA,NA,NA,NA,Equity CRCL (listing assumed from memory),high,NA,NA,Unverified
+Tether,Tether Holdings,crypto_native,INTL,private,NA,issuer,NA,NA,NA,NA,None directly,high,NA,NA,Unverified
+Ripple,Ripple Labs,crypto_native,US,private,NA,issuer,NA,NA,NA,NA,Secondary markets; XRP is a separate asset (IPO status unverified),high,NA,NA,Unverified
+Paxos,Paxos,crypto_native,US,private,NA,issuer,NA,NA,NA,NA,Private placements only,high,NA,NA,Unverified
+Anchorage,Anchorage Digital,crypto_native,US,private,NA,custodian,NA,NA,NA,NA,Private placements only (IPO status unverified),high,NA,NA,Unverified
+Fireblocks,Fireblocks,crypto_native,US,private,NA,custodian,NA,NA,NA,NA,Private placements only (IPO status unverified),high,NA,NA,Unverified
+Securitize,Securitize,crypto_native,US,private,NA,issuer,NA,NA,NA,NA,"SPAC listing announced 2025, completion unverified",high,NA,NA,Unverified
+Ondo,Ondo Finance,crypto_native,US,private,NA,issuer,NA,NA,NA,NA,ONDO token (separate from product revenue),high,NA,NA,Unverified
+Chainlink,Chainlink Labs,crypto_native,US,private,NA,rail_builder,NA,NA,NA,NA,LINK token or ETPs,high,NA,NA,Unverified
+Digital Asset (Canton),Digital Asset Holdings,crypto_native,US,private,NA,rail_builder,NA,NA,NA,NA,Private placements; Canton Coin,high,NA,NA,Unverified
+R3,R3,consortium,US,private,NA,rail_builder,NA,NA,NA,NA,None,high,NA,NA,Unverified
+Nasdaq,Nasdaq,market_infra,US,public,NDAQ,distributor,NA,NA,NA,NA,Equity NDAQ,low,NA,NA,Unverified
+ICE,Intercontinental Exchange,market_infra,US,public,ICE,distributor,NA,NA,NA,NA,Equity ICE,low,NA,NA,Unverified
+CME,CME Group,market_infra,US,public,CME,distributor,NA,NA,NA,NA,Equity CME,low,NA,NA,Unverified
+Robinhood,Robinhood Markets,crypto_native,US,public,HOOD,distributor,NA,NA,NA,NA,Equity HOOD,med,NA,NA,Unverified
+Kraken,Payward,crypto_native,US,private,NA,distributor,NA,NA,NA,NA,IPO status unverified,high,NA,NA,Unverified
+Galaxy,Galaxy Digital,crypto_native,US,public,GLXY,distributor,NA,NA,NA,NA,Equity GLXY,high,NA,NA,Unverified
+Bullish,Bullish,crypto_native,INTL,public,BLSH,distributor,NA,NA,NA,NA,Equity BLSH,high,NA,NA,Unverified
+Figure,Figure Technology Solutions,crypto_native,US,public,FIGR,issuer,NA,NA,NA,NA,Equity FIGR,high,NA,NA,Unverified
+Gemini,Gemini Space Station,crypto_native,US,public,GEMI,distributor,NA,NA,NA,NA,Equity GEMI,high,NA,NA,Unverified
