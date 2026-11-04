@@ -1,0 +1,22 @@
+vehicle_class,tax_character,account_placement,verify_with_cpa
+us_common_stock,Qualified dividends (holding test) and LTCG over 1 year; ordinary if short,Taxable: yes; IRA/Roth/401k: yes (best for high-turnover or ordinary-income names in IRA),N
+spot_crypto_etp_grantor_trust,Capital gain or loss on shares; LTCG over 1 year; no dividends,"Taxable: good (no distributions, step-up); Roth: best for high expected growth; IRA/401k: yes",Y
+spot_crypto_etp_staking,Ordinary income from staking rewards (annual) plus capital gain on shares,Prefer IRA or Roth (UBTI unresolved); taxable: acceptable but income taxed ordinary at fed plus CA,Y
+blockchain_equity_etf_1940,"Qualified or ordinary dividends, capital gain distributions, capital gain on shares",Taxable: yes; IRA/Roth/401k: yes,N
+futures_crypto_etf,"Dividends (RIC) mostly ordinary, or 60/40 via K-1 (pool); check prospectus",IRA or Roth preferred (ordinary-heavy); taxable: ok if RIC,Y
+network_token_direct,Property: short-term (ordinary) or long-term capital gain (over 1 year),Taxable: yes with specific ID and 1099-DA records; IRA/Roth: only via self-directed IRA custodian; 401k: rare,Y
+staking_rewards_direct,"Ordinary income at FMV on receipt, then capital gain","Taxable: yes (phantom income risk); IRA/Roth: limited, UBTI unresolved; 401k: no",Y
+airdrops_forks,Ordinary income at FMV on dominion and control,Taxable only,Y
+stablecoin_held_no_yield,Property; capital gain or loss near zero,Taxable: yes; retirement: via custodian only,Y
+stablecoin_yield_exchange,Ordinary income (interest-like) when credited,IRA or Roth preferred if available; taxable: fed ordinary plus CA ordinary,Y
+tokenized_mmf_registered,Ordinary dividends (not qualified); CA exempt share for US-obligation portion,Taxable: ok (CA exempt pass-through); IRA/Roth: yes,Y
+tokenized_mmf_private_offshore,Ordinary; PFIC if foreign corporation,"Not Retail; IRA/Roth if permitted, PFIC applies",Y
+tokenized_treasury_direct,Ordinary interest; state exemption only with look-through,Taxable if CA exemption proven; else IRA or Roth; mostly not Retail,Y
+tokenized_private_credit,Ordinary interest via K-1; UBTI or ECI possible,Not Retail; IRA risk UBTI,Y
+offshore_tokenized_fund_pfic,PFIC excess distribution (ordinary plus interest charge) unless QEF or MTM,Avoid in taxable; Form 8621 annually; IRA/Roth avoids PFIC filing in some cases (CPA),Y
+tokenized_equity_wrapped,Unclear; dividend equivalents ordinary; possible PFIC,Avoid for Retail until guidance; taxable only if offered,Y
+private_placement_preipo_qsbs,LTCG; Sec 1202 exclusion 50/75/100% at 3/4/5 years for post-2025-07-04 stock; CA taxes full gain,"Taxable only (QSBS requires direct ownership, not IRA); accredited only",Y
+venture_fund_lp,K-1 pass-through; carry under Sec 1061 (3-year); UBTI risk for IRA,Taxable for individuals; tax-exempt investors use blockers; accredited only,Y
+validator_operations,Business ordinary income plus self-employment tax,"Taxable business entity; not IRA (UBTI, prohibited transaction risk)",Y
+structured_notes,Per prospectus: ordinary (CPDI) or capital (prepaid forward),"Taxable: ok; IRA/Roth: ok, avoids OID mismatch",Y
+cme_futures_options,"Sec 1256: 60% long-term and 40% short-term, marked to market",Taxable margin account; IRA impractical,Y
