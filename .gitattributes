@@ -1,6 +1,15 @@
-# Hooks and scripts must keep LF endings. With CRLF, bash hits a syntax error,
-# exits 0 with no output, and the guard silently allows everything (fails open).
+# Every text file keeps LF endings. Two reasons:
+# - With CRLF, bash hits a syntax error in a hook, exits 0 with no output, and
+#   the guard silently allows everything (fails open).
+# - skills-lock.json hashes skill files as they sit on disk. A CRLF checkout of
+#   a SKILL.md changes the hash and fails the integrity check.
+* text=auto eol=lf
 *.sh  text eol=lf
 *.mjs text eol=lf
 *.json text eol=lf
 *.yml text eol=lf
+*.md  text eol=lf
+
+# .claude/skills/<name> are symlinks to directories. Git for Windows needs this
+# hint to create directory symlinks (needs core.symlinks=true and Developer Mode).
+.claude/skills/* symlink=dir
