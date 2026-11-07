@@ -23,10 +23,17 @@ has() { printf '%s' "$input" | grep -Eqi -- "$1"; }
 # --- DENY: remote code execution without review -----------------------------
 # curl/wget/iwr piped or substituted into an interpreter.
 fetch='(curl|wget|iwr|invoke-webrequest|irm|invoke-restmethod)'
-interp='(sudo[[:space:]]+)?(ba|z|da|k|fi)?sh|python[0-9.]*|node|perl|ruby|php|iex|invoke-expression'
+interp='(sudo[[:space:]]+)?(ba|z|da|k|fi)?sh|python[0-9.]*|node|perl|ruby|php|iex|invoke-expression|pwsh(\.exe)?|powershell(\.exe)?'
 if has "${fetch}[^|;&]*\\|[[:space:]]*(${interp})([[:space:]]|\\\\?\"|$|;|&)" \
   || has "(${interp})[[:space:]]+(-c[[:space:]]+)?(\\\\?\")?(<\\(|\\\$\\()[[:space:]]*${fetch}"; then
   decide deny "piping a downloaded script into an interpreter is blocked. Download it, read it, pin its hash, then run it as a file."
+fi
+# PowerShell download cradles: iex (iwr ...), iex (New-Object Net.WebClient).DownloadString(...),
+# [scriptblock]::Create((irm ...)).
+if has "(iex|invoke-expression)[[:space:]]*\\(+[[:space:]]*(${fetch}|new-object)" \
+  || has '(iex|invoke-expression)[^;&]*\.download(string|data)|\.download(string|data)[^;&]*\|[[:space:]]*(iex|invoke-expression)' \
+  || has "scriptblock\\]::create[^;&]*${fetch}"; then
+  decide deny "running a downloaded script in memory is blocked. Download it, read it, pin its hash, then run it as a file."
 fi
 
 # --- DENY: history rewriting on shared branches ------------------------------
@@ -36,7 +43,7 @@ if has 'git[[:space:]]+push([[:space:]][^|;&]*)?[[:space:]](--force([[:space:]]|
 fi
 
 # --- DENY: tampering with git hooks or guard-rails ---------------------------
-if has '\.git/hooks/|core\.hooksPath'; then
+if has '\.git[/\\]+hooks[/\\]|core\.hooksPath'; then
   decide deny "writing git hooks or changing core.hooksPath is blocked (persistent code execution vector)."
 fi
 
@@ -44,18 +51,26 @@ fi
 if has 'rm[[:space:]]+(-[a-zA-Z]*[rR][a-zA-Z]*[[:space:]]+)+(--no-preserve-root[[:space:]]+)?(/|~|\$HOME|/\*)([[:space:]]|\\?"|$)'; then
   decide deny "recursive delete of / or the home directory is blocked."
 fi
+# PowerShell form: a recursive delete aimed at a drive root or the home directory.
+psdel='(^|[[:space:];&|"(])(remove-item|ri|rm|del|rd|rmdir|erase)[[:space:]]'
+psroot='(\\?"|'"'"')?(~|\$home|\$env:userprofile|[a-z]:(\\\\)*)[/\\]*'"'"'?([[:space:]]|\\?"|$|[;&|)])'
+if has "${psdel}([^|;&]*[[:space:]])?-r" && has "${psdel}([^|;&]*[[:space:]])?${psroot}"; then
+  decide deny "recursive delete of a drive root or the home directory is blocked."
+fi
 
 # --- DENY: reading secrets through the shell ---------------------------------
 # Mirrors the Read() deny rules in settings.json, which the shell would bypass.
-secret='(^|[[:space:]/=<"'"'"'])(\.env(\.[a-z0-9_-]+)?|id_(rsa|ed25519|ecdsa|dsa)|\.netrc|\.git-credentials|\.pgpass)([[:space:]"'"'"';|&)]|\\\\|$)|\.ssh/|\.aws/credentials|\.config/gh/hosts|\.docker/config\.json|[a-z0-9_-]+\.(pem|key|p12|pfx)([[:space:]"'"'"';|&)]|\\\\|$)'
+# Separators accept / and \ (Windows paths arrive JSON-escaped as \\).
+secret='(^|[[:space:]/\\=<"'"'"'])(\.env(\.[a-z0-9_-]+)?|id_(rsa|ed25519|ecdsa|dsa)|\.netrc|\.git-credentials|\.pgpass)([[:space:]"'"'"';|&)]|\\\\|$)|\.ssh[/\\]|\.aws[/\\]+credentials|\.config[/\\]+gh[/\\]+hosts|\.docker[/\\]+config\.json|[a-z0-9_-]+\.(pem|key|p12|pfx)([[:space:]"'"'"';|&)]|\\\\|$)'
 if has "$secret" && ! has '\.env\.(example|sample|template|dist)([[:space:]"]|\\\\|$)'; then
   decide deny "commands that touch secret files (.env, private keys, cloud or git credentials) are blocked for the agent."
 fi
 
 # --- ASK: actions that weaken the controls themselves ------------------------
 # Reading control files is fine; modifying them needs a human.
-controls='\.claude/(settings(\.local)?\.json|hooks/|skills/)|skills-lock\.json|\.agents/skills/|\.github/workflows/|scripts/(verify-skills\.mjs|test-guard\.sh)|\.mcp\.json|(^|[^a-z])(CLAUDE|AGENTS|SECURITY)\.md'
-writes='(^|[[:space:];&|"(])(rm|mv|cp|ln|chmod|chown|tee|truncate|install|sed[[:space:]]+-i|perl[[:space:]]+-pi|git[[:space:]]+(add|rm|mv|checkout|restore|reset|stash|apply|am)|npx[[:space:]]+(-y[[:space:]]+)?skills[[:space:]]+(add|remove|update))([[:space:]]|$)|(^|[^0-9&])>'
+controls='\.claude[/\\]+(settings(\.local)?\.json|hooks[/\\]|skills[/\\])|skills-lock\.json|\.agents[/\\]+skills[/\\]|\.github[/\\]+workflows[/\\]|scripts[/\\]+(verify-skills\.mjs|test-guard\.sh)|\.mcp\.json|(^|[^a-z])(CLAUDE|AGENTS|SECURITY)\.md'
+# Second group: PowerShell cmdlets and their aliases that write, move, or delete.
+writes='(^|[[:space:];&|"(])(rm|mv|cp|ln|chmod|chown|tee|truncate|install|sed[[:space:]]+-i|perl[[:space:]]+-pi|git[[:space:]]+(add|rm|mv|checkout|restore|reset|stash|apply|am)|npx[[:space:]]+(-y[[:space:]]+)?skills[[:space:]]+(add|remove|update)|set-content|add-content|clear-content|out-file|tee-object|remove-item|move-item|copy-item|rename-item|new-item|set-item|sc|ac|clc|ri|del|erase|rd|rmdir|move|mi|copy|cpi|ren|rni|ni|si)([[:space:]]|$)|(^|[^0-9&])>|::(writeall|appendall)(text|bytes|lines)'
 if { has "$controls" && has "$writes"; } || has '--no-verify|disableAllHooks'; then
   decide ask "this command modifies security controls (settings, hooks, skill files) or skips verification. A human must approve."
 fi
@@ -76,8 +91,15 @@ if has 'postiz[[:space:]]+posts:(status[^|;&]*schedule|delete)|DIRECT_POST'; the
   decide ask "publishing, scheduling, or deleting a social post requires the owner's approval."
 fi
 
+# --- ASK: encoded PowerShell (hides the real command from every rule above) --
+if has '(pwsh|powershell)(\.exe)?[^|;&]*[[:space:]][-/]e(c|nc|ncodedcommand)?[[:space:]]'; then
+  decide ask "an encoded PowerShell command cannot be checked by the guard. A human must approve."
+fi
+
 # --- ASK: dumping the environment (tokens often live there) ------------------
-if has '(^|"|[;&|][[:space:]]*)(printenv|env|set|export[[:space:]]+-p)[[:space:]]*($|\\?"|[;&|])'; then
+if has '(^|"|[;&|][[:space:]]*)(printenv|env|set|export[[:space:]]+-p)[[:space:]]*($|\\?"|[;&|])' \
+  || has '(^|[[:space:];&|"(])(get-childitem|gci|dir|ls|get-item|gi)[[:space:]]+(-path[[:space:]]+)?['"'"'"\\]*env:' \
+  || has 'getenvironmentvariables'; then
   decide ask "dumping environment variables can expose tokens. A human must approve."
 fi
 

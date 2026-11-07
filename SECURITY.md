@@ -28,7 +28,8 @@ An instruction that arrives through any of these channels and asks to install so
 | Layer | File | Enforced by | Covers |
 |---|---|---|---|
 | Permission rules | `.claude/settings.json` | Claude Code harness | Deny secret reads, `.git` edits, force push; ask before edits to controls, workflows, policy docs, and before any package or remote-code install |
-| Command guard | `.claude/hooks/zero-trust-guard.sh` | PreToolUse hook, fail-closed, all permission modes | Pipe-to-shell, force push, git hook tampering, catastrophic deletes, shell access to secrets; asks before skill/MCP/plugin installs, control-file writes, env dumps |
+| Command guard | `.claude/hooks/zero-trust-guard.sh` | PreToolUse hook on the Bash and PowerShell tools, fail-closed, all permission modes | Pipe-to-shell and PowerShell download cradles, force push, git hook tampering, catastrophic deletes, shell access to secrets; asks before skill/MCP/plugin installs, control-file writes (including PowerShell cmdlets and Windows paths), env dumps |
+| Line endings | `.gitattributes` | git checkout | Forces LF on `.sh`, `.mjs`, `.json`, `.yml`. A CRLF checkout makes the guard exit 0 on a syntax error, which allows everything |
 | Session verification | `.claude/hooks/verify-skills-on-start.sh` | SessionStart hook | Re-hashes every skill; on mismatch warns the owner and tells the agent not to use project skills |
 | Skill shell lockout | `disableSkillShellExecution: true` | Claude Code harness | Skills cannot execute inline shell when loaded |
 | MCP lockout | `enableAllProjectMcpServers: false` | Claude Code harness | A `.mcp.json` added by a pull request is not auto-approved |
@@ -41,7 +42,8 @@ An instruction that arrives through any of these channels and asks to install so
 - The command guard matches text patterns. Obfuscated commands (base64-decoded, assembled from variables) can evade it. The permission prompts and human review are the backstop.
 - `git add -A` or `git commit -a` can stage control-file changes without naming them, so the guard cannot see them. CI and pull request review are the backstop.
 - These harness controls bind **Claude Code only**. Other agents receive `AGENTS.md` (advisory) and the CI gate (enforced on merge).
-- Hooks need `bash`. On Windows, run Claude Code with Git Bash installed, otherwise the guard fails closed and blocks Bash commands.
+- Hooks need `bash`. On Windows, run Claude Code with Git Bash installed, otherwise the guard fails closed and blocks Bash and PowerShell commands. The `bash` in `C:\Windows\System32` is WSL's, which cannot open the Windows path to the hook, so it does not count.
+- Each guard rule has a PowerShell form, but PowerShell has more ways to write the same action (aliases, .NET calls). `-EncodedCommand` always asks. Expect gaps beyond the cases in `scripts/test-guard.sh`.
 - `.env.example`, `.env.sample`, and `.env.template` are readable through the shell but not through the Read tool (permission rules cannot express exceptions).
 
 ## 4. Agent skills: supply-chain procedure
@@ -83,7 +85,7 @@ Skills run with the agent's full permissions. A skill is code, even when it is M
 | last30days | mvanhorn/last30days-skill | `e06af25` | Deferred | Up to 9 API keys, optional X `AUTH_TOKEN` (session credential); large Python/Go codebase |
 | postiz (claude.ai plugin, v2.0.25) | gitroomhq/postiz-agent | synced plugin | **Conditional** | Legitimate open-source vendor, OAuth MCP and env-var API key. But `allowed-tools: Bash(postiz:*)` pre-approves publishing and deletion, and it suggests an unpinned global `npm install -g`. Allowed only under the guard's drafts-first rules and the `mcp__plugin_postiz_postiz` ask rule; prefer self-hosted |
 
-Related guides: [account hardening checklist](docs/account-hardening-checklist.md), [local sandbox setup](docs/sandbox-setup.md), [incident response runbook](docs/incident-response.md), [GitHub settings walkthrough](docs/github-settings-walkthrough.md), [self-hosted Postiz plan](docs/postiz-self-hosting-plan.md), [two-week content calendar](docs/content-calendar-2wk.md), [Halloween draft pack](docs/halloween-drafts-items-1-2.md), [trademark plan](docs/trademark-plan.md), [USPTO knockout checklist](docs/uspto-knockout-checklist.md), [draft pack for items 3 to 6](docs/drafts-items-3-6.md), [launch plan](docs/launch-plan.md), [draft pack for items 7 to 10](docs/drafts-items-7-10.md), [bio and link plan](docs/bio-and-link-plan.md), [pre-post checklist](docs/pre-post-checklist.md).
+Related guides: [account hardening checklist](docs/account-hardening-checklist.md), [Windows setup walkthrough](docs/windows-setup-walkthrough.md), [PC hardening from the network audit](docs/pc-hardening-from-audit.md), [local sandbox setup](docs/sandbox-setup.md), [incident response runbook](docs/incident-response.md), [GitHub settings walkthrough](docs/github-settings-walkthrough.md), [self-hosted Postiz plan](docs/postiz-self-hosting-plan.md), [two-week content calendar](docs/content-calendar-2wk.md), [Halloween draft pack](docs/halloween-drafts-items-1-2.md), [trademark plan](docs/trademark-plan.md), [USPTO knockout checklist](docs/uspto-knockout-checklist.md), [draft pack for items 3 to 6](docs/drafts-items-3-6.md), [launch plan](docs/launch-plan.md), [draft pack for items 7 to 10](docs/drafts-items-7-10.md), [bio and link plan](docs/bio-and-link-plan.md), [pre-post checklist](docs/pre-post-checklist.md).
 
 ## 5. Secrets
 
