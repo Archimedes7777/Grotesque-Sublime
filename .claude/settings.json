@@ -23,7 +23,10 @@
       "Edit(.git/**)",
       "Bash(git push --force *)",
       "Bash(git push -f *)",
-      "Bash(git config core.hooksPath *)"
+      "Bash(git config core.hooksPath *)",
+      "PowerShell(git push --force *)",
+      "PowerShell(git push -f *)",
+      "PowerShell(git config core.hooksPath *)"
     ],
     "ask": [
       "Edit(.claude/settings.json)",
@@ -57,6 +60,33 @@
       "Bash(gh extension install *)",
       "Bash(claude mcp add *)",
       "Bash(git push --force-with-lease *)",
+      "Bash(winget install *)",
+      "Bash(choco install *)",
+      "Bash(scoop install *)",
+      "PowerShell(npx *)",
+      "PowerShell(bunx *)",
+      "PowerShell(pnpm dlx *)",
+      "PowerShell(uvx *)",
+      "PowerShell(pipx run *)",
+      "PowerShell(npm install *)",
+      "PowerShell(npm i *)",
+      "PowerShell(npm add *)",
+      "PowerShell(pnpm add *)",
+      "PowerShell(yarn add *)",
+      "PowerShell(pip install *)",
+      "PowerShell(pip3 install *)",
+      "PowerShell(uv pip install *)",
+      "PowerShell(go install *)",
+      "PowerShell(cargo install *)",
+      "PowerShell(gh extension install *)",
+      "PowerShell(claude mcp add *)",
+      "PowerShell(git push --force-with-lease *)",
+      "PowerShell(winget install *)",
+      "PowerShell(choco install *)",
+      "PowerShell(scoop install *)",
+      "PowerShell(Install-Module *)",
+      "PowerShell(Install-Package *)",
+      "PowerShell(Install-Script *)",
       "mcp__plugin_postiz_postiz",
       "mcp__postiz"
     ]
@@ -79,7 +109,7 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "Bash",
+        "matcher": "Bash|PowerShell",
         "hooks": [
           {
             "type": "command",
