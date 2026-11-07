@@ -68,7 +68,11 @@ fi
 
 # --- ASK: actions that weaken the controls themselves ------------------------
 # Reading control files is fine; modifying them needs a human.
-controls='\.claude[/\\]+(settings(\.local)?\.json|hooks[/\\]|skills[/\\])|skills-lock\.json|\.agents[/\\]+skills[/\\]|\.github[/\\]+workflows[/\\]|scripts[/\\]+(verify-skills\.mjs|test-guard\.sh)|\.mcp\.json|(^|[^a-z])(CLAUDE|AGENTS|SECURITY)\.md'
+# A control folder counts with or without a trailing slash ("git add .agents/skills"),
+# and so does its parent folder on its own ("git add .claude"), which stages it too.
+dirend='([[:space:]/\\"'"'"';|&)]|$)'
+parentend='[/\\]*([[:space:]"'"'"';|&)]|$)'
+controls='\.claude[/\\]+(settings(\.local)?\.json|(hooks|skills)'"$dirend"')|\.agents[/\\]+skills'"$dirend"'|\.github[/\\]+workflows'"$dirend"'|\.(agents|claude|github)'"$parentend"'|skills-lock\.json|scripts[/\\]+(verify-skills\.mjs|test-guard\.sh)|\.mcp\.json|(^|[^a-z])(CLAUDE|AGENTS|SECURITY)\.md'
 # Second group: PowerShell cmdlets and their aliases that write, move, or delete.
 writes='(^|[[:space:];&|"(])(rm|mv|cp|ln|chmod|chown|tee|truncate|install|sed[[:space:]]+-i|perl[[:space:]]+-pi|git[[:space:]]+(add|rm|mv|checkout|restore|reset|stash|apply|am)|npx[[:space:]]+(-y[[:space:]]+)?skills[[:space:]]+(add|remove|update)|set-content|add-content|clear-content|out-file|tee-object|remove-item|move-item|copy-item|rename-item|new-item|set-item|sc|ac|clc|ri|del|erase|rd|rmdir|move|mi|copy|cpi|ren|rni|ni|si)([[:space:]]|$)|(^|[^0-9&])>|::(writeall|appendall)(text|bytes|lines)'
 if { has "$controls" && has "$writes"; } || has '--no-verify|disableAllHooks'; then
