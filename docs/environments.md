@@ -144,20 +144,18 @@ What it cannot do: touch this PC, its settings, `Z:`, or the Windows hardening s
 
 ### 3.1 Environment configuration (claude.ai/code → Environments)
 
-Create one environment for this repo with these values:
+Cloud sessions for this repo run on the personal environment **Learn**. Verified on 2026-11-11 with the environment tools. The `grotesque-sublime` environment planned in an earlier version of this section was never created, and Learn replaces it.
 
 | Field | Value |
 |---|---|
-| Name | `grotesque-sublime` |
-| Repository | `Archimedes7777/Grotesque-Sublime` |
-| Default branch | `main` |
-| Network access | The most restrictive option that still allows the hosts below. If the UI offers only tiers, choose the limited or trusted tier, never full. |
-| Allowed hosts (if the UI lets you list them) | `github.com`, `*.github.com`, `*.githubusercontent.com`, `registry.npmjs.org`, `skills.sh` |
+| Name | `Learn` (personal) |
+| Repositories attached | None. A session gets this repo when you pick it at session start. |
+| Network access | **Limited**: no extra allowed hosts, package managers allowed, MCP server hosts allowed (section 3.5) |
 | Environment variables | **None** |
-| Secrets | **None** |
+| Network secrets | **None** |
 | Setup script (runs when a fresh container is built) | The hardened script in section 3.4. Its first step is `node scripts/verify-skills.mjs`. |
 
-The skill integrity step is the same check the SessionStart hook runs locally, and a failure stops the session before any work starts.
+The skill integrity step is the same check the SessionStart hook runs locally, and a failure stops the session before any work starts. GitHub works without an allowlist entry: git and the GitHub tools go through the session's own proxy. `skills.sh` is not reachable from the cloud, which is intended: skills are installed only on the PC, by the SECURITY.md 4.2 procedure.
 
 ### 3.2 What is different about secrets in the cloud
 
@@ -169,15 +167,17 @@ Cloud sessions work on branches named `claude/<something>` and open pull request
 
 ### 3.4 Setup script (reviewed copy)
 
-Saved on 2026-11-11 to the personal cloud environment **Learn** (claude.ai/code, environment menu, Edit). The environment keeps its own copy and this file is the reviewed record. **Change both together**, in one pull request.
+Saved on 2026-11-11 to the personal cloud environment **Learn** (claude.ai/code, environment menu, Edit). The environment keeps its own copy and this file is the reviewed record. **Change both together**, in one pull request. The lock inside the script must stay byte-identical to `tools/lint-requirements.lock`. `scripts/check-cloud-env.sh` fails if they differ.
 
 | Step | What it does | If it fails |
 |---|---|---|
 | 1 | Runs `node scripts/verify-skills.mjs` when this repo is checked out as `Grotesque-Sublime` | **Session does not start** |
 | 2 | Installs `shellcheck` from the signed Ubuntu repositories | Warning, continues |
-| 3 | Installs `yamllint` and `pip-audit` into a venv at `/opt/lint-tools`. All 31 packages are pinned by SHA-256, wheels only, so no package build code runs. Installs `markdownlint-cli2@0.24.0` with install scripts off | Warning, continues |
+| 3 | Installs `yamllint` and `pip-audit` into a venv at `/opt/lint-tools`. All 32 packages are pinned by SHA-256, wheels only, so no package build code runs | Warning, continues |
 | 4 | Sets npm `ignore-scripts=true` globally and confirms it | **Session does not start** |
 | 5 | Writes the standing security rules to `~/.claude/CLAUDE.md` | **Session does not start** |
+
+`markdownlint-cli2` was removed on 2026-11-11. It pulled 89 unpinned npm packages into every container as root, and nothing in the repository ran it.
 
 ```bash
 #!/bin/bash
@@ -199,15 +199,16 @@ apt-get update -qq || warn "apt-get update failed"
 apt-get install -y -qq --no-install-recommends shellcheck || warn "shellcheck not installed"
 
 # 3. Python tools in an isolated venv, every dependency pinned by SHA-256.
-#    Wheels only (no build code runs). Lock built 2026-11-11 for CPython 3.13
-#    x86_64 and checked against PyPI digests.
+#    Wheels only (no build code runs). Identical to the repository's
+#    tools/lint-requirements.lock (built 2026-11-11 for CPython 3.12 and 3.13
+#    x86_64, every digest checked against PyPI). Change both together.
 VENV=/opt/lint-tools
 python3 -m venv "$VENV" || warn "venv not created"
 cat > "$VENV/requirements.lock" <<'LOCK'
 boolean-py==5.0 --hash=sha256:ef28a70bd43115208441b53a045d1549e2f0ec6e3d08a9d142cbc41c1938e8d9
 cachecontrol==0.14.4 --hash=sha256:b7ac014ff72ee199b5f8af1de29d60239954f223e948196fa3d84adaffc71d2b
 certifi==2026.10.23 --hash=sha256:e9b54de76e530bb6cf0ccd036787103acb58fd42ba930ea8bf948ddbaa2f61d1
-charset-normalizer==3.5.2 --hash=sha256:7218e8f32b0956cfcd048fd42d9d5779809745ca1d86113ca56f66e7ae1549c4
+charset-normalizer==3.5.2 --hash=sha256:3d31298449090ab8d47b7b1b2a555ff73cac7ed438a08b7ac160980c7ebed649 --hash=sha256:7218e8f32b0956cfcd048fd42d9d5779809745ca1d86113ca56f66e7ae1549c4
 cyclonedx-python-lib==11.12.0 --hash=sha256:0e807521a921a5c3cb8ce1153f8a61d29eedfe76a46aac2796b7c6b573391a54
 defusedxml==0.7.1 --hash=sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61
 filelock==4.2.10 --hash=sha256:9479aaeb4db20b5a53e3da28493edd24720b66b8a0b84030aa56ccdf243d6857
@@ -215,24 +216,25 @@ idna==3.20 --hash=sha256:ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db
 license-expression==30.4.4 --hash=sha256:421788fdcadb41f049d2dc934ce666626265aeccefddd25e162a26f23bcbf8a4
 markdown-it-py==4.3.0 --hash=sha256:7aa1511a46c39138de78d9eba92ce47e63124d8003fc98b3a351909e04239efa
 mdurl==0.1.2 --hash=sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8
-msgpack==1.2.4 --hash=sha256:7fabd415c41e62006c6641fcdf5b3e866f581c4e11c58328c0d0f69584b9577d
+msgpack==1.2.4 --hash=sha256:7fabd415c41e62006c6641fcdf5b3e866f581c4e11c58328c0d0f69584b9577d --hash=sha256:c4d5bbdbea8f5669b3a734d6c226772804fb120848f99cbe63a0ddee63b049c9
 packageurl-python==0.17.6 --hash=sha256:31a85c2717bc41dd818f3c62908685ff9eebcb68588213745b14a6ee9e7df7c9
 packaging==26.3 --hash=sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c
 pathspec==1.1.1 --hash=sha256:a00ce642f577bf7f473932318056212bc4f8bfdf53128c78bbd5af0b9b20b189
-pip==26.3 --hash=sha256:f3b60b20ffaadd4415ed7957212a38ac63fa4c5fa375bd0f4a797777940fad13
 pip-api==0.0.35 --hash=sha256:66990d0da25378555cbb538db79384bab92d4617c6350dfd7a2126ba2a3a9894
 pip-audit==2.10.1 --hash=sha256:99ef3f600a317c1945f1e89e227ef26e1c2d618429b8bd3fa6f4f7c440c4611a
 pip-requirements-parser==32.0.1 --hash=sha256:4659bc2a667783e7a15d190f6fccf8b2486685b6dba4c19c3876314769c57526
+pip==26.3 --hash=sha256:f3b60b20ffaadd4415ed7957212a38ac63fa4c5fa375bd0f4a797777940fad13
 platformdirs==4.14.5 --hash=sha256:8e778c6fa421516f4d3369449f8df3b0e1b72c0e0005fe88e3ec772d0a14e750
 py-serializable==2.2.0 --hash=sha256:2cce775abc5aac12115f9ff572a145c7276d04a770090334bd4e51ed9c782415
 pygments==2.21.0 --hash=sha256:2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9
 pyparsing==3.3.3 --hash=sha256:ece8c00a69cf01b45d0b1dedabb469c90d8caf996d4fda40f147627a122849a4
-pyyaml==6.0.3 --hash=sha256:0f29edc409a6392443abf94b9cf89ce99889a1dd5376d94316ae5145dfedd5d6
+pyyaml==6.0.3 --hash=sha256:0f29edc409a6392443abf94b9cf89ce99889a1dd5376d94316ae5145dfedd5d6 --hash=sha256:ba1cc08a7ccde2d2ec775841541641e4548226580ab850948cbfda66a1befcdc
 requests==2.34.2 --hash=sha256:2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0
 rich==15.0.0 --hash=sha256:33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb
 sortedcontainers==2.4.0 --hash=sha256:a163dcaede0f1c021485e957a39245190e74249897e2ae4b2aa38595db237ee0
-tomli==2.5.0 --hash=sha256:5d8bac3d603c97e6854424e5b2b5b741bdbde387e09f162fb0446812b4a8362b
 tomli-w==1.2.0 --hash=sha256:188306098d013b691fcadc011abd66727d3c414c571bb01b1a174ba8c983cf90
+tomli==2.5.0 --hash=sha256:5d8bac3d603c97e6854424e5b2b5b741bdbde387e09f162fb0446812b4a8362b --hash=sha256:6cf74416bdc94ae458b14e37286c1073081850ac8459a00d0c5efef5d44294c6
+typing-extensions==4.16.0 --hash=sha256:481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8
 urllib3==2.8.0 --hash=sha256:0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3
 yamllint==1.38.0 --hash=sha256:fc394a5b3be980a4062607b8fdddc0843f4fa394152b6da21722f5d59013c220
 LOCK
@@ -240,10 +242,8 @@ if "$VENV/bin/pip" install --quiet --no-cache-dir --disable-pip-version-check \
      --require-hashes --only-binary=:all: --no-deps -r "$VENV/requirements.lock"; then
   ln -sf "$VENV/bin/yamllint" "$VENV/bin/pip-audit" /usr/local/bin/
 else
-  warn "yamllint/pip-audit not installed (lock is for CPython 3.13 x86_64)"
+  warn "yamllint/pip-audit not installed (lock covers CPython 3.12 and 3.13 x86_64)"
 fi
-npm install --global --ignore-scripts --no-fund --no-audit markdownlint-cli2@0.24.0 \
-  || warn "markdownlint-cli2 not installed"
 
 # 4. Block package install-time scripts by default in every later session
 npm config set --global ignore-scripts true
@@ -270,32 +270,31 @@ EOF
 exit 0
 ```
 
-**Confirm it ran.** In a fresh session on the environment, run `bash scripts/check-cloud-env.sh` from the repo root. It checks steps 1 to 5 and also reports any package in the venv that is not in the lock. Exit 0 means all checks passed.
+**Confirm it ran.** Every cloud session checks this on its own: the SessionStart hook runs `scripts/check-cloud-env.sh` when `CLAUDE_CODE_REMOTE=true` and stays silent unless a check fails. To run it by hand, from the repo root: `bash scripts/check-cloud-env.sh`. It checks steps 1 to 5, that the environment's lock matches the repository's, that the venv holds exactly the locked packages, and that a host outside the allowlist is refused (proof that the network is still Limited). Exit 0 means all checks passed.
 
-**Updating the Python lock** (for a new yamllint or pip-audit version):
+**Updating the lock** (for a new yamllint or pip-audit version). The lock carries hashes for CPython 3.12 (the CI runner, `ubuntu-24.04`) and 3.13 (the cloud image), so both install from one file.
 
-1. In a scratch folder: `python3 -m venv v`, then `v/bin/pip download --only-binary=:all: -d wheels yamllint==<ver> pip-audit==<ver>`.
-2. Hash each wheel with `sha256sum` and compare it with the digest PyPI publishes at `https://pypi.org/pypi/<name>/<version>/json`. Any mismatch means stop.
-3. Replace the lines between `<<'LOCK'` and `LOCK`, and update the date in the step 3 comment.
-4. Run the whole script from the folder that holds the checkout, then `bash scripts/check-cloud-env.sh`.
-5. Save the script on the environment and commit this file in the same pull request.
+1. In a scratch folder, write the new pins: `cut -d' ' -f1 tools/lint-requirements.lock > pins.txt`, change the versions, and add any new dependency.
+2. Download wheels for both interpreters, with no install:
+   `pip download --no-deps --only-binary=:all: --implementation cp --python-version 3.12 --abi cp312 --platform manylinux2014_x86_64 --platform any -d w312 -r pins.txt`, then the same with `3.13`, `cp313` and `-d w313`.
+3. `python3 -I tools/build-lint-lock.py pins.txt tools/lint-requirements.lock new.lock w312 w313`. It hashes every wheel and fails unless each digest matches the one PyPI publishes.
+4. Replace `tools/lint-requirements.lock` with `new.lock`, install it in a venv on each Python version, and run `bash scripts/lint.sh`.
+5. Paste the lock between `<<'LOCK'` and `LOCK` here and in the Learn setup script, then save the environment and commit in the same pull request. The Toolchain audit workflow runs `pip-audit` on the pull request.
 
 **Known limits**
 
-- The lock holds CPython 3.13 x86_64 wheels. If the base image moves to another Python version, step 3 fails with a warning and the check script reports it. Regenerate the lock.
-- The `markdownlint-cli2` dependencies (89 packages) are not pinned, because a global npm install has no lockfile. `ignore-scripts` stops their install scripts, not the code itself when you run the tool.
+- The lock covers CPython 3.12 and 3.13 on x86_64. If the base image moves to another Python version, step 3 fails with a warning and the check script reports it. Regenerate the lock.
 - Setting `ignore-scripts` globally breaks packages that need an install step (esbuild, sharp, Playwright browsers). For one reviewed install, use `npm ci --ignore-scripts=false`.
-- The setup script only runs when a container is built fresh. A resumed session keeps whatever the last build installed.
+- The setup script only runs when a container is built fresh. A resumed session keeps whatever the last build installed. The SessionStart check catches drift either way.
 
 ### 3.5 Network access for Learn
 
 Current settings: **Limited**, no extra allowed hosts, package managers allowed, MCP server hosts allowed. Leave them as they are:
 
-- **Package managers stay allowed.** The setup script runs in every fresh container under the same network policy as the session, and steps 2 and 3 need apt, PyPI and npm. With package managers turned off, every new session would start without the tools, and the check script would fail.
-- **MCP server hosts stay allowed.** Turning them off cuts the session's connectors.
+- **Package managers stay allowed.** The setup script runs in every fresh container under the same network policy as the session, and steps 2 and 3 need apt and PyPI. With package managers turned off, every new session would start without the tools, and the check script would fail.
+- **MCP server hosts stay allowed.** Turning them off cuts the session's connectors. Outbound connector actions (send, share, publish, merge, delete) need your approval through the `ask` rules in `.claude/settings.json`.
 - **There is nothing else to remove.** The allowed hosts list is already empty.
-
-Section 3.1 describes a separate `grotesque-sublime` environment with this repo attached. Learn has no repository attached, so step 1 runs only in sessions that check out this repo.
+- **Never switch it to unrestricted.** Check 5 of `scripts/check-cloud-env.sh` fails at the next session start if that happens.
 
 ---
 
@@ -370,7 +369,7 @@ Rotate the key immediately if it ever appears in a chat, a commit, or an issue.
 |---|---|---|---|---|---|
 | Local (desktop app) | `Z:\Repos\Grotesque-Sublime` | repo `.claude\settings.json` + personal `C:\Users\Grandma Frapples\.claude\settings.json` (1.4) | none | none | sandbox allowlist (1.4) |
 | Terminal (`claude`) | same, via Git Bash | same | none | none | same |
-| Cloud (claude.ai/code) | the `grotesque-sublime` environment | repo `.claude\settings.json` (from GitHub) + environment settings (3.1) + setup script (3.4) | none | none | allowlist (3.1) |
+| Cloud (claude.ai/code) | the `Learn` environment | repo `.claude\settings.json` (from GitHub) + environment settings (3.1) + setup script (3.4) | none | none | Limited, no extra hosts (3.5) |
 | Remote Control | a local session, switched on per session | same as local | none | none | same as local |
 | GitHub Actions | automatic | `.github\workflows\*.yml` | none | none | GitHub's |
 | Other agents | `Z:\Repos\Grotesque-Sublime` | `AGENTS.md` (advisory) | none | none | whatever that agent's own sandbox allows |

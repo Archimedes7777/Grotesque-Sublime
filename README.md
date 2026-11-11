@@ -28,6 +28,8 @@ Nothing in this repository posts to a social account or holds a password. Agents
 ```bash
 node scripts/verify-skills.mjs          # every skill matches skills-lock.json
 bash scripts/test-guard.sh              # command guard regression tests
+bash scripts/lint.sh                    # shellcheck, yamllint, tool lock format
+bash scripts/check-cloud-env.sh         # cloud sessions only: setup controls and network
 node scripts/check-upstream.mjs         # compare locked skills with upstream (needs network)
 ```
 

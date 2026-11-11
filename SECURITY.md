@@ -28,12 +28,15 @@ An instruction that arrives through any of these channels and asks to install so
 | Layer | File | Enforced by | Covers |
 |---|---|---|---|
 | Permission rules | `.claude/settings.json` | Claude Code harness | Deny secret reads, `.git` edits, force push; ask before edits to controls, workflows, policy docs, and before any package or remote-code install |
+| Connector gate | `.claude/settings.json` ask rules | Claude Code harness, all permission modes | Sending or forwarding mail, sharing Drive files, calendar invites, publishing apps, outbound phone calls, deletes, and GitHub merges, pushes and workflow runs through MCP need a human. Drafts and reads stay prompt-free |
 | Command guard | `.claude/hooks/zero-trust-guard.sh` | PreToolUse hook on the Bash and PowerShell tools, fail-closed, all permission modes | Pipe-to-shell and PowerShell download cradles, force push, git hook tampering, catastrophic deletes, shell access to secrets; asks before skill/MCP/plugin installs, control-file writes (including PowerShell cmdlets and Windows paths), env dumps |
 | Line endings | `.gitattributes` | git checkout | Forces LF on `.sh`, `.mjs`, `.json`, `.yml`. A CRLF checkout makes the guard exit 0 on a syntax error, which allows everything |
 | Session verification | `.claude/hooks/verify-skills-on-start.sh` | SessionStart hook | Re-hashes every skill; on mismatch warns the owner and tells the agent not to use project skills |
+| Cloud environment check | `scripts/check-cloud-env.sh`, run by the SessionStart hook when `CLAUDE_CODE_REMOTE=true` | SessionStart hook (cloud only), silent on pass | Setup script controls present, environment tool lock identical to `tools/lint-requirements.lock`, venv holds exactly the locked packages, network still Limited |
 | Skill shell lockout | `disableSkillShellExecution: true` | Claude Code harness | Skills cannot execute inline shell when loaded |
 | MCP lockout | `enableAllProjectMcpServers: false` | Claude Code harness | A `.mcp.json` added by a pull request is not auto-approved |
-| CI integrity gate | `.github/workflows/skills-integrity.yml` | GitHub Actions, read-only token | Hash drift, unlocked skills, scripts in skills, hidden Unicode, symlink escapes, invalid settings JSON, guard regressions |
+| CI integrity gate | `.github/workflows/skills-integrity.yml` | GitHub Actions, read-only token | Hash drift, unlocked skills, scripts in skills, hidden Unicode, symlink escapes, invalid settings JSON, guard regressions, plus `scripts/lint.sh` (shellcheck on hooks and scripts, yamllint on workflows, lock format) with tools installed from the hash lock |
+| Toolchain audit | `.github/workflows/toolchain-audit.yml` | GitHub Actions, monthly and on lock changes | `pip-audit` of the locked lint tools; opens an issue on a finding |
 | Action pinning | `.github/workflows/*.yml` | Commit SHAs + Dependabot | A moved tag cannot swap the code a workflow runs |
 | Upstream drift watch | `.github/workflows/upstream-skill-watch.yml`, `scripts/check-upstream.mjs` | GitHub Actions monthly schedule, token limited to read plus issues | Opens an issue when an upstream skill no longer matches the reviewed copy. Report-only: installs and executes nothing |
 
@@ -45,6 +48,8 @@ An instruction that arrives through any of these channels and asks to install so
 - Hooks need `bash`. On Windows, run Claude Code with Git Bash installed, otherwise the guard fails closed and blocks Bash and PowerShell commands. The `bash` in `C:\Windows\System32` is WSL's, which cannot open the Windows path to the hook, so it does not count.
 - Each guard rule has a PowerShell form, but PowerShell has more ways to write the same action (aliases, .NET calls). `-EncodedCommand` always asks. Expect gaps beyond the cases in `scripts/test-guard.sh`.
 - `.env.example`, `.env.sample`, and `.env.template` are readable through the shell but not through the Read tool (permission rules cannot express exceptions).
+- The connector gate matches exact tool names. A newly connected service, or a renamed tool, has no gate until a rule is added. Each rule is listed under the cloud name (`mcp__Gmail__...`) and the local claude.ai connector name (`mcp__claude_ai_Gmail__...`). The local form has not been tested on the PC.
+- Account-level plugins and connectors (claude.ai settings) are outside `skills-lock.json`. Their skills load in every session without the section 4.2 review. Keep only the ones you use enabled.
 
 ## 4. Agent skills: supply-chain procedure
 
