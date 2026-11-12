@@ -21,7 +21,7 @@ Settings > **Rules** > **Rulesets** > **New ruleset** > **New branch ruleset**
 | Restrict deletions | On |
 | Block force pushes | On |
 | Require a pull request before merging | On. Set **Required approvals** to **0** (GitHub does not let you approve your own pull request, and you are the only collaborator) |
-| Require status checks to pass | On. **Add checks** > search `verify` > select it. It appears because it has already run |
+| Require status checks to pass | On. **Add checks** > search `verify` > select it. It appears because it has already run. Add **only** `verify`. Do not add `audit` (Toolchain audit): it runs only on pull requests that change `tools/lint-requirements.lock`, and a required check that never runs leaves every other pull request stuck at "Expected: waiting for status to be reported" |
 
 Tap **Create**.
 

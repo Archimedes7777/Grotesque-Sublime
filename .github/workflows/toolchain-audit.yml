@@ -1,0 +1,79 @@
+name: Toolchain audit
+
+# Checks the hash-locked lint tools (tools/lint-requirements.lock) for known
+# vulnerabilities. The same lock is installed as root in every fresh cloud
+# container, so a vulnerable pin matters there too. Runs monthly, on demand,
+# and on any pull request that changes the lock. Report-only: it opens or
+# updates one issue on a finding and changes nothing else.
+on:
+  schedule:
+    # 09:23 UTC on the 1st of every month
+    - cron: "23 9 1 * *"
+  pull_request:
+    paths:
+      - tools/lint-requirements.lock
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install the locked toolchain
+        run: |
+          python3 -m venv "$RUNNER_TEMP/lint"
+          "$RUNNER_TEMP/lint/bin/pip" install --quiet --disable-pip-version-check --no-cache-dir \
+            --require-hashes --only-binary=:all: --no-deps -r tools/lint-requirements.lock
+
+      # Audits the venv, which holds exactly the locked packages.
+      # Exit 0 = clean, 1 = vulnerabilities found, anything else = error.
+      - name: pip-audit
+        id: audit
+        run: |
+          set +e
+          "$RUNNER_TEMP/lint/bin/pip-audit" --progress-spinner off --desc on \
+            > "$RUNNER_TEMP/audit.txt" 2>&1
+          code=$?
+          cat "$RUNNER_TEMP/audit.txt"
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Open or update a review issue
+        if: steps.audit.outputs.code == '1' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          title="Lint toolchain vulnerability found"
+          {
+            echo "pip-audit found known vulnerabilities in tools/lint-requirements.lock."
+            echo "Update the lock (docs/environments.md 3.4) and the Learn setup script together."
+            echo
+            echo '```'
+            cat "$RUNNER_TEMP/audit.txt"
+            echo '```'
+          } > "$RUNNER_TEMP/body.md"
+          existing="$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number')"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body-file "$RUNNER_TEMP/body.md"
+          else
+            gh issue create --title "$title" --body-file "$RUNNER_TEMP/body.md"
+          fi
+
+      - name: Fail on findings or errors
+        if: steps.audit.outputs.code != '0'
+        run: |
+          echo "pip-audit exited with code ${{ steps.audit.outputs.code }}."
+          exit 1

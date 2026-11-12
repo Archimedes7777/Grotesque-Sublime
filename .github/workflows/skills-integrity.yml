@@ -16,8 +16,9 @@ permissions:
 jobs:
   verify:
     name: verify
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+    # Pinned image: its Python (3.12) must match a wheel in the tool lock.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
@@ -41,3 +42,17 @@ jobs:
 
       - name: Guard hook regression tests
         run: bash scripts/test-guard.sh
+
+      # Same hash-locked tools as the cloud environment. Wheels only, every
+      # file checked against its SHA-256, so no package build code runs.
+      - name: Install lint tools from tools/lint-requirements.lock
+        run: |
+          command -v shellcheck >/dev/null || sudo apt-get install -y -qq shellcheck
+          python3 -m venv "$RUNNER_TEMP/lint"
+          "$RUNNER_TEMP/lint/bin/pip" install --quiet --disable-pip-version-check --no-cache-dir \
+            --require-hashes --only-binary=:all: --no-deps -r tools/lint-requirements.lock
+          echo "$RUNNER_TEMP/lint/bin" >> "$GITHUB_PATH"
+
+      # shellcheck on hooks and scripts, yamllint on workflows, lock format.
+      - name: Lint security-critical files
+        run: bash scripts/lint.sh

@@ -1,0 +1,10 @@
+# yamllint settings for scripts/lint.sh. Catches real YAML mistakes (bad
+# indentation, duplicate keys, syntax) without style noise.
+extends: default
+rules:
+  document-start: disable
+  line-length: disable
+  truthy:
+    check-keys: false   # GitHub Actions uses the key "on:"
+  comments:
+    min-spaces-from-content: 1   # "uses: ...@<sha> # v4.4.0" is the pinning convention
