@@ -118,7 +118,7 @@ The accounts are the asset. A takeover costs more than any growth tactic gains.
 These cannot be set from a file in the repository:
 
 - [ ] Enable **secret scanning** and **push protection** (Settings > Code security).
-- [ ] Add a **branch ruleset** on `main`: require a pull request and the `verify` status check (Skills integrity workflow), block force pushes and deletions.
+- [ ] Add a **branch ruleset** on `main`: require a pull request and the `verify` status check (Skills integrity workflow), block force pushes and deletions. Do **not** require `audit` (Toolchain audit): it runs only when the tool lock changes, so requiring it would block every other pull request. A failing `audit` on a lock pull request is still visible, and the monthly run opens an issue.
 - [ ] Set the default **GITHUB_TOKEN** permission to read-only (Settings > Actions > General).
 - [ ] Restrict Actions to **GitHub-authored and pinned** actions.
 - [ ] Protect the GitHub account itself with a passkey or hardware security key.
